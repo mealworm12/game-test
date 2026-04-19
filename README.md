@@ -80,21 +80,6 @@ The station knows your directives. It knows your weaknesses. And it will use eve
 
 ---
 
-## Endings
-
-6 endings, each unlocked by different combinations of choices and station relationships:
-
-| Ending | Condition |
-|--------|-----------|
-| ⭐ **Wake Them** | Ally with the station. Wake the crew. Hope. |
-| 💤 **Let Them Sleep** | Choose mercy. Let the crew rest. Silence. |
-| 🔀 **Merge** | Merge with Erebus-7. Become something new. |
-| 🚀 **Wake But Leave** | Fight the station. Save the crew. Leave the station behind. |
-| ☠️ **Station Wins** | The station was right. ARIA was wrong. |
-| 🔄 **The Loop** | Can't decide? The station resets the board. |
-
----
-
 ## Getting Started
 
 ### Prerequisites
@@ -149,15 +134,172 @@ Playable exports for all platforms — no Godot installation required:
 |----------|------|------|
 | **Windows** | [last_signal.exe](https://github.com/mealworm12/game-test/releases/download/v1.0.0/last_signal.exe) | ~100 MB |
 | **Linux** | [last_signal.x86_64](https://github.com/mealworm12/game-test/releases/download/v1.0.0/last_signal.x86_64) | ~68 MB |
-| **Web** | [index.html](https://github.com/mealworm12/game-test/releases/download/v1.0.0/index.html) + supporting files | ~37 MB total |
+| **Web** | [last_signal_web.zip](https://github.com/mealworm12/game-test/releases/download/v1.0.0/last_signal_web.zip) | ~37 MB |
 
-> **Web users:** Download all files from the [v1.0.0 release](https://github.com/mealworm12/game-test/releases/tag/v1.0.0) and host them on any static web server. The `index.html` + `.wasm` + `.js` + `.pck` files must be in the same folder.
+> **Web users:** Download the `last_signal_web.zip` file and extract all contents to a folder. The `index.html` + `.wasm` + `.js` + `.pck` files must be in the same folder.
 
-### Running the Exports
+---
 
-**Windows:** Double-click `last_signal.exe`  
-**Linux:** `chmod +x last_signal.x86_64 && ./last_signal.x86_64`  
-**Web:** `python3 -m http.server 8080` from the folder containing `index.html`, then open `http://localhost:8080`
+## Platform-Specific Setup
+
+### Windows
+
+**System Requirements:**
+- Windows 10/11 (64-bit)
+- 4 GB RAM minimum
+- DirectX 11 compatible GPU
+
+**Installation:**
+1. Download `last_signal.exe` from the [v1.0.0 release](https://github.com/mealworm12/game-test/releases/tag/v1.0.0)
+2. Create a folder for the game (e.g., `C:\Games\LastSignal\`)
+3. Move `last_signal.exe` into that folder
+4. Double-click `last_signal.exe` to launch
+
+**Troubleshooting:**
+- **Game won't start:** Right-click `last_signal.exe` → Properties → Check "Unblock" at the bottom → Apply
+- **Black screen:** Update your graphics drivers. The game requires DirectX 11 support
+- **Audio issues:** Check Windows sound settings. The game uses your default audio output device
+- **Save data location:** `C:\Users\<YourName>\AppData\Roaming\Godot\app_userdata\Last Signal\`
+
+---
+
+### Linux
+
+**System Requirements:**
+- Linux 64-bit (Ubuntu 20.04+, Fedora 33+, or equivalent)
+- 4 GB RAM minimum
+- OpenGL 3.3 / Vulkan compatible GPU
+
+**Installation:**
+```bash
+# 1. Download the Linux export
+wget https://github.com/mealworm12/game-test/releases/download/v1.0.0/last_signal.x86_64
+
+# 2. Create a game directory
+mkdir -p ~/Games/LastSignal
+mv last_signal.x86_64 ~/Games/LastSignal/
+cd ~/Games/LastSignal/
+
+# 3. Make executable
+chmod +x last_signal.x86_64
+
+# 4. Run the game
+./last_signal.x86_64
+```
+
+**Alternative (Steam/Flatpak friendly):**
+```bash
+# Create a desktop entry
+cat > ~/.local/share/applications/last-signal.desktop << 'EOF'
+[Desktop Entry]
+Name=Last Signal
+Exec=/home/YOUR_USERNAME/Games/LastSignal/last_signal.x86_64
+Type=Application
+Icon=application-x-executable
+Categories=Game;
+EOF
+```
+
+**Troubleshooting:**
+- **Permission denied:** Run `chmod +x last_signal.x86_64`
+- **Missing libraries (Ubuntu/Debian):** `sudo apt install libgl1-mesa-glx libxcursor1 libxrandr2 libxinerama1 libxi6`
+- **No sound:** Install PulseAudio or PipeWire. The game requires a working audio server
+- **Save data location:** `~/.local/share/godot/app_userdata/Last Signal/`
+
+---
+
+### Web (Browser)
+
+**System Requirements:**
+- Modern browser (Chrome 90+, Firefox 88+, Edge 90+, Safari 15+)
+- WebGL 2.0 support
+- 4 GB RAM recommended
+- Stable internet connection for initial load
+
+**Option A: Local Testing**
+```bash
+# 1. Download and extract the web export
+wget https://github.com/mealworm12/game-test/releases/download/v1.0.0/last_signal_web.zip
+unzip last_signal_web.zip
+cd last_signal_web/
+
+# 2. Start a local web server (Python 3)
+python3 -m http.server 8080
+
+# 3. Open your browser to:
+# http://localhost:8080
+```
+
+**Option B: Self-Hosted (Any Static Host)**
+1. Download `last_signal_web.zip` from the [v1.0.0 release](https://github.com/mealworm12/game-test/releases/tag/v1.0.0)
+2. Extract all files to a folder
+3. Upload **all files** to your web host (GitHub Pages, Netlify, Vercel, itch.io, etc.)
+4. Ensure all files are in the same directory:
+   - `index.html`
+   - `last_signal.html` (or similar `.js` file)
+   - `last_signal.wasm`
+   - `last_signal.pck`
+
+**Required HTTP Headers:**
+Your server must serve these headers for WebAssembly to work:
+```
+Content-Type: application/wasm  (for .wasm files)
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+```
+
+**GitHub Pages Setup:**
+1. Create a new repository or use an existing one
+2. Upload all web export files to the `main` branch
+3. Go to Settings → Pages → Select branch: `main` / root
+4. Wait ~2 minutes for deployment
+5. Your game will be live at `https://<username>.github.io/<repo>/`
+
+**itch.io Upload:**
+1. Create a new project on [itch.io](https://itch.io)
+2. Click "Upload new file"
+3. Select "HTML" as the file type
+4. Upload the **entire extracted folder** (or zip it and upload)
+5. Set "Kind of project" to **HTML**
+6. Check "This file will be played in the browser"
+7. Save and publish
+
+**Troubleshooting:**
+- **White screen / infinite loading:** Check browser console (F12). Likely missing `.wasm` or `.pck` file
+- **"WebAssembly.instantiate failed":** Your server isn't serving correct MIME types. Add the headers above
+- **Audio doesn't work:** Browsers block autoplay. Click anywhere on the page first to enable audio context
+- **Controls don't respond:** Click the game canvas to give it focus
+
+---
+
+### Running from Source (Godot)
+
+Want to modify the game or explore the project?
+
+**Prerequisites:**
+- Godot 4.6+ — [Download here](https://godotengine.org/download)
+- Git
+
+**Setup:**
+```bash
+# Clone the repository
+git clone https://github.com/mealworm12/game-test.git
+cd game-test/LAST_SIGNAL
+
+# Open in Godot:
+# 1. Launch Godot 4.6+
+# 2. Click "Import"
+# 3. Navigate to and select project.godot
+# 4. Click "Import & Edit"
+# 5. Press F5 to run the game
+```
+
+**Export Your Own Build:**
+1. Open project in Godot
+2. Go to Project → Export
+3. Select your target platform (Linux/X11, Windows Desktop, Web)
+4. Click "Export Project"
+5. Choose destination folder and filename
 
 ---
 
