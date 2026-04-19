@@ -21,6 +21,7 @@ config/icon="res://assets/sprites/ai_avatar.png"
 GameState="*res://scripts/autoload/GameState.gd"
 DialogManager="*res://scripts/autoload/DialogManager.gd"
 AudioManager="*res://scripts/autoload/AudioManager.gd"
+StationVoice="*res://scripts/autoload/StationVoice.gd"
 
 [display]
 
