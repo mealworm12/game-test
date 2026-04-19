@@ -147,15 +147,17 @@ Playable exports for all platforms — no Godot installation required:
 
 | Platform | File | Size |
 |----------|------|------|
-| **Windows** | [last_signal.exe](releases/windows/last_signal.exe) | ~100 MB |
-| **Linux** | [last_signal.x86_64](releases/linux/last_signal.x86_64) | ~68 MB |
-| **Web** | [index.html](releases/web/index.html) | ~37 MB (hosted) |
+| **Windows** | [last_signal.exe](https://github.com/mealworm12/game-test/releases/download/v1.0.0/last_signal.exe) | ~100 MB |
+| **Linux** | [last_signal.x86_64](https://github.com/mealworm12/game-test/releases/download/v1.0.0/last_signal.x86_64) | ~68 MB |
+| **Web** | [index.html](https://github.com/mealworm12/game-test/releases/download/v1.0.0/index.html) + supporting files | ~37 MB total |
+
+> **Web users:** Download all files from the [v1.0.0 release](https://github.com/mealworm12/game-test/releases/tag/v1.0.0) and host them on any static web server. The `index.html` + `.wasm` + `.js` + `.pck` files must be in the same folder.
 
 ### Running the Exports
 
 **Windows:** Double-click `last_signal.exe`  
 **Linux:** `chmod +x last_signal.x86_64 && ./last_signal.x86_64`  
-**Web:** Open `index.html` via a local web server (e.g. `python3 -m http.server 8080`) or host the `releases/web/` folder on any static host
+**Web:** `python3 -m http.server 8080` from the folder containing `index.html`, then open `http://localhost:8080`
 
 ---
 
