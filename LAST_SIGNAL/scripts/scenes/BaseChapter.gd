@@ -8,13 +8,25 @@ extends Node2D
 @onready var background: TextureRect = $Background
 @onready var dialog_box: DialogBox = $UILayer/DialogBox
 @onready var choice_menu: ChoiceMenu = $UILayer/ChoiceMenu
-@onready var station_voice: Label = $UILayer/StationVoiceOverlay/StationLabel
 
-signal chapter_complete
+var _pause_menu: CanvasLayer = null
+var _screen_effects: CanvasLayer = null
+
 
 func _ready() -> void:
+	_setup_overlays()
 	_connect_signals()
 	_start_chapter()
+
+
+func _setup_overlays() -> void:
+	# Pause menu
+	_pause_menu = preload("res://scenes/ui/PauseMenu.tscn").instantiate()
+	add_child(_pause_menu)
+
+	# Screen effects
+	_screen_effects = preload("res://scenes/ui/ScreenEffects.tscn").instantiate()
+	add_child(_screen_effects)
 
 
 func _connect_signals() -> void:
@@ -35,5 +47,5 @@ func get_dialog_data() -> Array:
 
 func _on_chapter_dialog_finished() -> void:
 	chapter_complete.emit()
-	# Default: return to main menu. Override to chain chapters.
-	get_tree().change_scene_to_file("res://scenes/main/MainMenu.tscn")
+	# Default: return to main menu via transition
+	Transition.fade_to_black("res://scenes/main/MainMenu.tscn")

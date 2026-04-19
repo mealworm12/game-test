@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bx3_mainmenu"]
+[gd_scene load_steps=2 format=3 uid="uid://bx3_mainmenu"]
 
 [ext_resource type="Script" path="res://scripts/scenes/MainMenu.gd" id="1_mainmenu"]
 
@@ -40,9 +40,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -300.0
-offset_top = -200.0
+offset_top = -220.0
 offset_right = 300.0
-offset_bottom = 200.0
+offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -50,7 +50,7 @@ grow_vertical = 2
 layout_mode = 2
 text = "LAST SIGNAL"
 horizontal_alignment = 1
-theme_override_colors/font_color = Color(0.0, 0.898, 1, 1)
+theme_override_colors/font_color = Color(0.0, 0.898, 1.0, 1.0)
 theme_override_font_sizes/font_size = 64
 
 [node name="SubtitleLabel" type="Label" parent="VBox"]
@@ -59,7 +59,7 @@ text = "You are the last AI on a derelict station.
 Piecing together crew logs.
 Deciding the fate of humanity."
 horizontal_alignment = 1
-theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1.0)
 theme_override_font_sizes/font_size = 18
 
 [node name="Spacer" type="Control" parent="VBox"]
@@ -78,6 +78,11 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 [node name="ContinueBtn" type="Button" parent="VBox/ButtonBox"]
 layout_mode = 2
 text = "Continue"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+
+[node name="CreditsBtn" type="Button" parent="VBox/ButtonBox"]
+layout_mode = 2
+text = "Endings Gallery"
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 
 [node name="QuitBtn" type="Button" parent="VBox/ButtonBox"]

@@ -249,7 +249,7 @@ func _on_choice_made(choice_data: Dictionary) -> void:
 	var ending = choice_data.get("ending", "ending_loop")
 	GameState.unlock_ending(ending)
 	# Load ending scene
-	get_tree().change_scene_to_file(_get_ending_path(ending))
+	Transition.fade_to_black(_get_ending_path(ending))
 
 
 func _get_ending_path(ending: String) -> String:
@@ -265,4 +265,4 @@ func _get_ending_path(ending: String) -> String:
 
 
 func _on_chapter_dialog_finished() -> void:
-	get_tree().change_scene_to_file("res://scenes/main/MainMenu.tscn")
+	Transition.fade_to_black("res://scenes/main/MainMenu.tscn")

@@ -22,6 +22,7 @@ GameState="*res://scripts/autoload/GameState.gd"
 DialogManager="*res://scripts/autoload/DialogManager.gd"
 AudioManager="*res://scripts/autoload/AudioManager.gd"
 StationVoice="*res://scripts/autoload/StationVoice.gd"
+Transition="*res://scripts/autoload/Transition.gd"
 
 [display]
 

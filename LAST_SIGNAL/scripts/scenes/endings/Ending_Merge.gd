@@ -23,4 +23,4 @@ func _input(event: InputEvent) -> void:
 
 func _on_return() -> void:
     GameState.delete_save()
-    get_tree().change_scene_to_file("res://scenes/main/MainMenu.tscn")
+    Transition.fade_to_black("res://scenes/main/MainMenu.tscn")

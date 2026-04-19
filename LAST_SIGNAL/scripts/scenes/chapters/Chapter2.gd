@@ -165,7 +165,7 @@ func _on_choice_made(choice_data: Dictionary) -> void:
 	var next_scene = choice_data.get("next", "")
 	if next_scene:
 		GameState.set_chapter(next_scene)
-		get_tree().change_scene_to_file(_get_scene_path(next_scene))
+		Transition.fade_to_black(_get_scene_path(next_scene))
 
 
 func _get_scene_path(scene_name: String) -> String:
@@ -176,4 +176,4 @@ func _get_scene_path(scene_name: String) -> String:
 
 
 func _on_chapter_dialog_finished() -> void:
-	get_tree().change_scene_to_file("res://scenes/main/MainMenu.tscn")
+	Transition.fade_to_black("res://scenes/main/MainMenu.tscn")

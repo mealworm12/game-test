@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://fx1_screeneffects"]
+
+[ext_resource type="Script" path="res://scripts/ui/ScreenEffects.gd" id="1_fx"]
+[ext_resource type="Shader" path="res://shaders/scanline_vignette.gdshader" id="2_shader"]
+
+[node name="ScreenEffects" type="CanvasLayer"]
+script = ExtResource("1_fx")
+
+[node name="Effects" type="Node2D" parent="."]
+
+[node name="Scanlines" type="ColorRect" parent="Effects"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+material = SubResource("ShaderMaterial_scanvig")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_scanvig"]
+shader = ExtResource("2_shader")
+shader_parameter/scanline_count = 400.0
+shader_parameter/scanline_strength = 0.12
+shader_parameter/vignette_strength = 0.55
