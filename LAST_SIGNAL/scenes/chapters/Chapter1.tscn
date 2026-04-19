@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://ch1_chapter1"]
+
+[ext_resource type="Script" path="res://scripts/scenes/BaseChapter.gd" id="1_basechapter"]
+[ext_resource type="Script" path="res://scripts/scenes/chapters/Chapter1.gd" id="2_chapter1"]
+[ext_resource type="PackedScene" uid="uid://cx1_dialogbox" path="res://scenes/ui/DialogBox.tscn" id="3_dialogbox"]
+[ext_resource type="PackedScene" uid="uid://cy2_choicemenu" path="res://scenes/ui/ChoiceMenu.tscn" id="4_choicemenu"]
+
+[node name="Chapter1" type="Node2D"]
+script = ExtResource("1_basechapter")
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 1
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="StationVoiceOverlay" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -340.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 160.0
+grow_horizontal = 0
+
+[node name="StationLabel" type="Label" parent="UILayer/StationVoiceOverlay"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_right = 0.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.24, 0.24, 0.8)
+theme_override_colors/font_outline_color = Color(1, 0, 0, 0.3)
+theme_override_font_sizes/font_size = 16
+text = "Erebus-7"
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="DialogBox" parent="UILayer" instance=ExtResource("3_dialogbox")]
+visible = false
+
+[node name="ChoiceMenu" parent="UILayer" instance=ExtResource("4_choicemenu")]
+visible = false
