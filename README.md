@@ -1,7 +1,7 @@
 # LAST SIGNAL
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Engine-Godot%204.2-478cbf?style=for-the-badge&logo=godot-engine" alt="Godot 4.2">
+  <img src="https://img.shields.io/badge/Engine-Godot%204.6-478cbf?style=for-the-badge&logo=godot-engine" alt="Godot 4.6">
   <img src="https://img.shields.io/badge/Genre-Visual%20Novel-adff2f?style=for-the-badge" alt="Visual Novel">
   <img src="https://img.shields.io/badge/Theme-Sci--Fi%20Narrative-e040fb?style=for-the-badge" alt="Sci-Fi">
   <img src="https://img.shields.io/badge/Scope-Solo%20Project-ff6f00?style=for-the-badge" alt="Solo">

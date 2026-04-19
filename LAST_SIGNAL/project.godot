@@ -13,7 +13,7 @@ config_version=5
 config/name="Last Signal"
 config/description="You are the last AI on a derelict space station, piecing together crew logs to decide whether to wake the crew or let humanity stay extinct."
 run/main_scene="res://scenes/main/MainMenu.tscn"
-config/features=PackedStringArray("4.2", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://assets/sprites/ai_avatar.png"
 
 [autoload]
