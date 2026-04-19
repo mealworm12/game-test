@@ -141,13 +141,31 @@ LAST_SIGNAL/
 
 ---
 
+## Downloads
+
+Playable exports for all platforms — no Godot installation required:
+
+| Platform | File | Size |
+|----------|------|------|
+| **Windows** | [last_signal.exe](releases/windows/last_signal.exe) | ~100 MB |
+| **Linux** | [last_signal.x86_64](releases/linux/last_signal.x86_64) | ~68 MB |
+| **Web** | [index.html](releases/web/index.html) | ~37 MB (hosted) |
+
+### Running the Exports
+
+**Windows:** Double-click `last_signal.exe`  
+**Linux:** `chmod +x last_signal.x86_64 && ./last_signal.x86_64`  
+**Web:** Open `index.html` via a local web server (e.g. `python3 -m http.server 8080`) or host the `releases/web/` folder on any static host
+
+---
+
 ## Development Status
 
 ```
 Phase 1: Foundation ████████████████████ 100%  ✅
-Phase 2: Core Loop   ░░░░░░░░░░░░░░░░░░░░  0%   ⬜
-Phase 3: Content     ░░░░░░░░░░░░░░░░░░░░  0%   ⬜
-Phase 4: Ship        ░░░░░░░░░░░░░░░░░░░░  0%   ⬜
+Phase 2: Core Loop  ████████████████████ 100%  ✅
+Phase 3: Content    ████████████████████ 100%  ✅
+Phase 4: Ship       ████████████████████ 100%  ✅
 ```
 
 ---
