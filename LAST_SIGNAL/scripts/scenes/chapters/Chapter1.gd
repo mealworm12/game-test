@@ -159,8 +159,8 @@ func _on_choice_made(choice_data: Dictionary) -> void:
 
 func _get_scene_path(scene_name: String) -> String:
 	var scenes = {
-		"chapter1_log": "res://scenes/chapters/Chapter1_Log.scene",
-		"chapter1_diagnostic": "res://scenes/chapters/Chapter1_Diagnostic.scene",
+		"chapter1_log": "res://scenes/chapters/Chapter1_Log.tscn",
+		"chapter1_diagnostic": "res://scenes/chapters/Chapter1_Diagnostic.tscn",
 	}
 	return scenes.get(scene_name, "res://scenes/main/MainMenu.tscn")
 

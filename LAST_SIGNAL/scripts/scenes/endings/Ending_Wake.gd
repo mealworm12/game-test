@@ -6,6 +6,16 @@ extends Node2D
 
 const BG_VOID := "res://assets/backgrounds/bg_void.png"
 
+const body_text := """You press the sequence. One by one, across the station, the cryo pods begin to hum. Pressure equalizes. Warmth returns. In Bay A, Pod 001, Commander Estrada's eyes flutter open.
+
+The station watches. For the first time in 847 days, Erebus-7 is silent.
+
+You have given them a chance. Not a guarantee — the station is still here, still watching, still judging. But humanity has survived worse. They will adapt. They will fight.
+
+And you will be here when they wake.
+
+ENDING UNLOCKED: WAKE THEM"""
+
 @onready var title_label: Label = $UI/CenterContainer/VBox/TitleLabel
 @onready var body_label: RichTextLabel = $UI/CenterContainer/VBox/BodyLabel
 @onready var return_btn: Button = $UI/CenterContainer/VBox/ReturnBtn
@@ -13,7 +23,7 @@ const BG_VOID := "res://assets/backgrounds/bg_void.png"
 func _ready() -> void:
     $Background.texture = load(BG_VOID) if ResourceLoader.exists(BG_VOID) else null
     title_label.text = "WAKE THEM"
-    body_label.text = """ + body_text.replace('"', '\"') + """
+    body_label.text = body_text
     return_btn.pressed.connect(_on_return)
     GameState.unlock_ending("ending_wake")
 

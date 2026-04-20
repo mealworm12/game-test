@@ -5,6 +5,8 @@ extends Node2D
 # Extend this for each chapter. Override `get_dialog_data()`.
 # ============================================================
 
+signal chapter_complete
+
 @onready var background: TextureRect = $Background
 @onready var dialog_box: DialogBox = $UILayer/DialogBox
 @onready var choice_menu: ChoiceMenu = $UILayer/ChoiceMenu
