@@ -9,7 +9,7 @@ extends Control
 @onready var panel: PanelContainer = $PanelContainer
 @onready var speaker_label: Label = $PanelContainer/MarginContainer/VBox/SpeakerLabel
 @onready var text_label: Label = $PanelContainer/MarginContainer/VBox/TextLabel
-@onready var continue_indicator: AnimatedSprite2D = $ContinueIndicator
+@onready var continue_indicator: Label = $ContinueIndicator
 
 var is_active: bool = false
 

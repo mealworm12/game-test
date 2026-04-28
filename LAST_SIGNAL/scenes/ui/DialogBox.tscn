@@ -47,5 +47,12 @@ text = "..."
 theme_override_font_sizes/font_size = 20
 autowrap_mode = 1
 
-[node name="ContinueIndicator" type="AnimatedSprite2D" parent="."]
-position = Vector2(1220, 518)
+[node name="ContinueIndicator" type="Label" parent="."]
+offset_left = 1202.0
+offset_top = 500.0
+offset_right = 1238.0
+offset_bottom = 536.0
+theme_override_colors/font_color = Color(0, 0.898, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "▼"
+horizontal_alignment = 1
