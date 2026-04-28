@@ -62,7 +62,7 @@ func _on_new_game() -> void:
 
 
 func _on_continue() -> void:
-	if GameState.load_game() and GameState.current_chapter:
+	if GameState.current_chapter:
 		Transition.fade_to_black(GameState.current_chapter)
 
 

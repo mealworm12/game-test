@@ -11,7 +11,6 @@ const BG_VOID := "res://assets/backgrounds/bg_void.png"
 @onready var background: TextureRect = $Background
 @onready var dialog_box: DialogBox = $UILayer/DialogBox
 @onready var choice_menu: ChoiceMenu = $UILayer/ChoiceMenu
-@onready var station_overlay: Control = $UILayer/StationVoiceOverlay
 
 func _ready() -> void:
 	_connect_signals()

@@ -71,7 +71,6 @@ func _make_ending_panel(ending: Dictionary) -> PanelContainer:
 
 	hbox.add_child(symbol_label)
 	hbox.add_child(text_vbox)
-	hbox.add_child(unlock_indicator)
 
 	margin.add_child(hbox)
 	panel.add_child(margin)

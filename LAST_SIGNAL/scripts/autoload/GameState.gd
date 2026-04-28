@@ -74,7 +74,6 @@ func _save_game() -> void:
 		"endings_unlocked": endings_unlocked,
 	}
 	var json_str = JSON.stringify(save_data, "\t")
-	DirAccess.make_dir_recursive_absolute("user://".replace("user://", ""))
 	var f = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if f:
 		f.store_string(json_str)

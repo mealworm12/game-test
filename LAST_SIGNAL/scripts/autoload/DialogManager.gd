@@ -157,5 +157,7 @@ func on_choice_made(choice_data: Dictionary) -> void:
 			GameState.set_flag(flag, choice_data["set_flags"][flag])
 	if choice_data.has("jump_to"):
 		get_tree().change_scene_to_file(choice_data["jump_to"])
+	elif choice_data.has("next"):
+		get_tree().change_scene_to_file(choice_data["next"])
 	else:
 		advance()

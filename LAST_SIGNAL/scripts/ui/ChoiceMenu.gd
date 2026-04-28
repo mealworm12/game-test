@@ -11,7 +11,6 @@ signal choice_made(choice_data: Dictionary)
 @onready var panel: PanelContainer = $PanelContainer
 @onready var vbox: VBoxContainer = $PanelContainer/MarginContainer/VBox
 
-const CHOICE_BUTTON_SCENE: String = "res://scenes/ui/ChoiceButton.tscn"
 
 var current_choices: Array = []
 var is_choice_active: bool = false

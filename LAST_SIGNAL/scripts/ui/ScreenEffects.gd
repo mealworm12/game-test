@@ -12,7 +12,6 @@ extends CanvasLayer
 var _flicker_timer: float = 0.0
 var _flicker_duration: float = 0.0
 var _is_flickering: bool = false
-var _flicker_count: int = 0
 
 
 func _ready() -> void:
@@ -21,10 +20,6 @@ func _ready() -> void:
 
 
 func _scanlines_setup() -> void:
-	# Scanlines use a ShaderMaterial — create programmatically
-	var shader = VisualShader.new()
-	# Simplified: use a solid dark rect with horizontal lines pattern
-	# Full implementation would use a real scanline shader
 	scanlines.visible = true
 
 
