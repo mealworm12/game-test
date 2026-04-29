@@ -39,4 +39,7 @@ func _input(event: InputEvent) -> void:
 
 func _on_return() -> void:
  GameState.delete_save()
- Transition.fade_to_black("res://scenes/main/MainMenu.tscn")
+ if not GameState.has_flag("has_seen_epilogue"):
+		Transition.fade_to_black("res://scenes/Epilogue.tscn")
+	else:
+		Transition.fade_to_black("res://scenes/main/MainMenu.tscn")
