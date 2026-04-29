@@ -2,9 +2,7 @@ extends Node2D
 
 # ============================================================
 # BaseChapter — Shared logic for all chapter scenes.
-# Each chapter scene needs a Background TextureRect, UILayer CanvasLayer,
-# DialogBox and ChoiceMenu instances inside UILayer.
-# Override get_dialog_data() and optionally _on_choice_made().
+# Override get_dialog_data(). Optionally override hooks below.
 # ============================================================
 
 signal chapter_complete
@@ -33,13 +31,19 @@ func _connect_signals() -> void:
 
 func _start_chapter() -> void:
 	GameState.set_chapter(get_scene_file_path())
+	var bg = _get_background_path()
+	if bg and ResourceLoader.exists(bg):
+		background.texture = load(bg)
+	_on_chapter_begin()
 	var data = get_dialog_data()
 	if data.size() > 0:
 		DialogManager.start_dialog(data)
 
-func _background_load(path: String) -> void:
-	if ResourceLoader.exists(path):
-		background.texture = load(path)
+func _get_background_path() -> String:
+	return ""
+
+func _on_chapter_begin() -> void:
+	pass
 
 func get_dialog_data() -> Array:
 	return []

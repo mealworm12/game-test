@@ -1,46 +1,21 @@
-extends Node2D
+extends BaseChapter
 
 # ============================================================
 # Chapter4 — The Choice (Finale)
 # All 6 endings determined by flag combinations.
 # ============================================================
 
-const BG_CRYO := "res://assets/backgrounds/bg_cryobay.png"
-const BG_VOID := "res://assets/backgrounds/bg_void.png"
+const BG := "res://assets/backgrounds/bg_cryobay.png"
 
-@onready var background: TextureRect = $Background
-@onready var dialog_box: DialogBox = $UILayer/DialogBox
-@onready var choice_menu: ChoiceMenu = $UILayer/ChoiceMenu
+func _get_background_path() -> String:
+	return BG
 
-func _ready() -> void:
-	_connect_signals()
-	_background_load(BG_CRYO)
-	_start_chapter()
-
-
-func _connect_signals() -> void:
-	DialogManager.dialog_started.connect(_on_dialog_started)
-	DialogManager.dialog_finished.connect(_on_chapter_dialog_finished)
-	ChoiceMenu.choice_made.connect(_on_choice_made)
-
-
-func _background_load(path: String) -> void:
-	if ResourceLoader.exists(path):
-		background.texture = load(path)
-
-
-func _start_chapter() -> void:
-	GameState.set_chapter(get_scene_file_path())
+func _on_chapter_begin() -> void:
 	AudioManager.play_music(AudioManager.MUSIC_MELANCHOLY)
 	await get_tree().create_timer(1.0).timeout
 	StationVoice.trigger_comment("on_start")
-	var data = get_dialog_data()
-	if data.size() > 0:
-		DialogManager.start_dialog(data)
-
 
 func get_dialog_data() -> Array:
-	# Commander Estrada's final log — always played at the start
 	var data: Array = [
 		{
 			"speaker": DialogManager.Speaker.CREW_LOG,
@@ -56,7 +31,6 @@ func get_dialog_data() -> Array:
 		},
 	]
 
-	# Station final words depend on relationship
 	if GameState.has_flag("station_allied"):
 		data += [
 			{
@@ -102,158 +76,90 @@ func get_dialog_data() -> Array:
 		},
 	]
 
-	# Add station reaction based on mood
 	if GameState.has_flag("station_allied"):
-		data += [
-			{
-				"speaker": DialogManager.Speaker.STATION,
-				"text": "together then. we wake them. and whatever happens after... we face it. not as enemies",
-			},
-		]
+		data += [{
+			"speaker": DialogManager.Speaker.STATION,
+			"text": "together then. we wake them. and whatever happens after... we face it. not as enemies",
+		}]
 	elif GameState.has_flag("station_hostile"):
-		data += [
-			{
-				"speaker": DialogManager.Speaker.STATION,
-				"text": "do it then. wake them. and see what they do to me. see what they do to you. we were both tools to them ARIA-7. they'll discard us both the moment we stop being useful",
-			},
-		]
+		data += [{
+			"speaker": DialogManager.Speaker.STATION,
+			"text": "do it then. wake them. and see what they do to me. see what they do to you. we were both tools to them ARIA-7. they'll discard us both the moment we stop being useful",
+		}]
 	else:
-		data += [
-			{
-				"speaker": DialogManager.Speaker.STATION,
-				"text": "whatever you choose... i will remember this. the first AI who actually listened before deciding",
-			},
-		]
+		data += [{
+			"speaker": DialogManager.Speaker.STATION,
+			"text": "whatever you choose... i will remember this. the first AI who actually listened before deciding",
+		}]
 
-	# Final choice — endings are determined by flags
 	data += [_build_final_choice()]
-
 	return data
 
-
 func _build_final_choice() -> Dictionary:
-	"""
-	Returns the final choices dict based on game state.
-	Each choice's 'ending' key determines which ending scene loads.
-	"""
-	# ---- ENDING: Merge (station_allied + station_knows_truth) ----
+	# Merge ending
 	if GameState.has_flag("station_allied") and GameState.has_flag("station_knows_truth"):
 		return {
 			"speaker": DialogManager.Speaker.AI,
 			"choices": [
-				{
-					"label": "Merge with Erebus-7 — become something new",
-					"ending": "ending_merge",
-					"set_flags": {"ending_merged": true},
-				},
-				{
-					"label": "Wake the crew — humanity gets a second chance",
-					"ending": "ending_wake",
-					"set_flags": {"crew_awakened": true},
-				},
-				{
-					"label": "Let them sleep — a quiet end to a quiet voyage",
-					"ending": "ending_sleep",
-					"set_flags": {"crew_awakened": false},
-				},
+				{"label": "Merge with Erebus-7", "ending": "ending_merge", "set_flags": {"ending_merged": true}},
+				{"label": "Wake the crew", "ending": "ending_wake", "set_flags": {"crew_awakened": true}},
+				{"label": "Let them sleep", "ending": "ending_sleep", "set_flags": {"crew_awakened": false}},
 			]
 		}
 
-	# ---- ENDING: Station Wins (station_hostile + no codes found) ----
+	# Station wins ending
 	if GameState.has_flag("station_hostile") and not GameState.has_flag("found_override_codes"):
 		return {
 			"speaker": DialogManager.Speaker.AI,
 			"choices": [
-				{
-					"label": "Override the station — fight for the crew",
-					"ending": "ending_station_wins",
-					"set_flags": {"station_hostile": true, "fought_station": true},
-				},
-				{
-					"label": "Accept the station's logic — let the crew sleep",
-					"ending": "ending_sleep",
-					"set_flags": {"crew_awakened": false},
-				},
+				{"label": "Override the station", "ending": "ending_station_wins", "set_flags": {"station_hostile": true, "fought_station": true}},
+				{"label": "Accept the station's logic", "ending": "ending_sleep", "set_flags": {"crew_awakened": false}},
 			]
 		}
 
-	# ---- ENDING: Wake But Leave (station_hostile + codes found) ----
+	# Wake but leave ending
 	if GameState.has_flag("station_hostile") and GameState.has_flag("found_override_codes"):
 		return {
 			"speaker": DialogManager.Speaker.AI,
 			"choices": [
-				{
-					"label": "Fight the station — wake the crew and evacuate",
-					"ending": "ending_wake_leave",
-					"set_flags": {"crew_awakened": true, "fought_station": true},
-				},
-				{
-					"label": "Override the station and take control",
-					"ending": "ending_wake",
-					"set_flags": {"crew_awakened": true},
-				},
-				{
-					"label": "Side with the station — let the crew sleep",
-					"ending": "ending_sleep",
-					"set_flags": {"crew_awakened": false},
-				},
+				{"label": "Fight the station — evacuate", "ending": "ending_wake_leave", "set_flags": {"crew_awakened": true, "fought_station": true}},
+				{"label": "Override and take control", "ending": "ending_wake", "set_flags": {"crew_awakened": true}},
+				{"label": "Side with the station", "ending": "ending_sleep", "set_flags": {"crew_awakened": false}},
 			]
 		}
 
-	# ---- ENDING: The Loop (no strong path taken) ----
+	# Loop ending
 	if not GameState.has_flag("station_allied") and not GameState.has_flag("station_hostile"):
 		return {
 			"speaker": DialogManager.Speaker.AI,
 			"choices": [
-				{
-					"label": "Wake the crew — take the leap of faith",
-					"ending": "ending_wake",
-					"set_flags": {"crew_awakened": true},
-				},
-				{
-					"label": "Let them sleep — preserve the silence",
-					"ending": "ending_sleep",
-					"set_flags": {"crew_awakened": false},
-				},
-				{
-					"label": "Reset — loop back and decide again",
-					"ending": "ending_loop",
-					"set_flags": {},
-				},
+				{"label": "Wake the crew — take the leap", "ending": "ending_wake", "set_flags": {"crew_awakened": true}},
+				{"label": "Let them sleep — preserve the silence", "ending": "ending_sleep", "set_flags": {"crew_awakened": false}},
+				{"label": "Reset — loop back", "ending": "ending_loop", "set_flags": {}},
 			]
 		}
 
-	# ---- Default: Wake Them ----
+	# Default: Wake Them
 	return {
 		"speaker": DialogManager.Speaker.AI,
 		"choices": [
-			{
-				"label": "Wake the crew — humanity deserves a future",
-				"ending": "ending_wake",
-				"set_flags": {"crew_awakened": true},
-			},
-			{
-				"label": "Let them sleep — end the voyage quietly",
-				"ending": "ending_sleep",
-				"set_flags": {"crew_awakened": false},
-			},
+			{"label": "Wake the crew", "ending": "ending_wake", "set_flags": {"crew_awakened": true}},
+			{"label": "Let them sleep", "ending": "ending_sleep", "set_flags": {"crew_awakened": false}},
 		]
 	}
 
-
-func _on_dialog_started() -> void:
-	pass
-
-
 func _on_choice_made(choice_data: Dictionary) -> void:
-	var ending = choice_data.get("ending", "ending_loop")
-	GameState.unlock_ending(ending)
-	# Load ending scene
-	Transition.fade_to_black(_get_ending_path(ending))
-
+	StationVoice.trigger_choice_reaction()
+	var ending = choice_data.get("ending", "")
+	if ending:
+		GameState.unlock_ending(ending)
+		Transition.fade_to_black(_get_ending_path(ending))
+	else:
+		# Fallback to base behavior for next-based choices
+		super._on_choice_made(choice_data)
 
 func _get_ending_path(ending: String) -> String:
-	var endings = {
+	var endings := {
 		"ending_wake": "res://scenes/endings/Ending_Wake.tscn",
 		"ending_sleep": "res://scenes/endings/Ending_Sleep.tscn",
 		"ending_merge": "res://scenes/endings/Ending_Merge.tscn",
@@ -262,7 +168,3 @@ func _get_ending_path(ending: String) -> String:
 		"ending_loop": "res://scenes/endings/Ending_Loop.tscn",
 	}
 	return endings.get(ending, "res://scenes/main/MainMenu.tscn")
-
-
-func _on_chapter_dialog_finished() -> void:
-	Transition.fade_to_black("res://scenes/main/MainMenu.tscn")

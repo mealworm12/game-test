@@ -1,46 +1,21 @@
-extends Node2D
+extends BaseChapter
 
 # ============================================================
 # Chapter2 — The Station Speaks
 # ============================================================
 
-const BG_BRIDGE := "res://assets/backgrounds/bg_bridge.png"
-const BG_CORRIDOR := "res://assets/backgrounds/bg_corridor.png"
-const BG_ENGINEERING := "res://assets/backgrounds/bg_engineering.png"
+const BG := "res://assets/backgrounds/bg_bridge.png"
 
-@onready var background: TextureRect = $Background
-@onready var dialog_box: DialogBox = $UILayer/DialogBox
-@onready var choice_menu: ChoiceMenu = $UILayer/ChoiceMenu
+func _get_background_path() -> String:
+	return BG
 
-func _ready() -> void:
-	_connect_signals()
-	_background_load(BG_BRIDGE)
-	_start_chapter()
-
-
-func _connect_signals() -> void:
-	DialogManager.dialog_started.connect(_on_dialog_started)
-	DialogManager.dialog_finished.connect(_on_chapter_dialog_finished)
-	ChoiceMenu.choice_made.connect(_on_choice_made)
-
-
-func _background_load(path: String) -> void:
-	if ResourceLoader.exists(path):
-		background.texture = load(path)
-
-
-func _start_chapter() -> void:
-	GameState.set_chapter(get_scene_file_path())
+func _on_chapter_begin() -> void:
 	AudioManager.play_music(AudioManager.MUSIC_TENSION)
 	await get_tree().create_timer(1.0).timeout
 	StationVoice.trigger_comment("on_start")
-	var data = get_dialog_data()
-	if data.size() > 0:
-		DialogManager.start_dialog(data)
-
 
 func get_dialog_data() -> Array:
-	# Build dialog based on flags from Chapter 1
+# Build dialog based on flags from Chapter 1
 	var base: Array = [
 		{
 			"speaker": DialogManager.Speaker.AI,
@@ -153,26 +128,3 @@ func get_dialog_data() -> Array:
 	]
 
 	return base
-
-
-func _on_dialog_started() -> void:
-	pass
-
-
-func _on_choice_made(choice_data: Dictionary) -> void:
-	StationVoice.trigger_choice_reaction()
-	var next_scene = choice_data.get("next", "")
-	if next_scene:
-		GameState.set_chapter(next_scene)
-		Transition.fade_to_black(_get_scene_path(next_scene))
-
-
-func _get_scene_path(scene_name: String) -> String:
-	var scenes = {
-		"chapter3": "res://scenes/chapters/Chapter3.tscn",
-	}
-	return scenes.get(scene_name, "res://scenes/main/MainMenu.tscn")
-
-
-func _on_chapter_dialog_finished() -> void:
-	Transition.fade_to_black("res://scenes/main/MainMenu.tscn")

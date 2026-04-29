@@ -7,9 +7,9 @@ extends Node
 
 const AMBIENT_HUM := "res://assets/audio/sfx/ambient_hum.wav"
 const AMBIENT_VOID := "res://assets/audio/sfx/ambient_void.wav"
-const MUSIC_TENSION := "res://assets/audio/music/tension.ogg"
-const MUSIC_MELANCHOLY := "res://assets/audio/music/melancholy.ogg"
-const MUSIC_HOPE := "res://assets/audio/music/hope.ogg"
+const MUSIC_TENSION := "res://assets/audio/music/tension.wav"
+const MUSIC_MELANCHOLY := "res://assets/audio/music/melancholy.wav"
+const MUSIC_HOPE := "res://assets/audio/music/hope.wav"
 const SFX_LOG_PLAY := "res://assets/audio/sfx/log_play.wav"
 const SFX_STATION_VOICE := "res://assets/audio/sfx/station_voice.wav"
 const SFX_UI_CLICK := "res://assets/audio/sfx/ui_click.wav"

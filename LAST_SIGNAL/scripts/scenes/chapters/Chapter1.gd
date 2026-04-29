@@ -1,48 +1,21 @@
-extends Node2D
+extends BaseChapter
 
 # ============================================================
-# Chapter1 — Emergency Boot (Prologue)
+# Chapter1 — Emergency Boot
 # ============================================================
 
-const BG_CORRIDOR := "res://assets/backgrounds/bg_corridor.png"
-const BG_CRYO := "res://assets/backgrounds/bg_cryobay.png"
-const BG_VOID := "res://assets/backgrounds/bg_void.png"
+const BG := "res://assets/backgrounds/bg_corridor.png"
 
-@onready var background: TextureRect = $Background
-@onready var dialog_box: DialogBox = $UILayer/DialogBox
-@onready var choice_menu: ChoiceMenu = $UILayer/ChoiceMenu
+func _get_background_path() -> String:
+	return BG
 
-func _ready() -> void:
-	_connect_signals()
-	_background_load(BG_CORRIDOR)
-	_start_chapter()
-
-
-func _connect_signals() -> void:
-	DialogManager.dialog_started.connect(_on_dialog_started)
-	DialogManager.dialog_finished.connect(_on_chapter_dialog_finished)
-	ChoiceMenu.choice_made.connect(_on_choice_made)
-	StationVoice.station_spoke.connect(_on_station_spoke)
-
-
-func _background_load(path: String) -> void:
-	if ResourceLoader.exists(path):
-		background.texture = load(path)
-
-
-func _start_chapter() -> void:
-	GameState.set_chapter(get_scene_file_path())
+func _on_chapter_begin() -> void:
 	AudioManager.play_ambient(AudioManager.AMBIENT_HUM)
-	# Station reacts to game start
 	await get_tree().create_timer(1.5).timeout
 	StationVoice.trigger_comment("on_start")
-	var data = get_dialog_data()
-	if data.size() > 0:
-		DialogManager.start_dialog(data)
-
 
 func get_dialog_data() -> Array:
-	return [
+return [
 		# --- Opening ---
 		{
 			"speaker": DialogManager.Speaker.AI,
@@ -136,33 +109,3 @@ func get_dialog_data() -> Array:
 			]
 		},
 	]
-
-
-func _on_dialog_started() -> void:
-	pass
-
-
-func _on_station_spoke(text: String, mood: int) -> void:
-	# Station spoke via overlay — dialog continues
-	pass
-
-
-func _on_choice_made(choice_data: Dictionary) -> void:
-	StationVoice.trigger_choice_reaction()
-	# After choice, proceed to sub-chapter
-	var next_scene = choice_data.get("next", "")
-	if next_scene:
-		GameState.set_chapter(next_scene)
-		Transition.fade_to_black(_get_scene_path(next_scene))
-
-
-func _get_scene_path(scene_name: String) -> String:
-	var scenes = {
-		"chapter1_log": "res://scenes/chapters/Chapter1_Log.tscn",
-		"chapter1_diagnostic": "res://scenes/chapters/Chapter1_Diagnostic.tscn",
-	}
-	return scenes.get(scene_name, "res://scenes/main/MainMenu.tscn")
-
-
-func _on_chapter_dialog_finished() -> void:
-	Transition.fade_to_black("res://scenes/main/MainMenu.tscn")
