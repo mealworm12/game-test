@@ -7,11 +7,13 @@ extends CanvasLayer
 signal resumed
 signal restarted
 signal returned_to_menu
+signal quit_requested
 
 @onready var panel: PanelContainer = $PanelContainer
 @onready var resume_btn: Button = $PanelContainer.MarginContainer.VBox.ResumeBtn
 @onready var restart_btn: Button = $PanelContainer.MarginContainer.VBox.RestartBtn
 @onready var menu_btn: Button = $PanelContainer.MarginContainer.VBox.MenuBtn
+@onready var quit_btn: Button = $PanelContainer.MarginContainer.VBox.QuitBtn
 
 func _ready() -> void:
 	visible = false
@@ -22,6 +24,7 @@ func _connect_buttons() -> void:
 	resume_btn.pressed.connect(_on_resume)
 	restart_btn.pressed.connect(_on_restart)
 	menu_btn.pressed.connect(_on_menu)
+	quit_btn.pressed.connect(_on_quit)
 
 
 func _input(event: InputEvent) -> void:
@@ -61,3 +64,9 @@ func _on_menu() -> void:
 	returned_to_menu.emit()
 	GameState.delete_save()
 	Transition.fade_to_black("res://scenes/main/MainMenu.tscn")
+
+func _on_quit() -> void:
+	get_tree().paused = false
+	visible = false
+	quit_requested.emit()
+	get_tree().quit()

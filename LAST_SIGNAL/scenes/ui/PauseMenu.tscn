@@ -78,3 +78,8 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 layout_mode = 2
 text = "Return to Menu"
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+
+[node name="QuitBtn" type="Button" parent="PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+text = "Quit Game"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")

@@ -17,6 +17,18 @@ func _ready() -> void:
 	visible = false
 	continue_indicator.visible = false
 	_connect_signals()
+	_start_indicator_pulse()
+
+func _start_indicator_pulse() -> void:
+	_pulse_loop()
+
+func _pulse_loop() -> void:
+	if not is_inside_tree():
+		return
+	var tween = create_tween()
+	tween.set_loops()
+	tween.tween_property(continue_indicator, "modulate:a", 0.3, 0.6).set_trans(Tween.TRANS_CIRC)
+	tween.tween_property(continue_indicator, "modulate:a", 1.0, 0.6).set_trans(Tween.TRANS_CIRC)
 
 
 func _connect_signals() -> void:

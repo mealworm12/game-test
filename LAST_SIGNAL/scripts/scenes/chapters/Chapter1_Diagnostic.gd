@@ -115,7 +115,7 @@ func get_dialog_data() -> Array:
 			"choices": [
 				{
 					"label": "Play the engineer's log",
-					"set_flags": {"heard_engineer_log": true, "station_suspicious": false},
+					"set_flags": {"heard_engineer_log": true},
 					"next": "chapter2"
 				},
 				{
