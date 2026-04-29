@@ -83,27 +83,51 @@ The station knows your directives. It knows your weaknesses. And it will use eve
 
 ---
 
-## Getting Started
+## How to Run
 
-### Prerequisites
-- **Godot 4.6+** — [Download here](https://godotengine.org/download)
-- **Git** — for cloning the repo
+### Option 1: Godot Editor (Recommended for development)
 
-### Run Locally
+**Requirements:**
+- Godot 4.6 or newer — [download](https://godotengine.org/download)
 
+**Steps:**
 ```bash
-# Clone the repository
+# 1. Clone the repository
 git clone https://github.com/mealworm12/game-test.git
 cd game-test/LAST_SIGNAL
 
-# Open in Godot
-# 1. Launch Godot 4.6+
-# 2. Click "Import"
-# 3. Select project.godot
-# 4. Press F5 to run
+# 2. Open in Godot
+#    - Launch Godot
+#    - Click "Import & Edit"
+#    - Select the "project.godot" file in this folder
+
+# 3. Run
+#    - Press F5 (or click the play icon)
 ```
 
-### Project Structure
+### Option 2: Export a Standalone Build
+
+From the Godot editor:
+1. Go to **Project → Export**
+2. Add a preset for your platform (Windows / Linux / Web)
+3. Click **Export Project** and choose a destination
+4. Run the exported file directly — no Godot installation needed on the target machine
+
+### Option 3: Web Export (Browser)
+
+1. Export to HTML5 via **Project → Export → Web**
+2. Serve the output folder with any static web server:
+   ```bash
+   cd build/web
+   python3 -m http.server 8080
+   ```
+3. Open `http://localhost:8080` in your browser
+
+> **Note:** The web export must be served from a local server. Opening `index.html` directly from the filesystem will fail due to browser security restrictions on WebAssembly.
+
+---
+
+## Project Structure
 
 ```
 LAST_SIGNAL/
