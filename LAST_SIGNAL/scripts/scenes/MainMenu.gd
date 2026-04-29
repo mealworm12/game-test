@@ -11,7 +11,10 @@ const FIRST_CHAPTER := "res://scenes/chapters/Chapter1.tscn"
 @onready var new_game_btn: Button = $VBox/ButtonBox/NewGameBtn
 @onready var continue_btn: Button = $VBox/ButtonBox/ContinueBtn
 @onready var credits_btn: Button = $VBox/ButtonBox/CreditsBtn
+@onready var settings_btn: Button = $VBox/ButtonBox/SettingsBtn
 @onready var quit_btn: Button = $VBox/ButtonBox/QuitBtn
+
+var _settings_menu: CanvasLayer = null
 
 var _title_tween: Tween = null
 
@@ -27,7 +30,18 @@ func _connect_buttons() -> void:
 	new_game_btn.pressed.connect(_on_new_game)
 	continue_btn.pressed.connect(_on_continue)
 	credits_btn.pressed.connect(_on_credits)
+	settings_btn.pressed.connect(_on_settings)
 	quit_btn.pressed.connect(_on_quit)
+
+func _on_settings() -> void:
+	if not _settings_menu:
+		_settings_menu = preload("res://scenes/ui/SettingsMenu.tscn").instantiate()
+		add_child(_settings_menu)
+		_settings_menu.closed.connect(_on_settings_closed)
+	_settings_menu.open()
+
+func _on_settings_closed() -> void:
+	pass
 
 
 func _animate_title() -> void:

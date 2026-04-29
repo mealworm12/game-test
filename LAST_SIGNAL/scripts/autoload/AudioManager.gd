@@ -27,6 +27,17 @@ var _current_music: String = ""
 
 func _ready() -> void:
 	_setup_players()
+	_apply_settings_volumes()
+
+func _apply_settings_volumes() -> void:
+	if Settings:
+		var master = Settings.get_setting("master_volume", 1.0)
+		AudioServer.set_bus_volume_db(0, linear_to_db(master))
+		var music = Settings.get_setting("music_volume", 0.7)
+		set_music_volume(linear_to_db(music))
+		var sfx = Settings.get_setting("sfx_volume", 0.8)
+		# SFX doesn't have a dedicated bus; apply to master for now
+		_sfx_player.volume_db = linear_to_db(sfx)
 
 
 func _setup_players() -> void:

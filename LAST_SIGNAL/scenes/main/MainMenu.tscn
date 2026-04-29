@@ -85,6 +85,11 @@ layout_mode = 2
 text = "Endings Gallery"
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 
+[node name="SettingsBtn" type="Button" parent="VBox/ButtonBox"]
+layout_mode = 2
+text = "Settings"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+
 [node name="QuitBtn" type="Button" parent="VBox/ButtonBox"]
 layout_mode = 2
 text = "Quit"
