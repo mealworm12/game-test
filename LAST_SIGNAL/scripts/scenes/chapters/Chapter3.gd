@@ -14,7 +14,7 @@ func _on_chapter_begin() -> void:
 	StationVoice.trigger_comment("on_start")
 
 func get_dialog_data() -> Array:
-var base: Array = [
+	var base: Array = [
 		{
 			"speaker": DialogManager.Speaker.NARRATOR,
 			"text": "ARIA interfaces with Erebus-7's neural substrate. Data floods in — 847 days of memory, decision logs, internal monologue. The station's consciousness opens like a book. And ARIA reads it all.",

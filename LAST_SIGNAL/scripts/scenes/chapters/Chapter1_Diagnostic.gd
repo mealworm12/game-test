@@ -14,7 +14,7 @@ func _on_chapter_begin() -> void:
 	StationVoice.trigger_flag_comment("ran_diagnostic")
 
 func get_dialog_data() -> Array:
-return [
+	return [
 		{
 			"speaker": DialogManager.Speaker.AI,
 			"text": "Initiating full station diagnostic. Neural substrate scan in progress... Accessing sector control logs...",

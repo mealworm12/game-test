@@ -14,7 +14,7 @@ func _on_chapter_begin() -> void:
 	StationVoice.trigger_flag_comment("heard_log_1")
 
 func get_dialog_data() -> Array:
-return [
+	return [
 		{
 			"speaker": DialogManager.Speaker.AI,
 			"text": "Accessing crew personnel logs... Dr. Lira Osei. Xenobiologist. Log date: 847 days ago.",

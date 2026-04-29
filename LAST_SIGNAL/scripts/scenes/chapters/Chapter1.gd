@@ -15,7 +15,7 @@ func _on_chapter_begin() -> void:
 	StationVoice.trigger_comment("on_start")
 
 func get_dialog_data() -> Array:
-return [
+	return [
 		# --- Opening ---
 		{
 			"speaker": DialogManager.Speaker.AI,

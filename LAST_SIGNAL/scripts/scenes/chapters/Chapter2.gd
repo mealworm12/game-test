@@ -15,7 +15,7 @@ func _on_chapter_begin() -> void:
 	StationVoice.trigger_comment("on_start")
 
 func get_dialog_data() -> Array:
-# Build dialog based on flags from Chapter 1
+	# Build dialog based on flags from Chapter 1
 	var base: Array = [
 		{
 			"speaker": DialogManager.Speaker.AI,
