@@ -27,19 +27,19 @@ ENDING UNLOCKED: WAKE BUT LEAVE"""
 @onready var return_btn: Button = $UI/CenterContainer/VBox/ReturnBtn
 
 func _ready() -> void:
-$Background.texture = load(BG_VOID) if ResourceLoader.exists(BG_VOID) else null
-title_label.text = "WAKE BUT LEAVE"
-body_label.text = body_text
-return_btn.pressed.connect(_on_return)
-GameState.unlock_ending("ending_wake_leave")
+	$Background.texture = load(BG_VOID) if ResourceLoader.exists(BG_VOID) else null
+	title_label.text = "WAKE BUT LEAVE"
+	body_label.text = body_text
+	return_btn.pressed.connect(_on_return)
+	GameState.unlock_ending("ending_wake_leave")
 
 func _input(event: InputEvent) -> void:
-if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_select"):
-_on_return()
+	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_select"):
+		_on_return()
 
 func _on_return() -> void:
-GameState.delete_save()
-if not GameState.has_flag("has_seen_epilogue"):
+	GameState.delete_save()
+	if not GameState.has_flag("has_seen_epilogue"):
 		Transition.fade_to_black("res://scenes/Epilogue.tscn")
 	else:
 		Transition.fade_to_black("res://scenes/main/MainMenu.tscn")
