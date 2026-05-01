@@ -1,4 +1,5 @@
 extends Node2D
+class_name BaseChapter
 
 # ============================================================
 # BaseChapter — Shared logic for all chapter scenes.
