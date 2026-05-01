@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 # ============================================================
-# ScreenEffects — Post-processing overlay for atmosphere.
+# ScreenEffects - Post-processing overlay for atmosphere.
 # CRT scanlines + vignette + occasional flicker.
 # Add as child of root scene to enable.
 # ============================================================

@@ -1,18 +1,18 @@
 extends CanvasLayer
 
 # ============================================================
-# ChapterSelect — Jump to any unlocked chapter.
+# ChapterSelect - Jump to any unlocked chapter.
 # ============================================================
 
 signal closed
 
 const CHAPTERS: Array = [
-	{"id": "chapter1", "title": "Chapter 1 — Emergency Boot", "scene": "res://scenes/chapters/Chapter1.tscn"},
-	{"id": "chapter1_log", "title": "Chapter 1 — Dr. Lira's Log", "scene": "res://scenes/chapters/Chapter1_Log.tscn"},
-	{"id": "chapter1_diagnostic", "title": "Chapter 1 — Diagnostic", "scene": "res://scenes/chapters/Chapter1_Diagnostic.tscn"},
-	{"id": "chapter2", "title": "Chapter 2 — The Station Speaks", "scene": "res://scenes/chapters/Chapter2.tscn"},
-	{"id": "chapter3", "title": "Chapter 3 — The Truth", "scene": "res://scenes/chapters/Chapter3.tscn"},
-	{"id": "chapter4", "title": "Chapter 4 — The Choice", "scene": "res://scenes/chapters/Chapter4.tscn"},
+	{"id": "chapter1", "title": "Chapter 1 - Emergency Boot", "scene": "res://scenes/chapters/Chapter1.tscn"},
+	{"id": "chapter1_log", "title": "Chapter 1 - Dr. Lira's Log", "scene": "res://scenes/chapters/Chapter1_Log.tscn"},
+	{"id": "chapter1_diagnostic", "title": "Chapter 1 - Diagnostic", "scene": "res://scenes/chapters/Chapter1_Diagnostic.tscn"},
+	{"id": "chapter2", "title": "Chapter 2 - The Station Speaks", "scene": "res://scenes/chapters/Chapter2.tscn"},
+	{"id": "chapter3", "title": "Chapter 3 - The Truth", "scene": "res://scenes/chapters/Chapter3.tscn"},
+	{"id": "chapter4", "title": "Chapter 4 - The Choice", "scene": "res://scenes/chapters/Chapter4.tscn"},
 ]
 
 @onready var vbox: VBoxContainer = $PanelContainer/MarginContainer/VBox/ChapterList

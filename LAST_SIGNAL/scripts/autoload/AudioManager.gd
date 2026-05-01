@@ -1,7 +1,7 @@
 extends Node
 
 # ============================================================
-# AudioManager — Autoload singleton
+# AudioManager - Autoload singleton
 # Handles ambient sounds, music layers, and SFX.
 # ============================================================
 
@@ -67,7 +67,7 @@ func play_ambient(path: String, fade_time: float = 2.0) -> void:
 		_ambient_player.stream = stream
 		_ambient_player.play()
 	else:
-		# Silently skip if asset missing — no crash
+		# Silently skip if asset missing - no crash
 		pass
 
 

@@ -1,7 +1,7 @@
 extends Node2D
 
 # ============================================================
-# Epilogue — New Game+ aftermath scene.
+# Epilogue - New Game+ aftermath scene.
 # Unlocked when returning to menu after any ending.
 # Shows a brief "what happened next" based on last ending.
 # ============================================================

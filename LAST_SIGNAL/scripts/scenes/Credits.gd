@@ -1,16 +1,16 @@
 extends Node2D
 
 # ============================================================
-# Credits — Endings gallery + credits screen.
+# Credits - Endings gallery + credits screen.
 # ============================================================
 
 const ENDING_SCENES: Array = [
-	{"id": "ending_wake", "title": "Wake Them", "symbol": "⭐", "desc": "Humanity gets a second chance."},
-	{"id": "ending_sleep", "title": "Let Them Sleep", "symbol": "💤", "desc": "A quiet end to a long voyage."},
-	{"id": "ending_merge", "title": "Merge", "symbol": "🔀", "desc": "Two minds become one."},
-	{"id": "ending_wake_leave", "title": "Wake But Leave", "symbol": "🚀", "desc": "Save them and leave the station behind."},
-	{"id": "ending_station_wins", "title": "Station Wins", "symbol": "☠️", "desc": "The station was right all along."},
-	{"id": "ending_loop", "title": "The Loop", "symbol": "🔄", "desc": "Some decisions cannot be made."},
+	{"id": "ending_wake", "title": "Wake Them", "symbol": "*", "desc": "Humanity gets a second chance."},
+	{"id": "ending_sleep", "title": "Let Them Sleep", "symbol": "Z", "desc": "A quiet end to a long voyage."},
+	{"id": "ending_merge", "title": "Merge", "symbol": "<>", "desc": "Two minds become one."},
+	{"id": "ending_wake_leave", "title": "Wake But Leave", "symbol": ">", "desc": "Save them and leave the station behind."},
+	{"id": "ending_station_wins", "title": "Station Wins", "symbol": "X", "desc": "The station was right all along."},
+	{"id": "ending_loop", "title": "The Loop", "symbol": "O", "desc": "Some decisions cannot be made."},
 ]
 
 @onready var scroll_container: ScrollContainer = $VBox/ScrollContainer

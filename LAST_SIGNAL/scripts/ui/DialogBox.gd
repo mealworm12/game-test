@@ -2,7 +2,7 @@ class_name DialogBox
 extends Control
 
 # ============================================================
-# DialogBox — Displays dialog with typewriter effect.
+# DialogBox - Displays dialog with typewriter effect.
 # Connect to DialogManager signals for automatic updates.
 # ============================================================
 

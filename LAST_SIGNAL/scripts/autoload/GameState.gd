@@ -1,7 +1,7 @@
 extends Node
 
 # ============================================================
-# GameState — Autoload singleton
+# GameState - Autoload singleton
 # Tracks chapter progress, narrative flags, and ending state.
 # ============================================================
 

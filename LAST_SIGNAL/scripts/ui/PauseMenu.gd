@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 # ============================================================
-# PauseMenu — Overlay shown when player presses Escape.
+# PauseMenu - Overlay shown when player presses Escape.
 # ============================================================
 
 signal resumed

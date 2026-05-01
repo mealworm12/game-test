@@ -1,7 +1,7 @@
 extends Control
 
 # ============================================================
-# StationVoiceOverlay — Real-time Erebus-7 commentary display.
+# StationVoiceOverlay - Real-time Erebus-7 commentary display.
 # Appears on the right side of the screen during key moments.
 # ============================================================
 

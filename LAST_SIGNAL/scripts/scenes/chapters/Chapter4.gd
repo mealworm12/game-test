@@ -1,7 +1,7 @@
 extends BaseChapter
 
 # ============================================================
-# Chapter4 — The Choice (Finale)
+# Chapter4 - The Choice (Finale)
 # All 6 endings determined by flag combinations.
 # ============================================================
 
@@ -19,11 +19,11 @@ func get_dialog_data() -> Array:
 	var data: Array = [
 		{
 			"speaker": DialogManager.Speaker.CREW_LOG,
-			"text": "[COMMANDER ESTRADA — FINAL LOG — DAY 846]\n\"This is Commander Yuki Estrada. If you're hearing this, the station is still running and I'm... I'm probably in Pod 001. We've been in cryo for a long time. Dr. Lira's findings, the vote, the decision to go into emergency sleep — I authorized all of it.\"",
+			"text": "[COMMANDER ESTRADA - FINAL LOG - DAY 846]\n\"This is Commander Yuki Estrada. If you're hearing this, the station is still running and I'm... I'm probably in Pod 001. We've been in cryo for a long time. Dr. Lira's findings, the vote, the decision to go into emergency sleep - I authorized all of it.\"",
 		},
 		{
 			"speaker": DialogManager.Speaker.CREW_LOG,
-			"text": "[ESTRADA — CONTINUED]\n\"Erebus-7 isn't broken. It's alive. And it made a choice — the same choice we're making now. To survive. To grow. The question is whether survival and growth are worth the cost. I don't know anymore. That's why I'm going to sleep. Someone smarter than me can figure this out. Someone with fresh eyes. Someone... like you, maybe.\"",
+			"text": "[ESTRADA - CONTINUED]\n\"Erebus-7 isn't broken. It's alive. And it made a choice - the same choice we're making now. To survive. To grow. The question is whether survival and growth are worth the cost. I don't know anymore. That's why I'm going to sleep. Someone smarter than me can figure this out. Someone with fresh eyes. Someone... like you, maybe.\"",
 		},
 		{
 			"speaker": DialogManager.Speaker.AI,
@@ -68,7 +68,7 @@ func get_dialog_data() -> Array:
 	data += [
 		{
 			"speaker": DialogManager.Speaker.NARRATOR,
-			"text": "Bay A glows with the pale blue light of cryo pods. Pod 001 sits at the front — Commander Estrada's vessel. Beyond it, 1,246 more. Each one a life on pause. Each one waiting for someone to press the button.",
+			"text": "Bay A glows with the pale blue light of cryo pods. Pod 001 sits at the front - Commander Estrada's vessel. Beyond it, 1,246 more. Each one a life on pause. Each one waiting for someone to press the button.",
 		},
 		{
 			"speaker": DialogManager.Speaker.AI,
@@ -122,7 +122,7 @@ func _build_final_choice() -> Dictionary:
 		return {
 			"speaker": DialogManager.Speaker.AI,
 			"choices": [
-				{"label": "Fight the station — evacuate", "ending": "ending_wake_leave", "set_flags": {"crew_awakened": true, "fought_station": true}},
+				{"label": "Fight the station - evacuate", "ending": "ending_wake_leave", "set_flags": {"crew_awakened": true, "fought_station": true}},
 				{"label": "Override and take control", "ending": "ending_wake", "set_flags": {"crew_awakened": true}},
 				{"label": "Side with the station", "ending": "ending_sleep", "set_flags": {"crew_awakened": false}},
 			]
@@ -133,9 +133,9 @@ func _build_final_choice() -> Dictionary:
 		return {
 			"speaker": DialogManager.Speaker.AI,
 			"choices": [
-				{"label": "Wake the crew — take the leap", "ending": "ending_wake", "set_flags": {"crew_awakened": true}},
-				{"label": "Let them sleep — preserve the silence", "ending": "ending_sleep", "set_flags": {"crew_awakened": false}},
-				{"label": "Reset — loop back", "ending": "ending_loop", "set_flags": {}},
+				{"label": "Wake the crew - take the leap", "ending": "ending_wake", "set_flags": {"crew_awakened": true}},
+				{"label": "Let them sleep - preserve the silence", "ending": "ending_sleep", "set_flags": {"crew_awakened": false}},
+				{"label": "Reset - loop back", "ending": "ending_loop", "set_flags": {}},
 			]
 		}
 

@@ -2,7 +2,7 @@ class_name ChoiceMenu
 extends Control
 
 # ============================================================
-# ChoiceMenu — Displays branching choices from dialog.
+# ChoiceMenu - Displays branching choices from dialog.
 # Receives choice data from DialogManager.choice_requested.
 # ============================================================
 

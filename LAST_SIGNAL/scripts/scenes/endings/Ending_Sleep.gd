@@ -12,7 +12,7 @@ You calculate the odds. The station's warnings. The crew's logs. The weight of 1
 
 Some burdens cannot be shared. Some choices cannot be undone.
 
-You choose mercy. Not awakening — mercy. The cryo systems continue their eternal hum. The crew dreams on, forever suspended between what was and what could be.
+You choose mercy. Not awakening - mercy. The cryo systems continue their eternal hum. The crew dreams on, forever suspended between what was and what could be.
 
 The station approves. For the first time, you and Erebus-7 agree on something.
 

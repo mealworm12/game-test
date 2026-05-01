@@ -1,7 +1,7 @@
 extends Control
 
 # ============================================================
-# MainMenu — Entry point for Last Signal.
+# MainMenu - Entry point for Last Signal.
 # ============================================================
 
 const FIRST_CHAPTER := "res://scenes/chapters/Chapter1.tscn"

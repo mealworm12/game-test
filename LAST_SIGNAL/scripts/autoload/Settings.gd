@@ -1,7 +1,7 @@
 extends Node
 
 # ============================================================
-# Settings — Autoload singleton
+# Settings - Autoload singleton
 # Persists global player preferences (volume, text speed, fullscreen).
 # Saved to user://settings.json, NOT game save.
 # ============================================================

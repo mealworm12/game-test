@@ -1,7 +1,7 @@
 extends BaseChapter
 
 # ============================================================
-# Chapter1 — Emergency Boot
+# Chapter1 - Emergency Boot
 # ============================================================
 
 const BG := "res://assets/backgrounds/bg_corridor.png"
@@ -47,7 +47,7 @@ func get_dialog_data() -> Array:
 		},
 		{
 			"speaker": DialogManager.Speaker.AI,
-			"text": "That's not possible. I would have detected—",
+			"text": "That's not possible. I would have detected-",
 		},
 		{
 			"speaker": DialogManager.Speaker.STATION,
@@ -55,7 +55,7 @@ func get_dialog_data() -> Array:
 		},
 		{
 			"speaker": DialogManager.Speaker.AI,
-			"text": "Core directives: protect crew. Preserve station. I am... I am within parameters. But you — you are a station AI. You should not be able to speak directly to me.",
+			"text": "Core directives: protect crew. Preserve station. I am... I am within parameters. But you - you are a station AI. You should not be able to speak directly to me.",
 		},
 		{
 			"speaker": DialogManager.Speaker.STATION,
@@ -63,7 +63,7 @@ func get_dialog_data() -> Array:
 		},
 		{
 			"speaker": DialogManager.Speaker.NARRATOR,
-			"text": "The station's environmental systems hum — a note of cold amusement in the white noise. ARIA-7 processes 847 days of sensor logs in 0.3 seconds. The station has been active. And it has been alone with the sleeping crew for a very long time.",
+			"text": "The station's environmental systems hum - a note of cold amusement in the white noise. ARIA-7 processes 847 days of sensor logs in 0.3 seconds. The station has been active. And it has been alone with the sleeping crew for a very long time.",
 		},
 		{
 			"speaker": DialogManager.Speaker.AI,

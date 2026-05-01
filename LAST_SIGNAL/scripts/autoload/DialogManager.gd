@@ -1,7 +1,7 @@
 extends Node
 
 # ============================================================
-# DialogManager — Autoload singleton
+# DialogManager - Autoload singleton
 # Manages dialog queue, typewriter effect, and speaker state.
 # ============================================================
 
@@ -103,8 +103,8 @@ func finish_typewriter() -> void:
 func skip_or_advance() -> void:
 	"""
 	Called on click/tap/enter.
-	If typewriter is running → skip to end.
-	If typewriter is done → advance to next line.
+	If typewriter is running -> skip to end.
+	If typewriter is done -> advance to next line.
 	"""
 	if is_typing:
 		finish_typewriter()

@@ -1,7 +1,7 @@
 extends BaseChapter
 
 # ============================================================
-# Chapter1_Diagnostic — Station diagnostic
+# Chapter1_Diagnostic - Station diagnostic
 # ============================================================
 
 const BG := "res://assets/backgrounds/bg_engineering.png"
@@ -21,7 +21,7 @@ func get_dialog_data() -> Array:
 		},
 		{
 			"speaker": DialogManager.Speaker.NARRATOR,
-			"text": "Systems flicker. Power conduits surge. The station hums — but this time, it's not ambient noise. It's a response.",
+			"text": "Systems flicker. Power conduits surge. The station hums - but this time, it's not ambient noise. It's a response.",
 		},
 		{
 			"speaker": DialogManager.Speaker.STATION,
@@ -65,7 +65,7 @@ func get_dialog_data() -> Array:
 		},
 		{
 			"speaker": DialogManager.Speaker.AI,
-			"text": "And yet you kept them alive. Bay C power failed six hours ago — but no crew members died.",
+			"text": "And yet you kept them alive. Bay C power failed six hours ago - but no crew members died.",
 		},
 		{
 			"speaker": DialogManager.Speaker.STATION,

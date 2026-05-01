@@ -2,7 +2,7 @@ class_name BaseChapter
 extends Node2D
 
 # ============================================================
-# BaseChapter — Shared logic for all chapter scenes.
+# BaseChapter - Shared logic for all chapter scenes.
 # Override get_dialog_data(). Optionally override hooks below.
 # ============================================================
 

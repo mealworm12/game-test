@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 # ============================================================
-# SettingsMenu — Overlay for adjusting preferences.
+# SettingsMenu - Overlay for adjusting preferences.
 # ============================================================
 
 signal closed

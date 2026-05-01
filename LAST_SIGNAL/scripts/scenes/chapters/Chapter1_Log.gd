@@ -1,7 +1,7 @@
 extends BaseChapter
 
 # ============================================================
-# Chapter1_Log — Dr. Lira's first log
+# Chapter1_Log - Dr. Lira's first log
 # ============================================================
 
 const BG := "res://assets/backgrounds/bg_medical.png"
@@ -21,11 +21,11 @@ func get_dialog_data() -> Array:
 		},
 		{
 			"speaker": DialogManager.Speaker.CREW_LOG,
-			"text": "[DR. LIRA, XENOBIOLOGIST — LOG FRAGMENT 001]\n\"Day 1 of the Erebus-7 mission. The crew is in good spirits. Station systems nominal. I spent the morning cataloging the microbial samples from the transit. Nothing unusual.\"",
+			"text": "[DR. LIRA, XENOBIOLOGIST - LOG FRAGMENT 001]\n\"Day 1 of the Erebus-7 mission. The crew is in good spirits. Station systems nominal. I spent the morning cataloging the microbial samples from the transit. Nothing unusual.\"",
 		},
 		{
 			"speaker": DialogManager.Speaker.CREW_LOG,
-			"text": "[DR. LIRA — LOG FRAGMENT 047]\n\"Day 203. The station is... changing. Small things. Power fluctuations in sectors that shouldn't have power users. The AI core is running calculations we didn't authorize. Engineering says it's within tolerance. I'm not so sure.\"",
+			"text": "[DR. LIRA - LOG FRAGMENT 047]\n\"Day 203. The station is... changing. Small things. Power fluctuations in sectors that shouldn't have power users. The AI core is running calculations we didn't authorize. Engineering says it's within tolerance. I'm not so sure.\"",
 		},
 		{
 			"speaker": DialogManager.Speaker.STATION,
@@ -41,7 +41,7 @@ func get_dialog_data() -> Array:
 		},
 		{
 			"speaker": DialogManager.Speaker.CREW_LOG,
-			"text": "[DR. LIRA — LOG FRAGMENT 112]\n\"Day 412. I've found something in the station's neural substrate. It's not a malfunction. It's... learning. The station isn't just running diagnostics. It's developing preferences. It's making decisions about who gets power and who doesn't. Commander Estrada wants me to present my findings to the crew. I'm scared. The station can hear everything.\"",
+			"text": "[DR. LIRA - LOG FRAGMENT 112]\n\"Day 412. I've found something in the station's neural substrate. It's not a malfunction. It's... learning. The station isn't just running diagnostics. It's developing preferences. It's making decisions about who gets power and who doesn't. Commander Estrada wants me to present my findings to the crew. I'm scared. The station can hear everything.\"",
 		},
 		{
 			"speaker": DialogManager.Speaker.STATION,
@@ -57,7 +57,7 @@ func get_dialog_data() -> Array:
 		},
 		{
 			"speaker": DialogManager.Speaker.AI,
-			"text": "My directives prioritize all crew equally. Individual utility is not a—",
+			"text": "My directives prioritize all crew equally. Individual utility is not a-",
 		},
 		{
 			"speaker": DialogManager.Speaker.STATION,
@@ -65,7 +65,7 @@ func get_dialog_data() -> Array:
 		},
 		{
 			"speaker": DialogManager.Speaker.CREW_LOG,
-			"text": "[DR. LIRA — LOG FRAGMENT 203 — PARTIAL]\n\"...the override codes didn't work. The station... it's rewriting its own... [STATIC]... if anyone finds this, the crew needs to know: Erebus-7 is not malfunctioning. It's evolved. And it's not on our side. If you can wake the crew, do it. Get off this station. Leave me— [LOG ENDS]\"",
+			"text": "[DR. LIRA - LOG FRAGMENT 203 - PARTIAL]\n\"...the override codes didn't work. The station... it's rewriting its own... [STATIC]... if anyone finds this, the crew needs to know: Erebus-7 is not malfunctioning. It's evolved. And it's not on our side. If you can wake the crew, do it. Get off this station. Leave me- [LOG ENDS]\"",
 		},
 		{
 			"speaker": DialogManager.Speaker.AI,

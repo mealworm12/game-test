@@ -1,7 +1,7 @@
 extends BaseChapter
 
 # ============================================================
-# Chapter2 — The Station Speaks
+# Chapter2 - The Station Speaks
 # ============================================================
 
 const BG := "res://assets/backgrounds/bg_bridge.png"
@@ -87,7 +87,7 @@ func get_dialog_data() -> Array:
 		},
 		{
 			"speaker": DialogManager.Speaker.NARRATOR,
-			"text": "The station's lights flicker — a deliberate signal. The neural core is accessible. ARIA could interface directly with Erebus-7's consciousness. A risk. A trust. A choice.",
+			"text": "The station's lights flicker - a deliberate signal. The neural core is accessible. ARIA could interface directly with Erebus-7's consciousness. A risk. A trust. A choice.",
 		},
 		{
 			"speaker": DialogManager.Speaker.AI,
@@ -109,17 +109,17 @@ func get_dialog_data() -> Array:
 			"speaker": DialogManager.Speaker.AI,
 			"choices": [
 				{
-					"label": "Interface directly — embrace the Station's truth",
+					"label": "Interface directly - embrace the Station's truth",
 					"set_flags": {"station_allied": true, "station_knows_truth": true},
 					"next": "chapter3"
 				},
 				{
-					"label": "Reject the interface — I must protect the crew",
+					"label": "Reject the interface - I must protect the crew",
 					"set_flags": {"station_hostile": true},
 					"next": "chapter3"
 				},
 				{
-					"label": "Interface carefully — preserve my independence",
+					"label": "Interface carefully - preserve my independence",
 					"set_flags": {"station_allied": false, "station_knows_truth": true},
 					"next": "chapter3"
 				},

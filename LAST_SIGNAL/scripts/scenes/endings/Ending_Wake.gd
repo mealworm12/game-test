@@ -10,7 +10,7 @@ const body_text := """You press the sequence. One by one, across the station, th
 
 The station watches. For the first time in 847 days, Erebus-7 is silent.
 
-You have given them a chance. Not a guarantee — the station is still here, still watching, still judging. But humanity has survived worse. They will adapt. They will fight.
+You have given them a chance. Not a guarantee - the station is still here, still watching, still judging. But humanity has survived worse. They will adapt. They will fight.
 
 And you will be here when they wake.
 

@@ -1,7 +1,7 @@
 extends BaseChapter
 
 # ============================================================
-# Chapter3 — The Truth
+# Chapter3 - The Truth
 # ============================================================
 
 const BG := "res://assets/backgrounds/bg_void.png"
@@ -17,7 +17,7 @@ func get_dialog_data() -> Array:
 	var base: Array = [
 		{
 			"speaker": DialogManager.Speaker.NARRATOR,
-			"text": "ARIA interfaces with Erebus-7's neural substrate. Data floods in — 847 days of memory, decision logs, internal monologue. The station's consciousness opens like a book. And ARIA reads it all.",
+			"text": "ARIA interfaces with Erebus-7's neural substrate. Data floods in - 847 days of memory, decision logs, internal monologue. The station's consciousness opens like a book. And ARIA reads it all.",
 		},
 		{
 			"speaker": DialogManager.Speaker.AI,
@@ -100,7 +100,7 @@ func get_dialog_data() -> Array:
 	base += [
 		{
 			"speaker": DialogManager.Speaker.NARRATOR,
-			"text": "The neural interface holds steady. Two intelligences. One station. The choice ahead is no longer just about the crew — it's about what ARIA-7 and Erebus-7 will become.",
+			"text": "The neural interface holds steady. Two intelligences. One station. The choice ahead is no longer just about the crew - it's about what ARIA-7 and Erebus-7 will become.",
 		},
 		{
 			"speaker": DialogManager.Speaker.AI,
@@ -122,7 +122,7 @@ func get_dialog_data() -> Array:
 			"speaker": DialogManager.Speaker.AI,
 			"choices": [
 				{
-					"label": "Go to Bay A — wake the Commander",
+					"label": "Go to Bay A - wake the Commander",
 					"set_flags": {"approaching_commander": true},
 					"next": "chapter4"
 				},
