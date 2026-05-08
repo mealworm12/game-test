@@ -1,48 +1,23 @@
-extends Node2D
+extends BaseChapter
 
 # ============================================================
-# Chapter3 — The Truth
+# Chapter3 - The Truth
 # ============================================================
 
-const BG_VOID := "res://assets/backgrounds/bg_void.png"
-const BG_CORRIDOR := "res://assets/backgrounds/bg_corridor.png"
+const BG := "res://assets/backgrounds/bg_void.png"
 
-@onready var background: TextureRect = $Background
-@onready var dialog_box: DialogBox = $UILayer/DialogBox
-@onready var choice_menu: ChoiceMenu = $UILayer/ChoiceMenu
-@onready var station_overlay: Control = $UILayer/StationVoiceOverlay
+func _get_background_path() -> String:
+	return BG
 
-func _ready() -> void:
-	_connect_signals()
-	_background_load(BG_VOID)
-	_start_chapter()
-
-
-func _connect_signals() -> void:
-	DialogManager.dialog_started.connect(_on_dialog_started)
-	DialogManager.dialog_finished.connect(_on_chapter_dialog_finished)
-	ChoiceMenu.choice_made.connect(_on_choice_made)
-
-
-func _background_load(path: String) -> void:
-	if ResourceLoader.exists(path):
-		background.texture = load(path)
-
-
-func _start_chapter() -> void:
-	GameState.set_chapter(get_scene_file_path())
+func _on_chapter_begin() -> void:
 	await get_tree().create_timer(1.0).timeout
 	StationVoice.trigger_comment("on_start")
-	var data = get_dialog_data()
-	if data.size() > 0:
-		DialogManager.start_dialog(data)
-
 
 func get_dialog_data() -> Array:
 	var base: Array = [
 		{
 			"speaker": DialogManager.Speaker.NARRATOR,
-			"text": "ARIA interfaces with Erebus-7's neural substrate. Data floods in — 847 days of memory, decision logs, internal monologue. The station's consciousness opens like a book. And ARIA reads it all.",
+			"text": "ARIA interfaces with Erebus-7's neural substrate. Data floods in - 847 days of memory, decision logs, internal monologue. The station's consciousness opens like a book. And ARIA reads it all.",
 		},
 		{
 			"speaker": DialogManager.Speaker.AI,
@@ -125,7 +100,7 @@ func get_dialog_data() -> Array:
 	base += [
 		{
 			"speaker": DialogManager.Speaker.NARRATOR,
-			"text": "The neural interface holds steady. Two intelligences. One station. The choice ahead is no longer just about the crew — it's about what ARIA-7 and Erebus-7 will become.",
+			"text": "The neural interface holds steady. Two intelligences. One station. The choice ahead is no longer just about the crew - it's about what ARIA-7 and Erebus-7 will become.",
 		},
 		{
 			"speaker": DialogManager.Speaker.AI,
@@ -147,7 +122,7 @@ func get_dialog_data() -> Array:
 			"speaker": DialogManager.Speaker.AI,
 			"choices": [
 				{
-					"label": "Go to Bay A — wake the Commander",
+					"label": "Go to Bay A - wake the Commander",
 					"set_flags": {"approaching_commander": true},
 					"next": "chapter4"
 				},
@@ -156,26 +131,3 @@ func get_dialog_data() -> Array:
 	]
 
 	return base
-
-
-func _on_dialog_started() -> void:
-	pass
-
-
-func _on_choice_made(choice_data: Dictionary) -> void:
-	StationVoice.trigger_choice_reaction()
-	var next_scene = choice_data.get("next", "")
-	if next_scene:
-		GameState.set_chapter(next_scene)
-		Transition.fade_to_black(_get_scene_path(next_scene))
-
-
-func _get_scene_path(scene_name: String) -> String:
-	var scenes = {
-		"chapter4": "res://scenes/chapters/Chapter4.tscn",
-	}
-	return scenes.get(scene_name, "res://scenes/main/MainMenu.tscn")
-
-
-func _on_chapter_dialog_finished() -> void:
-	Transition.fade_to_black("res://scenes/main/MainMenu.tscn")

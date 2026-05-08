@@ -1,7 +1,7 @@
 extends Node
 
 # ============================================================
-# DialogManager — Autoload singleton
+# DialogManager - Autoload singleton
 # Manages dialog queue, typewriter effect, and speaker state.
 # ============================================================
 
@@ -103,8 +103,8 @@ func finish_typewriter() -> void:
 func skip_or_advance() -> void:
 	"""
 	Called on click/tap/enter.
-	If typewriter is running → skip to end.
-	If typewriter is done → advance to next line.
+	If typewriter is running -> skip to end.
+	If typewriter is done -> advance to next line.
 	"""
 	if is_typing:
 		finish_typewriter()
@@ -157,5 +157,7 @@ func on_choice_made(choice_data: Dictionary) -> void:
 			GameState.set_flag(flag, choice_data["set_flags"][flag])
 	if choice_data.has("jump_to"):
 		get_tree().change_scene_to_file(choice_data["jump_to"])
+	elif choice_data.has("next"):
+		get_tree().change_scene_to_file(choice_data["next"])
 	else:
 		advance()

@@ -2,14 +2,14 @@ class_name DialogBox
 extends Control
 
 # ============================================================
-# DialogBox — Displays dialog with typewriter effect.
+# DialogBox - Displays dialog with typewriter effect.
 # Connect to DialogManager signals for automatic updates.
 # ============================================================
 
 @onready var panel: PanelContainer = $PanelContainer
 @onready var speaker_label: Label = $PanelContainer/MarginContainer/VBox/SpeakerLabel
 @onready var text_label: Label = $PanelContainer/MarginContainer/VBox/TextLabel
-@onready var continue_indicator: AnimatedSprite2D = $ContinueIndicator
+@onready var continue_indicator: Label = $ContinueIndicator
 
 var is_active: bool = false
 
@@ -17,6 +17,18 @@ func _ready() -> void:
 	visible = false
 	continue_indicator.visible = false
 	_connect_signals()
+	_start_indicator_pulse()
+
+func _start_indicator_pulse() -> void:
+	_pulse_loop()
+
+func _pulse_loop() -> void:
+	if not is_inside_tree():
+		return
+	var tween = create_tween()
+	tween.set_loops()
+	tween.tween_property(continue_indicator, "modulate:a", 0.3, 0.6).set_trans(Tween.TRANS_CIRC)
+	tween.tween_property(continue_indicator, "modulate:a", 1.0, 0.6).set_trans(Tween.TRANS_CIRC)
 
 
 func _connect_signals() -> void:

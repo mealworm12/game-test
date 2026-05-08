@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 # ============================================================
-# Transition — Autoload singleton
+# Transition - Autoload singleton
 # Handles fade-to-black scene transitions.
 # ============================================================
 
@@ -61,7 +61,7 @@ func _fade_in() -> void:
 
 func quick_fade(callback: Callable) -> void:
 	"""
-	Do a quick fade-out → callback → fade-in.
+	Do a quick fade-out -> callback -> fade-in.
 	Use for in-scene transitions.
 	"""
 	if _is_transitioning:

@@ -1,15 +1,15 @@
 extends Node
 
 # ============================================================
-# AudioManager — Autoload singleton
+# AudioManager - Autoload singleton
 # Handles ambient sounds, music layers, and SFX.
 # ============================================================
 
 const AMBIENT_HUM := "res://assets/audio/sfx/ambient_hum.wav"
 const AMBIENT_VOID := "res://assets/audio/sfx/ambient_void.wav"
-const MUSIC_TENSION := "res://assets/audio/music/tension.ogg"
-const MUSIC_MELANCHOLY := "res://assets/audio/music/melancholy.ogg"
-const MUSIC_HOPE := "res://assets/audio/music/hope.ogg"
+const MUSIC_TENSION := "res://assets/audio/music/tension.wav"
+const MUSIC_MELANCHOLY := "res://assets/audio/music/melancholy.wav"
+const MUSIC_HOPE := "res://assets/audio/music/hope.wav"
 const SFX_LOG_PLAY := "res://assets/audio/sfx/log_play.wav"
 const SFX_STATION_VOICE := "res://assets/audio/sfx/station_voice.wav"
 const SFX_UI_CLICK := "res://assets/audio/sfx/ui_click.wav"
@@ -27,6 +27,17 @@ var _current_music: String = ""
 
 func _ready() -> void:
 	_setup_players()
+	_apply_settings_volumes()
+
+func _apply_settings_volumes() -> void:
+	if Settings:
+		var master = Settings.get_setting("master_volume", 1.0)
+		AudioServer.set_bus_volume_db(0, linear_to_db(master))
+		var music = Settings.get_setting("music_volume", 0.7)
+		set_music_volume(linear_to_db(music))
+		var sfx = Settings.get_setting("sfx_volume", 0.8)
+		# SFX doesn't have a dedicated bus; apply to master for now
+		_sfx_player.volume_db = linear_to_db(sfx)
 
 
 func _setup_players() -> void:
@@ -56,7 +67,7 @@ func play_ambient(path: String, fade_time: float = 2.0) -> void:
 		_ambient_player.stream = stream
 		_ambient_player.play()
 	else:
-		# Silently skip if asset missing — no crash
+		# Silently skip if asset missing - no crash
 		pass
 
 

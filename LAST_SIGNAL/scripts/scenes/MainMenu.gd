@@ -1,7 +1,7 @@
 extends Control
 
 # ============================================================
-# MainMenu — Entry point for Last Signal.
+# MainMenu - Entry point for Last Signal.
 # ============================================================
 
 const FIRST_CHAPTER := "res://scenes/chapters/Chapter1.tscn"
@@ -11,7 +11,12 @@ const FIRST_CHAPTER := "res://scenes/chapters/Chapter1.tscn"
 @onready var new_game_btn: Button = $VBox/ButtonBox/NewGameBtn
 @onready var continue_btn: Button = $VBox/ButtonBox/ContinueBtn
 @onready var credits_btn: Button = $VBox/ButtonBox/CreditsBtn
+@onready var settings_btn: Button = $VBox/ButtonBox/SettingsBtn
+@onready var chapter_select_btn: Button = $VBox/ButtonBox/ChapterSelectBtn
 @onready var quit_btn: Button = $VBox/ButtonBox/QuitBtn
+
+var _settings_menu: CanvasLayer = null
+var _chapter_select: CanvasLayer = null
 
 var _title_tween: Tween = null
 
@@ -19,6 +24,8 @@ var _title_tween: Tween = null
 func _ready() -> void:
 	# Check for existing save
 	continue_btn.disabled = not GameState.load_game()
+	# Gate chapter select behind at least one completion
+	chapter_select_btn.visible = GameState.has_flag("has_seen_epilogue")
 	_connect_buttons()
 	_animate_title()
 
@@ -27,7 +34,29 @@ func _connect_buttons() -> void:
 	new_game_btn.pressed.connect(_on_new_game)
 	continue_btn.pressed.connect(_on_continue)
 	credits_btn.pressed.connect(_on_credits)
+	settings_btn.pressed.connect(_on_settings)
+	chapter_select_btn.pressed.connect(_on_chapter_select)
 	quit_btn.pressed.connect(_on_quit)
+
+func _on_settings() -> void:
+	if not _settings_menu:
+		_settings_menu = preload("res://scenes/ui/SettingsMenu.tscn").instantiate()
+		add_child(_settings_menu)
+		_settings_menu.closed.connect(_on_settings_closed)
+	_settings_menu.open()
+
+func _on_settings_closed() -> void:
+	pass
+
+func _on_chapter_select() -> void:
+	if not _chapter_select:
+		_chapter_select = preload("res://scenes/ui/ChapterSelect.tscn").instantiate()
+		add_child(_chapter_select)
+		_chapter_select.closed.connect(_on_chapter_select_closed)
+	_chapter_select.open()
+
+func _on_chapter_select_closed() -> void:
+	pass
 
 
 func _animate_title() -> void:
@@ -49,7 +78,7 @@ func _animate_title() -> void:
 
 
 func _animate_buttons() -> void:
-	for btn in [new_game_btn, continue_btn, credits_btn, quit_btn]:
+	for btn in [new_game_btn, continue_btn, credits_btn, chapter_select_btn, quit_btn]:
 		btn.modulate.a = 0.0
 		btn.custom_minimum_size.y = 48
 		_title_tween = create_tween()
@@ -62,7 +91,7 @@ func _on_new_game() -> void:
 
 
 func _on_continue() -> void:
-	if GameState.load_game() and GameState.current_chapter:
+	if GameState.current_chapter:
 		Transition.fade_to_black(GameState.current_chapter)
 
 

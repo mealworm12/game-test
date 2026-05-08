@@ -1,7 +1,7 @@
 extends Node
 
 # ============================================================
-# StationVoice — Autoload singleton
+# StationVoice - Autoload singleton
 # Handles Erebus-7's real-time commentary during gameplay.
 # Station speaks at key moments, reacts to choices, and
 # provides commentary based on the current game state.
