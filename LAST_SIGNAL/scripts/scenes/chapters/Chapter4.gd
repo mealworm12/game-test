@@ -96,6 +96,17 @@ func get_dialog_data() -> Array:
 	return data
 
 func _build_final_choice() -> Dictionary:
+	# Sleep ending (allied, legacy protected path)
+	if GameState.has_flag("station_allied") and GameState.has_flag("crew_legacy_protected") and not GameState.has_flag("station_knows_truth"):
+		return {
+			"speaker": DialogManager.Speaker.AI,
+			"choices": [
+				{"label": "End their dream gently", "ending": "ending_sleep", "set_flags": {"crew_awakened": false}},
+				{"label": "Wake them anyway - they deserve the truth", "ending": "ending_wake", "set_flags": {"crew_awakened": true}},
+				{"label": "Tell the Station what they did - then decide together", "ending": "ending_merge", "set_flags": {"station_knows_truth": true, "ending_merged": true}},
+			]
+		}
+
 	# Merge ending
 	if GameState.has_flag("station_allied") and GameState.has_flag("station_knows_truth"):
 		return {

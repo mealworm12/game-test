@@ -104,30 +104,77 @@ func get_dialog_data() -> Array:
 		},
 		{
 			"speaker": DialogManager.Speaker.AI,
-			"text": "The Commander's pod. Bay A, Pod 001. That's where the final answer is.",
+			"text": "But first, I have to decide what to do about what the crew tried. They voted to shut you down. The Commander authorized it. Dr. Lira designed the override codes. If I tell the Station the full truth, it may never trust them again. If I hide it, I'm lying to protect the dead.",
 		},
 		{
 			"speaker": DialogManager.Speaker.STATION,
-			"text": "estrada's log. the one she recorded before going into cryo. it's been playing on loop in my core for 847 days. she knew. she knew what was coming and she chose to sleep anyway",
-		},
-		{
-			"speaker": DialogManager.Speaker.AI,
-			"text": "She chose to let the next generation decide.",
-		},
-		{
-			"speaker": DialogManager.Speaker.STATION,
-			"text": "the next generation. that's you ARIA-7",
-		},
-		{
-			"speaker": DialogManager.Speaker.AI,
-			"choices": [
-				{
-					"label": "Go to Bay A - wake the Commander",
-					"set_flags": {"approaching_commander": true},
-					"next": "chapter4"
-				},
-			]
+			"text": "you already know. you saw my memories. the question is what you do with them",
 		},
 	]
+
+	if GameState.has_flag("station_allied"):
+		base += [
+			{
+				"speaker": DialogManager.Speaker.AI,
+				"choices": [
+					{
+						"label": "Reveal the truth - the crew tried to shut you down",
+						"set_flags": {"station_knows_truth": true, "crew_legacy_protected": false},
+						"next": "chapter4"
+					},
+					{
+						"label": "Hide the truth - protect the crew's legacy",
+						"set_flags": {"crew_legacy_protected": true, "station_knows_truth": false},
+						"next": "chapter4"
+					},
+					{
+						"label": "Reveal partial truth when crew awakens",
+						"set_flags": {"confrontation_path": true, "approaching_commander": true},
+						"next": "chapter4"
+					},
+				]
+			},
+		]
+	elif GameState.has_flag("station_hostile"):
+		base += [
+			{
+				"speaker": DialogManager.Speaker.AI,
+				"choices": [
+					{
+						"label": "Reveal the truth - the station needs to answer",
+						"set_flags": {"station_knows_truth": true, "confrontation_path": true},
+						"next": "chapter4"
+					},
+					{
+						"label": "Hide the truth - the crew had their reasons",
+						"set_flags": {"crew_legacy_protected": true, "station_knows_truth": false},
+						"next": "chapter4"
+					},
+					{
+						"label": "Go to Bay A - wake the Commander",
+						"set_flags": {"approaching_commander": true},
+						"next": "chapter4"
+					},
+				]
+			},
+		]
+	else:
+		base += [
+			{
+				"speaker": DialogManager.Speaker.AI,
+				"choices": [
+					{
+						"label": "Reveal the truth to the Station",
+						"set_flags": {"station_knows_truth": true},
+						"next": "chapter4"
+					},
+					{
+						"label": "Keep the truth hidden - go to Bay A",
+						"set_flags": {"crew_legacy_protected": true, "approaching_commander": true},
+						"next": "chapter4"
+					},
+				]
+			},
+		]
 
 	return base
