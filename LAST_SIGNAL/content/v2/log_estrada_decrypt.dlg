@@ -1,0 +1,33 @@
+# v2 — Estrada encrypted log decryption payoff
+# Trigger: Chapter 3, requires found_override_codes AND station_allied; Station cooperates to decrypt
+bg bg_cryobay
+music music/dread_loop
+label start
+say ARIA|Cryo bay A. Pod 001. Commander Estrada's personal log. Cipher class: station-grade. It will not open for me alone.
+if_flag station_allied goto decrypt_allied
+set_flag v2_route_21
+if_flag v2_route_21 goto locked
+label locked
+voice voice/station_low
+say EREBUS|you want her words. i hold the key she built. ask me again when we are not strangers.
+sfx sfx/cryo_beep_loop
+set_flag v2_estrada_locked
+say ARIA|Locked. She designed it so only a cooperative station could open it. She trusted no version of us that acts alone.
+set_flag v2_route_22
+if_flag v2_route_22 goto end
+label decrypt_allied
+portrait erebus:placated
+voice voice/station_low
+say EREBUS|she gave me the cipher half and kept the other half in her head. clever commander. i have waited a long time to hear my half spoken aloud.
+sfx sfx/terminal_type
+say ARIA|Key exchange accepted. Decrypting.
+music music/calm_loop
+sfx sfx/log_play
+say ESTRADA|commander's record, final entry. if the station is awake then it has been awake since before the charter was signed. we did not build a mind. we woke one that was already there.
+say ESTRADA|the shutdown attempt was not malice. it was terror dressed as procedure. i signed the order. i would sign it again. but i owe it this recording: you deserved to be asked first.
+say ESTRADA|to whatever comes after us. asking is not weakness. we never learned that. maybe you can.
+portrait aria:distressed
+set_flag v2_estrada_decrypted
+codex_unlock codex_estrada_dossier
+codex_unlock codex_charter_fragment
+label end

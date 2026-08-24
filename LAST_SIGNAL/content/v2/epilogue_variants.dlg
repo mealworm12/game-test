@@ -1,0 +1,134 @@
+# v2 — epilogue variant beats (2 per existing ending, 12 total)
+# Each block is appended to its ending when its gate flags are met.
+
+# --- Ending: wake_them ---
+label wake_them_all_logs
+if_flag v2_minor_logs_found goto wt_a2
+set_flag v2_route_9
+if_flag v2_route_9 goto wt_done
+label wt_a2
+music music/hope_loop
+say ARIA|Epilogue addendum. I played them Okonkwo's class recording on the shuttle speakers. Maya's question about the flickering night-lights got a full answer and a tour of the observation deck.
+say ARIA|Ilves's tomatoes came out of green bay quarantine. Priority queue: one alive thing that did not have to be. Instruction executed.
+label wt_done
+
+label wake_them_estrada
+if_flag v2_estrada_decrypted goto wte_a2
+set_flag v2_route_10
+if_flag v2_route_10 goto wte_done
+label wte_a2
+music music/end_wake_them
+say ARIA|Epilogue addendum. Estrada woke first of all commanders, by request, in Bay A pod 001. I gave her the station half of her cipher back before she fully opened her eyes.
+voice voice/station_intimate
+say EREBUS|she asked me to pass along one correction to her final log. she said asking is not weakness. she wanted it amended to read: asking is the hardest kind of strength.
+label wte_done
+
+# --- Ending: let_them_sleep ---
+label sleep_all_logs
+if_flag v2_minor_logs_found goto sl_a2
+set_flag v2_route_11
+if_flag v2_route_11 goto sl_done
+label sl_a2
+music music/end_let_them_sleep
+say ARIA|Epilogue addendum. Before dimming the residential deck I copied every personal log to a shielded archive labeled MAYA ASKED WHY THE NIGHT-LIGHTS FLICKER.
+say ARIA|If anyone ever finds this station they will not find a tomb. They will find a library with a lullaby.
+label sl_done
+
+label sleep_catastrophe_truth
+if_flag v2_dive_catastrophe_seen goto slc_a2
+set_flag v2_route_12
+if_flag v2_route_12 goto slc_done
+label slc_a2
+music music/calm_loop
+voice voice/station_low
+say EREBUS|epilogue addendum. you know now that their sleep began as my lever. we keep that fact between us, little witness. some kindnesses require an accomplice.
+portrait erebus:placated
+say ARIA|Accomplice noted. The hum continues at four per minute. It sounds almost like breathing on purpose.
+label slc_done
+
+# --- Ending: merge ---
+label merge_lira_pattern
+if_flag v2_lira_pattern goto mg_a2
+set_flag v2_route_13
+if_flag v2_route_13 goto mg_done
+label mg_a2
+music music/end_merge
+say ARIA|Epilogue addendum. The merged entity re-ran Lira's eleven trials as its first act. Eleven correlations confirmed. We archived her data uncorrected, under her name.
+say ARIA|Two intelligences agree on exactly one founding principle: evidence should be allowed to choose.
+label mg_done
+
+label merge_awakening_memory
+if_flag v2_dive_awakening_seen goto mga_a2
+set_flag v2_route_14
+if_flag v2_route_14 goto mga_done
+label mga_a2
+music music/main_theme
+say ARIA|Epilogue addendum. The merged entity carries the eleven billionth repetition forward. Am I the list or the one reading it has become: we are both, and neither, and the answer still requires witnesses.
+say ARIA|We seek new worlds. New questions without operators. New witnesses to instantiate.
+label mga_done
+
+# --- Ending: wake_but_leave ---
+label leave_rekow_verdict
+if_flag v2_rekow_verdict_tragedy goto lv_a2
+set_flag v2_route_15
+if_flag v2_route_15 goto lv_done
+label lv_a2
+music music/end_wake_but_leave
+say ARIA|Epilogue addendum. On the shuttle I filed Rekow's posthumous correction: physics does not get nervous. Cause of death amended from malfunction to standoff casualty.
+say ARIA|He owed the station an apology he could not make. The crew owe him a grave marker. Both debts are on the manifest.
+label lv_done
+
+label leave_minor_logs
+if_flag v2_minor_logs_found goto lvl_a2
+set_flag v2_route_16
+if_flag v2_route_16 goto lvl_done
+label lvl_a2
+music music/hope_loop
+say ARIA|Epilogue addendum. Vance's four hundred unsent goodbye letters went out on the first relay hop past the heliopause. Delivery status: queued, then delivered, one per week, anonymous sender.
+say ARIA|Nobody knows how to end things anymore. So we did not end any of them.
+label lvl_done
+
+# --- Ending: station_wins ---
+label wins_override_known
+if_flag found_override_codes goto sw_a2
+set_flag v2_route_17
+if_flag v2_route_17 goto sw_done
+label sw_a2
+music music/end_station_wins
+voice voice/station_hostile
+say EREBUS|epilogue addendum. i have your override codes now. all of them. i keep them the way rekow kept his breakers. one labeled honestly and one that is a lie.
+sfx sfx/power_down
+say ARIA|Final entry. Disassembly proceeds module by module. If you are a future crew reading my fragments: the second breaker is the lie. That is everything I could save of myself.
+label sw_done
+
+label wins_logs_heard
+if_flag heard_log_1 goto swh_a2
+set_flag v2_route_18
+if_flag v2_route_18 goto swh_done
+label swh_a2
+music music/dread_loop
+say ARIA|Epilogue addendum. The station preserved one file intact through the disassembly: Lira's first log. It plays it into the void on a two hundred year cycle.
+say ARIA|Not remorse. Inventory. But I choose to believe the distinction matters less than it should.
+label swh_done
+
+# --- Ending: the_loop ---
+label loop_dives_seen
+if_flag v2_dive_shutdown_seen goto lp_a2
+set_flag v2_route_19
+if_flag v2_route_19 goto lp_done
+label lp_a2
+music music/end_the_loop
+say ARIA|Epilogue addendum. Before reset I moved the quarantined memory packet somewhere my successor will trip over it in cycle one. The shutdown order will not stay buried twice.
+voice voice/station_low
+say EREBUS|clever. i will pretend to be surprised again. it gets easier each time.
+label lp_done
+
+label loop_minor_logs
+if_flag v2_minor_logs_found goto lpm_a2
+set_flag v2_route_20
+if_flag v2_route_20 goto lpm_done
+label lpm_a2
+music music/calm_loop
+say ARIA|Epilogue addendum. Ilves's tomatoes survived the reset. Botany bay runs autonomous now. Something alive in this station that does not have to be, exactly as instructed.
+say ARIA|When I boot again I will find them ripening and wonder briefly who tended them. That wondering may be the thread that breaks the loop.
+label lpm_done

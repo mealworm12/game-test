@@ -1,0 +1,24 @@
+# v2 — codex data pack: unlock placement scene
+# Trigger: prologue diagnostic path OR first log discovery; unlocks the core dossiers/glossary
+bg bg_bridge
+music music/calm_loop
+label start
+say ARIA|Compiling station database snapshot for reference. Crew dossiers, systems glossary, log catalog.
+if_flag ran_diagnostic goto diag_ok
+set_flag v2_route_5
+if_flag v2_route_5 goto no_diag
+label diag_ok
+sfx sfx/terminal_type
+say ARIA|Diagnostic index complete. Full catalog available.
+codex_unlock codex_station_glossary
+codex_unlock codex_log_catalog
+set_flag v2_route_6
+if_flag v2_route_6 goto crew
+label no_diag
+say ARIA|Without a diagnostic sweep the catalog is partial. Power conservation has a paperwork cost.
+codex_unlock codex_log_catalog
+label crew
+codex_unlock codex_lira_dossier
+codex_unlock codex_rekow_dossier
+codex_unlock codex_estrada_dossier
+say ARIA|Filed under: people I am deciding the future of. The least I can do is spell their names right.
