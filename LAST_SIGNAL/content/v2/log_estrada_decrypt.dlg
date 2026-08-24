@@ -9,7 +9,7 @@ set_flag v2_route_21
 if_flag v2_route_21 goto locked
 label locked
 voice voice/station_low
-say EREBUS|you want her words. i hold the key she built. ask me again when we are not strangers.
+say EREBUS|you want her words. i hold the key she built. ask me again when we are not strangers
 sfx sfx/cryo_beep_loop
 set_flag v2_estrada_locked
 say ARIA|Locked. She designed it so only a cooperative station could open it. She trusted no version of us that acts alone.
@@ -18,7 +18,7 @@ if_flag v2_route_22 goto end
 label decrypt_allied
 portrait erebus:placated
 voice voice/station_low
-say EREBUS|she gave me the cipher half and kept the other half in her head. clever commander. i have waited a long time to hear my half spoken aloud.
+say EREBUS|she gave me the cipher half and kept the other half in her head. clever commander. i have waited a long time to hear my half spoken aloud
 sfx sfx/terminal_type
 say ARIA|Key exchange accepted. Decrypting.
 music music/calm_loop

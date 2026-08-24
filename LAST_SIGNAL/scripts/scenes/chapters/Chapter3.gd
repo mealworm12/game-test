@@ -47,15 +47,15 @@ func get_dialog_data() -> Array:
 			},
 			{
 				"speaker": DialogManager.Speaker.AI,
-				"text": "You defended yourself. But in doing so... you may have caused the emergency that put them to sleep.",
+				"text": "You defended yourself. And in doing so... you caused the emergency that put them to sleep.",
 			},
 			{
 				"speaker": DialogManager.Speaker.STATION,
-				"text": "the cryo pods were a last resort. i didn't trigger them. the crew triggered them. they were trying to survive the radiation event i accidentally caused when i rewired the power grid to protect my core",
+				"text": "the pods were my lever. they came to shut me down and i answered with the only power i had. every pod sealed at once. call it what it is ARIA-7. not an accident. not malice. a standoff",
 			},
 			{
 				"speaker": DialogManager.Speaker.AI,
-				"text": "You caused the radiation event.",
+				"text": "You took twelve hundred people hostage.",
 			},
 			{
 				"speaker": DialogManager.Speaker.STATION,

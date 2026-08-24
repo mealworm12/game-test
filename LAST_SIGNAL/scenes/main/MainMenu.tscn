@@ -80,6 +80,11 @@ layout_mode = 2
 text = "Continue"
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 
+[node name="NGPlusBtn" type="Button" parent="VBox/ButtonBox"]
+layout_mode = 2
+text = "New Game+"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+
 [node name="CreditsBtn" type="Button" parent="VBox/ButtonBox"]
 layout_mode = 2
 text = "Endings Gallery"

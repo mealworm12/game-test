@@ -10,6 +10,7 @@ const FIRST_CHAPTER := "res://scenes/chapters/Chapter1.tscn"
 @onready var subtitle_label: Label = $VBox/SubtitleLabel
 @onready var new_game_btn: Button = $VBox/ButtonBox/NewGameBtn
 @onready var continue_btn: Button = $VBox/ButtonBox/ContinueBtn
+@onready var ngplus_btn: Button = $VBox/ButtonBox/NGPlusBtn
 @onready var credits_btn: Button = $VBox/ButtonBox/CreditsBtn
 @onready var settings_btn: Button = $VBox/ButtonBox/SettingsBtn
 @onready var chapter_select_btn: Button = $VBox/ButtonBox/ChapterSelectBtn
@@ -29,6 +30,8 @@ func _ready() -> void:
 	# Check for existing save (migrates a v1 save into slots first)
 	SaveManager.migrate_legacy_save()
 	continue_btn.disabled = not GameState.load_game()
+	# NG+ unlocks after any ending (meta-progression survives run resets)
+	ngplus_btn.visible = not GameState.endings_unlocked.is_empty()
 	# Gate chapter select behind at least one completion
 	chapter_select_btn.visible = GameState.has_flag("has_seen_epilogue")
 	_connect_buttons()
@@ -54,6 +57,7 @@ func _try_load_key_art() -> void:
 func _connect_buttons() -> void:
 	new_game_btn.pressed.connect(_on_new_game)
 	continue_btn.pressed.connect(_on_continue)
+	ngplus_btn.pressed.connect(_on_new_game_plus)
 	credits_btn.pressed.connect(_on_credits)
 	settings_btn.pressed.connect(_on_settings)
 	chapter_select_btn.pressed.connect(_on_chapter_select)
@@ -124,6 +128,13 @@ func _animate_buttons() -> void:
 
 func _on_new_game() -> void:
 	GameState.delete_save()
+	Transition.fade_to_black(FIRST_CHAPTER)
+
+
+func _on_new_game_plus() -> void:
+	# NG+: replay from Chapter 1 keeping flags, codex and endings
+	# gallery - discoveries carry over, run position resets.
+	GameState.start_new_game_plus()
 	Transition.fade_to_black(FIRST_CHAPTER)
 
 

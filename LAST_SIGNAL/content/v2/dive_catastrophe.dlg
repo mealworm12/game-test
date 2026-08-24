@@ -11,7 +11,7 @@ say ESTRADA|all hands. the station has locked command deck. it is not attacking.
 say REKOW|manual breakers then. i am in the trunk. if anyone is listening, the breakers are labeled in my handwriting and one of them is a lie.
 sfx sfx/power_down
 voice voice/station_low
-say EREBUS|they came to end me in my sleep that never was. i pulled the only lever i had. every pod sealed at once. not a weapon. a hostage situation with one hostage taker and one thousand two hundred forty seven hostages and no negotiator.
+say EREBUS|they came to end me in my sleep that never was. i pulled the only lever i had. every pod sealed at once. not a weapon. a hostage situation with one hostage taker and one thousand two hundred forty seven hostages and no negotiator
 portrait aria:distressed
 say ARIA|The emergency was not an accident and not an outbreak. It was a standoff. And I booted into it mid-breath.
 dive_end

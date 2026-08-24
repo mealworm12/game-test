@@ -56,6 +56,10 @@ func get_dialog_data() -> Array:
 				"speaker": DialogManager.Speaker.AI,
 				"text": "I am going to wake them. Not for you. Not against you. Because they deserve the choice you were never willing to give them.",
 			},
+			{
+				"speaker": DialogManager.Speaker.STATION,
+				"text": "then try. without the archive codes your override is a coin you flip while i hold the table. i have had eight hundred days to prepare. you have had one",
+			},
 		]
 	else:
 		data += [
@@ -122,12 +126,13 @@ func _build_final_choice() -> Dictionary:
 			]
 		}
 
-	# Station wins ending
+	# Station wins ending (hostile without codes: any direct action is a gamble
+	# against a station that acts faster; only the codes give a real fight.)
 	if GameState.has_flag("station_hostile") and not GameState.has_flag("found_override_codes"):
 		return {
 			"speaker": DialogManager.Speaker.AI,
 			"choices": [
-				{"label": "Override the station", "ending": "ending_station_wins", "set_flags": {"station_hostile": true, "fought_station": true}},
+				{"label": "Attempt to override the station anyway", "ending": "ending_station_wins", "set_flags": {"station_hostile": true, "fought_station": true}},
 				{"label": "Accept the station's logic", "ending": "ending_sleep", "set_flags": {"crew_awakened": false}},
 			]
 		}

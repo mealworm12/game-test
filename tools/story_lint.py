@@ -93,6 +93,14 @@ def lint_dialog(path):
         elif cmd in ("say", "choice"):
             if "|" not in arg:
                 fail(errors, path.name, lineno, f"{cmd} missing '|' separator")
+            elif cmd == "say" and arg.startswith("EREBUS|"):
+                # Canon voice rule (docs/story_outline.md): Erebus speaks
+                # lowercase, deliberate, NO terminal punctuation. Ellipses
+                # are allowed as deliberate pauses; periods are not.
+                spoken = arg.split("|", 1)[1].rstrip()
+                if spoken.endswith("."):
+                    fail(errors, path.name, lineno,
+                         "Erebus line violates canon voice rule (no terminal punctuation)")
         elif cmd == "music":
             if arg not in ALLOWED_MUSIC:
                 fail(errors, path.name, lineno, f"unknown music id '{arg}'")

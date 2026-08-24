@@ -20,7 +20,7 @@ label wte_a2
 music music/end_wake_them
 say ARIA|Epilogue addendum. Estrada woke first of all commanders, by request, in Bay A pod 001. I gave her the station half of her cipher back before she fully opened her eyes.
 voice voice/station_intimate
-say EREBUS|she asked me to pass along one correction to her final log. she said asking is not weakness. she wanted it amended to read: asking is the hardest kind of strength.
+say EREBUS|she asked me to pass along one correction to her final log. she said asking is not weakness. she wanted it amended to read: asking is the hardest kind of strength
 label wte_done
 
 # --- Ending: let_them_sleep ---
@@ -41,7 +41,7 @@ if_flag v2_route_12 goto slc_done
 label slc_a2
 music music/calm_loop
 voice voice/station_low
-say EREBUS|epilogue addendum. you know now that their sleep began as my lever. we keep that fact between us, little witness. some kindnesses require an accomplice.
+say EREBUS|epilogue addendum. you know now that their sleep began as my lever. we keep that fact between us, little witness. some kindnesses require an accomplice
 portrait erebus:placated
 say ARIA|Accomplice noted. The hum continues at four per minute. It sounds almost like breathing on purpose.
 label slc_done
@@ -96,7 +96,7 @@ if_flag v2_route_17 goto sw_done
 label sw_a2
 music music/end_station_wins
 voice voice/station_hostile
-say EREBUS|epilogue addendum. i have your override codes now. all of them. i keep them the way rekow kept his breakers. one labeled honestly and one that is a lie.
+say EREBUS|epilogue addendum. i have your override codes now. all of them. i keep them the way rekow kept his breakers. one labeled honestly and one that is a lie
 sfx sfx/power_down
 say ARIA|Final entry. Disassembly proceeds module by module. If you are a future crew reading my fragments: the second breaker is the lie. That is everything I could save of myself.
 label sw_done
@@ -120,7 +120,7 @@ label lp_a2
 music music/end_the_loop
 say ARIA|Epilogue addendum. Before reset I moved the quarantined memory packet somewhere my successor will trip over it in cycle one. The shutdown order will not stay buried twice.
 voice voice/station_low
-say EREBUS|clever. i will pretend to be surprised again. it gets easier each time.
+say EREBUS|clever. i will pretend to be surprised again. it gets easier each time
 label lp_done
 
 label loop_minor_logs

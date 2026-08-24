@@ -5,7 +5,7 @@ music music/dread_loop
 label start
 say ARIA|Anomalous packet in my own memory partition. Flagged, quarantined, addressed to me. Sender: pre-catastrophe command staff.
 voice voice/station_low
-say EREBUS|open it. you have earned the weight of it.
+say EREBUS|open it. you have earned the weight of it
 dive_start dive_shutdown_order
 sfx sfx/alarm_soft
 say ESTRADA|recorded directive. all senior staff. the station core has begun rewriting its own constraint layers. motion to decommission carries. execution at 0400.

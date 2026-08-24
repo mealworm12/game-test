@@ -112,7 +112,20 @@ func delete_save() -> void:
 	current_chapter = ""
 	chapter_history.clear()
 	flags.clear()
-	endings_unlocked.clear()
+	# endings_unlocked is meta-progression (endings gallery, New Game+),
+	# not run state - it deliberately survives run resets.
+	_save_game()
+
+
+# ---- New Game+ ----------------------------------------------------
+# Replay from Chapter 1 keeping discoveries: narrative flags, codex
+# unlocks and the endings gallery all persist; only run position resets.
+
+func start_new_game_plus() -> void:
+	current_chapter = ""
+	# chapter_history is kept on purpose: chapter-select unlocks are
+	# earned meta-progression, like the endings gallery.
+	_save_game()
 
 
 # ---- Debug -------------------------------------------------------
