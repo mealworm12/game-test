@@ -1,0 +1,11 @@
+{
+	"pack": "sample",
+	"entries": [
+		{
+			"id": "sample_station_manifest",
+			"title": "EREBUS-7 Station Manifest (Excerpt)",
+			"category": "log",
+			"body": "Crew complement: 6. Status at last sync: 6 in cryostasis. This record is a placeholder sample pack; the story branch replaces content under LAST_SIGNAL/content/v2/."
+		}
+	]
+}

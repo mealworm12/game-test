@@ -13,6 +13,7 @@ signal chapter_complete
 @onready var choice_menu: ChoiceMenu = $UILayer/ChoiceMenu
 var _pause_menu: CanvasLayer = null
 var _screen_effects: CanvasLayer = null
+var _autoskip_indicator: CanvasLayer = null
 
 func _ready() -> void:
 	_setup_overlays()
@@ -24,14 +25,29 @@ func _setup_overlays() -> void:
 	add_child(_pause_menu)
 	_screen_effects = preload("res://scenes/ui/ScreenEffects.tscn").instantiate()
 	add_child(_screen_effects)
+	if not DialogManager.auto_mode_changed.is_connected(_noop):
+		_autoskip_indicator = preload("res://scenes/ui/AutoSkipIndicator.tscn").instantiate()
+		add_child(_autoskip_indicator)
+
+func _noop(enabled: bool) -> void:
+	pass
 
 func _connect_signals() -> void:
 	DialogManager.dialog_started.connect(_on_dialog_started)
 	DialogManager.dialog_finished.connect(_on_chapter_dialog_finished)
 	ChoiceMenu.choice_made.connect(_on_choice_made)
+	if not DialogManager.background_changed.is_connected(_on_bg_changed):
+		DialogManager.background_changed.connect(_on_bg_changed)
+	if not DialogManager.dive_state_changed.is_connected(_on_dive_changed):
+		DialogManager.dive_state_changed.connect(_on_dive_changed)
+	if not DialogManager.codex_unlock_requested.is_connected(_on_codex_unlock):
+		DialogManager.codex_unlock_requested.connect(_on_codex_unlock)
 
 func _start_chapter() -> void:
 	GameState.set_chapter(get_scene_file_path())
+	DialogManager.set_backlog_chapter(scene_file_path.get_file().get_basename())
+	SaveManager.migrate_legacy_save()
+	SaveManager.autosave()
 	var bg = _get_background_path()
 	if bg and ResourceLoader.exists(bg):
 		background.texture = load(bg)
@@ -39,6 +55,17 @@ func _start_chapter() -> void:
 	var data = get_dialog_data()
 	if data.size() > 0:
 		DialogManager.start_dialog(data)
+
+func _on_bg_changed(path: String) -> void:
+	if path != "" and background and ResourceLoader.exists(path):
+		background.texture = load(path)
+
+func _on_dive_changed(active: bool) -> void:
+	if _screen_effects and _screen_effects.has_method("set_dive_mode"):
+		_screen_effects.set_dive_mode(active)
+
+func _on_codex_unlock(entry_id: String) -> void:
+	Codex.unlock_entry(entry_id)
 
 func _get_background_path() -> String:
 	return ""

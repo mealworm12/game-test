@@ -24,6 +24,8 @@ AudioManager="*res://scripts/autoload/AudioManager.gd"
 StationVoice="*res://scripts/autoload/StationVoice.gd"
 Transition="*res://scripts/autoload/Transition.gd"
 Settings="*res://scripts/autoload/Settings.gd"
+SaveManager="*res://scripts/autoload/SaveManager.gd"
+Codex="*res://scripts/autoload/Codex.gd"
 
 [display]
 

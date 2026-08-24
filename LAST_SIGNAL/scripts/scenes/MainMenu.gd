@@ -13,21 +13,42 @@ const FIRST_CHAPTER := "res://scenes/chapters/Chapter1.tscn"
 @onready var credits_btn: Button = $VBox/ButtonBox/CreditsBtn
 @onready var settings_btn: Button = $VBox/ButtonBox/SettingsBtn
 @onready var chapter_select_btn: Button = $VBox/ButtonBox/ChapterSelectBtn
+@onready var codex_btn: Button = $VBox/ButtonBox/CodexBtn
+@onready var load_btn: Button = $VBox/ButtonBox/LoadBtn
 @onready var quit_btn: Button = $VBox/ButtonBox/QuitBtn
 
 var _settings_menu: CanvasLayer = null
 var _chapter_select: CanvasLayer = null
+var _codex_ui: CanvasLayer = null
+var _load_menu: CanvasLayer = null
 
 var _title_tween: Tween = null
 
 
 func _ready() -> void:
-	# Check for existing save
+	# Check for existing save (migrates a v1 save into slots first)
+	SaveManager.migrate_legacy_save()
 	continue_btn.disabled = not GameState.load_game()
 	# Gate chapter select behind at least one completion
 	chapter_select_btn.visible = GameState.has_flag("has_seen_epilogue")
 	_connect_buttons()
 	_animate_title()
+	_try_load_key_art()
+
+
+func _try_load_key_art() -> void:
+	# v2 key art with graceful fallback to the flat background.
+	var art_path := "res://assets/sprites/key_art_menu.png"
+	if ResourceLoader.exists(art_path):
+		var bg_node := get_node_or_null("BG")
+		if bg_node is TextureRect or bg_node is ColorRect:
+			var tex_rect := TextureRect.new()
+			tex_rect.texture = load(art_path)
+			tex_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+			tex_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+			tex_rect.show_behind_parent = true
+			add_child(tex_rect)
+			move_child(tex_rect, 1)
 
 
 func _connect_buttons() -> void:
@@ -36,7 +57,23 @@ func _connect_buttons() -> void:
 	credits_btn.pressed.connect(_on_credits)
 	settings_btn.pressed.connect(_on_settings)
 	chapter_select_btn.pressed.connect(_on_chapter_select)
+	codex_btn.pressed.connect(_on_codex)
+	load_btn.pressed.connect(_on_load)
 	quit_btn.pressed.connect(_on_quit)
+
+
+func _on_codex() -> void:
+	if not _codex_ui:
+		_codex_ui = preload("res://scenes/ui/CodexUI.tscn").instantiate()
+		add_child(_codex_ui)
+	_codex_ui.open()
+
+
+func _on_load() -> void:
+	if not _load_menu:
+		_load_menu = preload("res://scenes/ui/SaveLoadMenu.tscn").instantiate()
+		add_child(_load_menu)
+	_load_menu.open("load")
 
 func _on_settings() -> void:
 	if not _settings_menu:
