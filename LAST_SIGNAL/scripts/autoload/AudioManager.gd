@@ -20,35 +20,41 @@ const SFX_UI_CLICK := "res://assets/audio/sfx/ui_click.wav"
 # ---- v2 audio ID tables ----------------------------------------
 # Canonical source: docs/AUDIO_MANIFEST.md (audio card spec).
 const MUSIC_IDS: Dictionary = {
-	"main_theme": "res://assets/audio/music/main_theme.wav",
-	"calm_loop": "res://assets/audio/music/calm_loop.wav",
-	"tension_loop": "res://assets/audio/music/tension_loop.wav",
-	"dread_loop": "res://assets/audio/music/dread_loop.wav",
-	"hope_loop": "res://assets/audio/music/hope_loop.wav",
+	"main_theme": "res://assets/audio/v2/music/main_theme.wav",
+	"calm_loop": "res://assets/audio/v2/music/calm_loop.wav",
+	"tension_loop": "res://assets/audio/v2/music/tension_loop.wav",
+	"dread_loop": "res://assets/audio/v2/music/dread_loop.wav",
+	"hope_loop": "res://assets/audio/v2/music/hope_loop.wav",
+	"end_wake_them": "res://assets/audio/v2/music/end_wake_them.wav",
+	"end_let_them_sleep": "res://assets/audio/v2/music/end_let_them_sleep.wav",
+	"end_merge": "res://assets/audio/v2/music/end_merge.wav",
+	"end_wake_but_leave": "res://assets/audio/v2/music/end_wake_but_leave.wav",
+	"end_station_wins": "res://assets/audio/v2/music/end_station_wins.wav",
+	"end_the_loop": "res://assets/audio/v2/music/end_the_loop.wav",
 }
 
 const SFX_IDS: Dictionary = {
-	"ui_hover": "res://assets/audio/sfx/ui_hover.wav",
-	"ui_confirm": "res://assets/audio/sfx/ui_confirm.wav",
-	"ui_back": "res://assets/audio/sfx/ui_back.wav",
-	"log_play": "res://assets/audio/sfx/log_play.wav",
-	"terminal_type": "res://assets/audio/sfx/terminal_type.wav",
-	"door_open": "res://assets/audio/sfx/door_open.wav",
-	"door_close": "res://assets/audio/sfx/door_close.wav",
-	"alarm_soft": "res://assets/audio/sfx/alarm_soft.wav",
-	"alarm_hard": "res://assets/audio/sfx/alarm_hard.wav",
-	"pod_hiss": "res://assets/audio/sfx/pod_hiss.wav",
-	"power_down": "res://assets/audio/sfx/power_down.wav",
-	"power_up": "res://assets/audio/sfx/power_up.wav",
-	"heartbeat_low": "res://assets/audio/sfx/heartbeat_low.wav",
-	"cryo_beep_loop": "res://assets/audio/sfx/cryo_beep_loop.wav",
-	"static_burst": "res://assets/audio/sfx/static_burst.wav",
+	"ui_hover": "res://assets/audio/v2/sfx/ui_hover.wav",
+	"ui_confirm": "res://assets/audio/v2/sfx/ui_confirm.wav",
+	"ui_back": "res://assets/audio/v2/sfx/ui_back.wav",
+	"log_play": "res://assets/audio/v2/sfx/log_play.wav",
+	"terminal_type": "res://assets/audio/v2/sfx/terminal_type.wav",
+	"door_open": "res://assets/audio/v2/sfx/door_open.wav",
+	"door_close": "res://assets/audio/v2/sfx/door_close.wav",
+	"alarm_soft": "res://assets/audio/v2/sfx/alarm_soft.wav",
+	"alarm_hard": "res://assets/audio/v2/sfx/alarm_hard.wav",
+	"pod_hiss": "res://assets/audio/v2/sfx/pod_hiss.wav",
+	"power_down": "res://assets/audio/v2/sfx/power_down.wav",
+	"power_up": "res://assets/audio/v2/sfx/power_up.wav",
+	"heartbeat_low": "res://assets/audio/v2/sfx/heartbeat_low.wav",
+	"cryo_beep_loop": "res://assets/audio/v2/sfx/cryo_beep_loop.wav",
+	"static_burst": "res://assets/audio/v2/sfx/static_burst.wav",
 }
 
 const VOICE_IDS: Dictionary = {
-	"station_low": "res://assets/audio/voice/station_low.wav",
-	"station_hostile": "res://assets/audio/voice/station_hostile.wav",
-	"station_intimate": "res://assets/audio/voice/station_intimate.wav",
+	"station_low": "res://assets/audio/v2/voice/station_low.wav",
+	"station_hostile": "res://assets/audio/v2/voice/station_hostile.wav",
+	"station_intimate": "res://assets/audio/v2/voice/station_intimate.wav",
 }
 
 var _ambient_player: AudioStreamPlayer
@@ -179,6 +185,41 @@ func play_sfx(path: String) -> void:
 		_log_missing("sfx", path)
 
 # ---- v2 ID-based hooks ------------------------------------------
+
+# Tension ladder per docs/AUDIO_SYSTEM_PROPOSAL.md:
+# 0=calm 1=hope 2=tension 3=dread, standard crossfade between levels.
+const TENSION_LADDER: Array = ["calm_loop", "hope_loop", "tension_loop", "dread_loop"]
+
+var _current_tension_level: int = -1
+
+func set_tension_level(level: int, fade_time: float = 3.0) -> void:
+	var idx := clampi(level, 0, TENSION_LADDER.size() - 1)
+	if idx == _current_tension_level:
+		return
+	_current_tension_level = idx
+	play_music_id(TENSION_LADDER[idx], fade_time)
+
+func get_tension_level() -> int:
+	return _current_tension_level
+
+# Ending stingers play once over the epilogue card, replacing the music loop.
+const ENDING_STINGERS: Dictionary = {
+	"ending_wake": "end_wake_them",
+	"ending_sleep": "end_let_them_sleep",
+	"ending_merge": "end_merge",
+	"ending_wake_leave": "end_wake_but_leave",
+	"ending_station_wins": "end_station_wins",
+	"ending_loop": "end_the_loop",
+}
+
+func play_stinger_for_ending(ending_id: String) -> void:
+	var stinger: String = ENDING_STINGERS.get(ending_id, "")
+	if stinger == "":
+		push_warning("AudioManager: no stinger for ending '%s'" % ending_id)
+		return
+	stop_music(0.5)
+	_current_tension_level = -1
+	play_music_id(stinger, 0.5, false)
 
 func play_music_id(id: String, fade_time: float = 2.0, use_crossfade: bool = true) -> void:
 	var path: String = MUSIC_IDS.get(id, "")

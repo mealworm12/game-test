@@ -10,8 +10,18 @@ func _get_background_path() -> String:
 	return BG
 
 func _on_chapter_begin() -> void:
+	apply_chapter_tension(3)
 	await get_tree().create_timer(1.0).timeout
 	StationVoice.trigger_comment("on_start")
+	# v2: Rekow's verdict log after the truth reveal (engineering sub-level).
+	if (GameState.has_flag("station_hostile") or GameState.has_flag("station_allied")) and not GameState.has_flag("v2_rekow_verdict_station"):
+		run_v2_script("log_rekow_resolve")
+	# v2: Estrada decrypt requires override codes; branch on station_allied.
+	if GameState.has_flag("found_override_codes") and not GameState.has_flag("v2_estrada_locked") and not GameState.has_flag("v2_estrada_decrypted"):
+		run_v2_script("log_estrada_decrypt")
+	# v2: awakening dive needs ran_diagnostic plus lira pattern or allied path.
+	if GameState.has_flag("ran_diagnostic") and (GameState.has_flag("v2_lira_pattern") or GameState.has_flag("station_allied")) and not GameState.has_flag("v2_dive_awakening_seen"):
+		run_v2_script("dive_awakening")
 
 func get_dialog_data() -> Array:
 	var base: Array = [

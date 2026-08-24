@@ -11,8 +11,15 @@ func _get_background_path() -> String:
 
 func _on_chapter_begin() -> void:
 	AudioManager.play_music(AudioManager.MUSIC_TENSION)
+	apply_chapter_tension(2)
 	await get_tree().create_timer(1.0).timeout
 	StationVoice.trigger_comment("on_start")
+	# v2: Estrada's encrypted log (Ch3 cryo bay A trigger fires in Chapter3;
+	# this chapter hosts the memory-dive chain when the truth is known).
+	if GameState.has_flag("station_knows_truth") and GameState.has_flag("heard_log_1") and not GameState.has_flag("v2_dive_shutdown_seen"):
+		run_v2_script("dive_shutdown")
+	elif GameState.has_flag("v2_dive_shutdown_seen") and GameState.has_flag("found_override_codes") and not GameState.has_flag("v2_dive_catastrophe_seen"):
+		run_v2_script("dive_catastrophe")
 
 func get_dialog_data() -> Array:
 	# Build dialog based on flags from Chapter 1

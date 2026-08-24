@@ -38,6 +38,9 @@ func write_slot(slot: int, chapter_path: String, ending_progress: Array = []) ->
 		"current_chapter": chapter_path,
 		"endings_unlocked": GameState.endings_unlocked,
 		"ending_progress": ending_progress,
+		# v2: codex unlocks round-trip with the save (Settings prefs live
+		# separately in user://settings.json and are NOT part of slots).
+		"codex_unlocked": Codex.unlocked.duplicate(),
 	}
 	return _write_json(_slot_path(slot), payload)
 
@@ -118,6 +121,12 @@ func apply_to_game_state(data: Dictionary) -> bool:
 	GameState.endings_unlocked.clear()
 	for e in ends:
 		GameState.endings_unlocked.append(str(e))
+	# v2: restore codex unlocks saved with the slot (union, never lose entries).
+	var codex_unlocked = data.get("codex_unlocked", [])
+	for c in codex_unlocked:
+		if not Codex.is_unlocked(str(c)):
+			Codex.unlocked.append(str(c))
+	Codex._save_unlock_state()
 	GameState.save_game_state()
 	return true
 

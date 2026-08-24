@@ -41,8 +41,8 @@ func get_setting(key: String, default: Variant = null) -> Variant:
 
 
 func set_setting_force(key: String, value: Variant) -> void:
-	"""Like set_setting but accepts new keys (used by v2 migration of
-	old settings files that predate a key)."""
+	# Like set_setting but accepts new keys (used by v2 migration of
+	# old settings files that predate a key).
 	data[key] = value
 	save_settings()
 	settings_changed.emit(key, value)

@@ -10,8 +10,15 @@ func _get_background_path() -> String:
 	return BG
 
 func _on_chapter_begin() -> void:
+	apply_chapter_tension(0)
 	await get_tree().create_timer(1.0).timeout
 	StationVoice.trigger_flag_comment("heard_log_1")
+	# v2: Lira's deep archive log, after Ch1 once the first log is heard.
+	if GameState.has_flag("heard_log_1") and not GameState.has_flag("v2_lira_pattern"):
+		run_v2_script("log_lira_deep")
+	# v2: minor crew logs between Ch2 and Ch3 equivalent (residential deck).
+	if not GameState.has_flag("v2_minor_logs_found"):
+		run_v2_script("log_minor_crew")
 
 func get_dialog_data() -> Array:
 	return [

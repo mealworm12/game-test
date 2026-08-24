@@ -36,6 +36,46 @@ func _load_content_packs() -> void:
 			_load_pack(CONTENT_DIR + fname)
 		fname = dir.get_next()
 	dir.list_dir_end()
+	_load_text_pack(CONTENT_DIR + "codex_entries.txt")
+
+
+# v2: parse the story branch's text-format codex data pack
+# ([codex_<id>] sections with key: value lines) into entries.
+func _load_text_pack(path: String) -> void:
+	if not FileAccess.file_exists(path):
+		return
+	var f = FileAccess.open(path, FileAccess.READ)
+	if not f:
+		return
+	var current_id := ""
+	var entry := {}
+	while not f.eof_reached():
+		var line = f.get_line().strip_edges()
+		if line == "" or line.begins_with("#"):
+			continue
+		if line.begins_with("[") and line.ends_with("]"):
+			if current_id != "" and entry.has("id"):
+				entries[current_id] = entry
+			current_id = line.substr(1, line.length() - 2).strip_edges()
+			entry = {"id": current_id, "title": current_id.capitalize(), "category": "archive", "body": ""}
+			continue
+		var ci = line.find(":")
+		if ci < 0 or current_id == "":
+			continue
+		var key = line.substr(0, ci).strip_edges()
+		var value = line.substr(ci + 1).strip_edges()
+		match key:
+			"title":
+				entry["title"] = value
+			"body":
+				entry["body"] = value if entry.get("body", "") == "" else "%s\n%s" % [entry["body"], value]
+			"tags":
+				entry["tags"] = value.split(";", false)
+			_:
+				entry[key] = value
+	f.close()
+	if current_id != "" and entry.has("id"):
+		entries[current_id] = entry
 
 
 func _load_pack(path: String) -> void:

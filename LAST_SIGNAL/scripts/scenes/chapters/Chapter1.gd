@@ -11,6 +11,7 @@ func _get_background_path() -> String:
 
 func _on_chapter_begin() -> void:
 	AudioManager.play_ambient(AudioManager.AMBIENT_HUM)
+	apply_chapter_tension(0)
 	await get_tree().create_timer(1.5).timeout
 	StationVoice.trigger_comment("on_start")
 
