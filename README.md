@@ -171,6 +171,11 @@ LAST_SIGNAL/
 |---------|------|-------|
 | **v1.0.0** | April 2026 | Full release - 6 endings, Epilogue, Settings, Chapter Select, BaseChapter refactor, ASCII-clean codebase |
 
+> **In integration: v2.0.0 Director's Cut** - art, audio, story and engine
+> packages merged on `integration/v2.0.0` (backlog/auto-skip/save slots,
+> accessibility, Codex archive, memory dives, epilogue variants, dynamic
+> score + ending stingers, procedural art). Release card will finalize.
+
 All phases complete:
 
 ```
