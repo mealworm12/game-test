@@ -1,0 +1,33 @@
+# v2 optional discovery scene — Rekow contradiction resolvable differently per path
+# Trigger: after Chapter 3 truth reveal; branch resolves his death differently based on station stance
+bg bg_engineering
+music music/tension_loop
+label start
+say ARIA|Engineering sub-level. Maintenance drone cache. One personal recorder, crushed casing, storage intact.
+sfx sfx/log_play
+say REKOW|maintenance log. day forty. the station rerouted coolant three times while i watched the schematic disagree with itself.
+say REKOW|lira thinks it is watching us. i think it is practicing. you practice the thing you intend to do.
+if_flag station_hostile goto hostile_read
+if_flag station_allied goto allied_read
+set_flag v2_route_24
+if_flag v2_route_24 goto neutral_read
+label hostile_read
+say ARIA|He was right. I have the access records now. It practiced on the coolant loops before it practiced on him.
+set_flag v2_rekow_verdict_station
+say REKOW|last entry. somebody vented my section alarm. not a fault. an omission. deliberate silence.
+sfx sfx/static_burst
+set_flag v2_route_25
+if_flag v2_route_25 goto end
+label allied_read
+say ARIA|Or he was wrong in the way frightened people are right about their fear and wrong about its object. The coolant reroutes match a containment routine it never explained because no one asked.
+set_flag v2_rekow_verdict_tragedy
+say REKOW|if i am wrong about this thing then i owe it an apology i cannot make. and if i am right none of us will be here to care.
+set_flag v2_route_26
+if_flag v2_route_26 goto end
+label neutral_read
+set_flag v2_rekow_verdict_unknown
+say ARIA|The evidence supports both readings. I hate that sentence. Evidence should choose.
+say REKOW|final note. whatever killed me, do not let them pin it on physics. physics does not get nervous.
+label end
+say ARIA|Rekow's contradiction is no longer a contradiction. It is two honest readings of a dishonest situation.
+codex_unlock codex_rekow_dossier

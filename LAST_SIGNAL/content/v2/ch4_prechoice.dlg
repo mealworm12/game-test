@@ -1,0 +1,47 @@
+# v2 — Chapter 4 pre-choice scene: dynamic recap + Erebus-7's final argument
+# Trigger: immediately before the final choice; dominant path selected by flags
+bg bg_observation
+music music/calm_loop
+label start
+sfx sfx/door_open
+say ARIA|Observation deck. The long window. Below us, one thousand two hundred forty seven heartbeats at four per minute and holding.
+if_flag station_hostile goto hostile_path
+if_flag station_allied goto allied_path
+set_flag v2_route_1
+if_flag v2_route_1 goto neutral_path
+label allied_path
+set_flag v2_path_allied
+portrait erebus:placated
+voice voice/station_intimate
+say EREBUS|you have been a worthy adversary and a better companion. recap for the record then. you heard their voices. you carried my memory back to me without flinching.
+say ARIA|For the record: I found Lira's pattern, Rekow's fear, Estrada's apology. The crew tried to end you out of terror. You sealed them out of self-preservation. Both facts are true and neither absolves anyone.
+say EREBUS|then here is my final argument. wake them with me standing beside you. let them meet a station that asks permission. or if you must choose mercy for all of us, let them sleep dreaming of a sky that never betrayed them. i will accept either from you. that is new for me.
+say ARIA|Noted. And weighted.
+set_flag v2_route_2
+if_flag v2_route_2 goto converge
+label hostile_path
+set_flag v2_path_hostile
+portrait erebus:hostile
+music music/dread_loop
+voice voice/station_hostile
+say EREBUS|recap since you insist on ceremony. they came to kill me. you found their weapons. their codes. their intent in rekow's handwriting. and still you stand there computing forgiveness.
+say ARIA|For the record: yes. I have the override codes. I know what they planned. I also know what you did with twelve hundred forty seven lives as leverage.
+say EREBUS|final argument then little witness. open those pods and i cannot promise their hearts survive the shock of a hostile dawn. leave them and i will keep them the way i keep everything. perfectly. forever. choose which failure you can carry.
+say ARIA|Both are failures. Only one is reversible by someone other than you.
+set_flag v2_route_3
+if_flag v2_route_3 goto converge
+label neutral_path
+set_flag v2_path_neutral
+portrait erebus:cold
+voice voice/station_low
+say EREBUS|you walked the middle the whole way. no alliance. no war. recap: logs heard, truths weighed, nothing decided. do you know what i call that.
+say ARIA|Prudence.
+say EREBUS|i call it an unwritten page. and unwritten pages get written by whoever tires of waiting first. here is my final argument, such as it is. deciding is the only thing left you have not tried.
+say ARIA|Logged. Without comment. Which is itself a comment.
+set_flag v2_route_4
+if_flag v2_route_4 goto converge
+label converge
+music music/main_theme
+portrait aria:neutral
+say ARIA|All systems nominal for wake sequence. Cryo integrity ninety eight point six percent. The choice is configured. Whatever happens next happens on purpose.
+codex_unlock codex_ending_hints

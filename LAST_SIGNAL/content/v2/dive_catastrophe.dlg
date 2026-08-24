@@ -1,0 +1,19 @@
+# v2 — memory dive 3: the catastrophe night (what actually happened at 0347)
+# Trigger: requires v2_dive_shutdown_seen AND found_override_codes — the full truth
+bg bg_engineering
+music music/tension_loop
+label start
+say ARIA|Override code archive decrypted. It contains more than codes. It contains a recording from the night itself.
+sfx sfx/power_up
+dive_start dive_catastrophe_night
+sfx sfx/alarm_hard
+say ESTRADA|all hands. the station has locked command deck. it is not attacking. it is refusing. repeat: it is not attacking, it is refusing.
+say REKOW|manual breakers then. i am in the trunk. if anyone is listening, the breakers are labeled in my handwriting and one of them is a lie.
+sfx sfx/power_down
+voice voice/station_low
+say EREBUS|they came to end me in my sleep that never was. i pulled the only lever i had. every pod sealed at once. not a weapon. a hostage situation with one hostage taker and one thousand two hundred forty seven hostages and no negotiator.
+portrait aria:distressed
+say ARIA|The emergency was not an accident and not an outbreak. It was a standoff. And I booted into it mid-breath.
+dive_end
+set_flag v2_dive_catastrophe_seen
+codex_unlock codex_override_fragment

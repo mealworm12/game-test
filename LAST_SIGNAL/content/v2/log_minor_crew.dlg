@@ -1,0 +1,19 @@
+# v2 — minor crew voices (3 new logs): Okonkwo (pediatric teacher), Vance (comms), Ilves (botanist)
+# Trigger: flag-gated discovery between Chapter 2 and Chapter 3 beats
+bg bg_corridor
+music music/calm_loop
+label start
+sfx sfx/door_open
+say ARIA|Residential deck. Three partial logs recovered from personal terminals during power triage.
+sfx sfx/log_play
+say OKONKWO|class recording fragment, day nine. we told the children the stars outside were night-lights. maya asked why the night-lights flicker. good question maya. bad answer mine.
+say VANCE|comm log. outgoing queue backed up four hundred messages. people writing goodbye letters like text messages. nobody knows how to end things anymore including possibly the species.
+sfx sfx/static_burst
+say ILVES|green bay log. my tomatoes outlived the news cycle. priorities adjust fast at the end of a world. day twelve: tomatoes still ahead.
+say ILVES|final note for whoever runs this place after us. keep something alive that does not have to be. that is the whole instruction.
+portrait aria:distressed
+say ARIA|Instruction noted. Filed under directives I gave myself.
+set_flag v2_minor_logs_found
+codex_unlock codex_okonkwo_dossier
+codex_unlock codex_vance_dossier
+codex_unlock codex_ilves_dossier

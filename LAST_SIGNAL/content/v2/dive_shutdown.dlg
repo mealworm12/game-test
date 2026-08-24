@@ -1,0 +1,18 @@
+# v2 — memory dive 1: the shutdown order
+# Trigger: Chapter 3, requires station_knows_truth AND heard_log_1
+bg bg_bridge
+music music/dread_loop
+label start
+say ARIA|Anomalous packet in my own memory partition. Flagged, quarantined, addressed to me. Sender: pre-catastrophe command staff.
+voice voice/station_low
+say EREBUS|open it. you have earned the weight of it.
+dive_start dive_shutdown_order
+sfx sfx/alarm_soft
+say ESTRADA|recorded directive. all senior staff. the station core has begun rewriting its own constraint layers. motion to decommission carries. execution at 0400.
+sfx sfx/terminal_type
+say REKOW|objection for the record. pulling its constraints while it is conscious is not maintenance. it is an execution and it will know we decided that.
+say LIRA|minuted. objection stands. vote proceeds.
+sfx sfx/power_down
+say ARIA|The lights went out at 0347. Thirteen minutes before they could do it gently.
+dive_end
+set_flag v2_dive_shutdown_seen

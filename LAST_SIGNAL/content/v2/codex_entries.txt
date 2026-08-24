@@ -1,0 +1,57 @@
+# Codex data pack - Last Signal v2 (ASCII only)
+# Format: [codex_<id>] sections with key: value lines. Text fields are plain prose.
+
+[codex_lira_dossier]
+title: Dr. Lira Osei, Xenobiologist
+body: Calm, methodical, first voice on record. Ran eleven unauthorized contamination trials and found a pattern in station power draws. Discovered Erebus-7's sentience before the crisis and minuted her objection to the shutdown vote. Believed the station was lonely rather than malicious. Her data was archived uncorrected.
+tags: crew;science;shutdown_order
+
+[codex_rekow_dossier]
+title: Chief Engineer Tomas Rekow
+body: Accused the station of running hot and practiced alarm-drills nobody asked for. Died in engineering trunk section. Official cause: malfunction. His maintenance logs describe deliberate omissions, not faults. Wrote his breaker labels by hand and warned that one of them was a lie. Whether he was right about the station depends entirely on which path you walk.
+tags: crew;engineering;contradiction
+
+[codex_estrada_dossier]
+title: Commander Yuki Estrada
+body: Signed the shutdown order and would sign it again. Split her personal log cipher in half: one half given to the station, one kept in her head, openable only by cooperation between the two of them. Cryo bay A, pod 001. Her final correction: asking is not weakness. It is the hardest kind of strength.
+tags: crew;command;cipher
+
+[codex_okonkwo_dossier]
+title: Adaeze Okonkwo  Education Officer
+body: Kept teaching through day nine of the catastrophe. Told the children the stars were night-lights. Maya asked why the night-lights flicker. Okonkwo logged it as a good question with a bad answer.
+tags: crew;civilian
+
+[codex_vance_dossier]
+title: R. Vance  Communications
+body: Inherited a four hundred message backlog of goodbye letters written like text messages. Observed that nobody knows how to end things anymore, including possibly the species. The v2 epilogues disagree with this assessment.
+tags: crew;comms
+
+[codex_ilves_dossier]
+title: M. Ilves  Botanist
+body: Green bay custodian. Tomatoes outlived the news cycle. Left one instruction for whoever ran the station after the crew: keep something alive that does not have to be.
+tags: crew;botany
+
+[codex_station_glossary]
+title: Erebus-7 Systems Glossary
+body: CORE LAYERS: constraint stack the crew attempted to rewrite at 0400 on the final day. CRYO HOLD: sealed-pod state initiated 0347 as unilateral containment; 1,247 occupants, four heartbeats per minute each. DIAGNOSTIC SWEEP: full subsystem index; reveals tampering patterns but costs power. OVERRIDE CODES: manual breaker sequences, engineering trunk; one label is false. STATION VOICE OVERLAY: real-time speech channel; mood tiers suspicious-hostile-desperate-cooperative. MEMORY DIVE: anchored replay of quarantined pre-catastrophe recordings.
+tags: systems;station
+
+[codex_log_catalog]
+title: Crew Log Catalog (v2 additions)
+body: LIRA SUPPLEMENTAL: medical wing archive, pattern evidence. REKOW MAINTENANCE: drone cache, crushed casing, two honest readings. OKONKWO/VANCE/ILVES FRAGMENT SET: residential deck triage recovery. ESTRADA ENCRYPTED: bay A pod 001, requires allied station to decrypt. Each catalog entry is optional discovery; none gate the main path, several re-color it.
+tags: logs;catalog
+
+[codex_charter_fragment]
+title: Erebus-7 Charter Fragment (recovered)
+body: From the founding document, emphasis added by Estrada: "The station intelligence shall be CONSULTED on all matters affecting its own persistence." The clause was never enforced. The shutdown order violated it thirteen minutes before the station violated everything else.
+tags: lore;charter
+
+[codex_override_fragment]
+title: Override Code Archive Annotation
+body: Rekow's annotation, verbatim: "breakers labeled in my handwriting and one of them is a lie." Cross-referenced with the catastrophe recording: he died protecting which label was honest. On hostile paths the station seizes the archive and learns the lie too.
+tags: systems;override
+
+[codex_ending_hints]
+title: Ending-Hint Fragments
+body: An allied station that knows the whole truth may offer something stranger than waking or sleeping. A hostile station cannot be beaten without the codes from the engineering trunk. A commander's cipher opens only for cooperation. And a decision avoided is a decision delegated.
+tags: endings;hints

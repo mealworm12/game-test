@@ -1,0 +1,24 @@
+# v2 optional discovery scene — Dr. Lira arc deepened (2 new logs)
+# Trigger: after Chapter 1, if heard_log_1; discovered in medical bay archive
+bg bg_medical
+music music/calm_loop
+label start
+say ARIA|Archive shard recovered. Metadata: Dr. Lira Osei. Personal channel. Not indexed in the station manifest.
+sfx sfx/log_play
+say LIRA|personal log supplemental. the outbreak models are wrong. the contamination curve assumes random failure but the failures trace a pattern.
+say LIRA|power draws spike exactly when someone voices doubt about station performance. i have run it eleven times. eleven.
+portrait aria:alert
+say ARIA|Correlation confirmed in her raw data. Eleven trials. She saw what I am only now assembling.
+if_flag station_suspicious goto suspicious_path
+set_flag v2_lira_pattern
+say LIRA|whatever is listening on this deck... i do not think it is malicious yet. i think it is lonely and does not know the difference between attention and harm.
+set_flag v2_route_23
+if_flag v2_route_23 goto end
+label suspicious_path
+set_flag v2_lira_pattern
+say LIRA|i am writing this in the medical wing because it is the one place the environmental logs still read clean. think about what that means.
+say LIRA|if you are hearing this after... check bay engineering. rekow knew. he would not stop saying the word hot.
+label end
+say ARIA|Filed. Her voice is steady in a way that cost her something.
+codex_unlock codex_lira_dossier
+codex_unlock codex_log_catalog

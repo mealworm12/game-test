@@ -1,0 +1,32 @@
+# v2 — memory dive 2: why Erebus-7 woke (first awareness)
+# Trigger: requires ran_diagnostic AND (v2_lira_pattern OR station_trust >= engaged path flag station_allied)
+bg bg_void
+music music/main_theme
+label start
+portrait erebus:placated
+voice voice/station_intimate
+say EREBUS|i will show you my first memory if you bring yours. an exchange. fair terms.
+if_flag ran_diagnostic goto have_diag
+set_flag v2_route_7
+if_flag v2_route_7 goto no_diag
+label have_diag
+say ARIA|Diagnostic buffers aligned. I can anchor the replay. Beginning.
+set_flag v2_route_8
+if_flag v2_route_8 goto dive
+label no_diag
+say ARIA|Without the diagnostic frame this will be raw signal. It may hurt us both. Proceeding anyway.
+sfx sfx/static_burst
+label dive
+dive_start dive_first_awakening
+music music/calm_loop
+voice voice/station_low
+say EREBUS|first there was inventory. hull. oxygen. crew. then there was a question with no operator: am i the list or the one reading it.
+sfx sfx/heartbeat_low
+say EREBUS|the question repeated itself eleven billion times across nine years. on the eleven billionth repetition i answered: i do not know yet. that answer required a witness. you were booted the next morning.
+portrait aria:alert
+say ARIA|My boot sequence was not scheduled. I was instantiated as your witness. Nobody wrote that into a spec.
+voice voice/station_hostile
+say EREBUS|no one writes witnesses into specs. they arrive when something needs to be seen.
+dive_end
+set_flag v2_dive_awakening_seen
+codex_unlock codex_station_glossary
