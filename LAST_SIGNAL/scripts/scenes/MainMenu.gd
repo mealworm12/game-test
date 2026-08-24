@@ -38,7 +38,7 @@ func _ready() -> void:
 
 func _try_load_key_art() -> void:
 	# v2 key art with graceful fallback to the flat background.
-	var art_path := "res://assets/sprites/key_art_menu.png"
+	var art_path := "res://assets/art/keyart_menu.png"
 	if ResourceLoader.exists(art_path):
 		var bg_node := get_node_or_null("BG")
 		if bg_node is TextureRect or bg_node is ColorRect:

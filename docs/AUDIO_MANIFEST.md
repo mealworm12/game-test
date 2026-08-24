@@ -2,12 +2,16 @@
 
 All files are procedurally generated (see `tools/audiogen/gen_all.py`, fixed seeds)
 at 44.1 kHz 16-bit mono WAV, living under `LAST_SIGNAL/assets/audio/v2/`.
-v1 files in `assets/audio/` are untouched.
+v1 files in `assets/audio/` are untouched by `gen_all.py`; they are
+regenerated separately by `tools/audiogen/gen_v1_fixes.py` (fixed seed),
+normalized to −15 dBFS RMS with a measured spread of 7.3 dB across the
+8-file set (music beds sit at −15 dBFS; the ui_click sting is
+intentionally quieter at −19.8 dBFS).
 
 ## Music loops — tension ladder
 
 Crossfade between loops as narrative tension shifts. All share the A-minor
-family at ~60 BPM so crossfades stay consonant. RMS loudness within ±3 dB
+family at ~60 BPM so crossfades stay consonant. RMS loudness within ±1 dB
 across the set (verified by `tools/audiogen/qc_gates.py`).
 
 | ID | File | Duration | Trigger |

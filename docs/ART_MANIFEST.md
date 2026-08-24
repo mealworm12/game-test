@@ -70,6 +70,26 @@ All pieces are 9-slice friendly (flat center, decorated borders).
 | `ui_codex_panel.png` | 640x480 | codex panel (blue/orange) |
 | `ui_save_slot.png` | 560x120 | save-slot frame with preview window |
 
+## v1 backgrounds + void (`LAST_SIGNAL/assets/backgrounds/`) — generator: gen_v1_fixes.py
+
+Regenerated v1.0 backgrounds (were flat single-hue fields) plus bg_void.
+Palette matches the v2 set: deep-space blue/teal with signal-orange accents.
+
+| File | Size | Use | Composition |
+|------|------|-----|-------------|
+| `bg_bridge.png` | 1280x720 | Bridge chapter scenes | viewport windows over starfield, console rows |
+| `bg_corridor.png` | 1280x720 | Corridor transitions | receding concentric door frames, lit bulkhead |
+| `bg_cryobay.png` | 1280x720 | Cryo bay scenes | four cryopods with occupant silhouettes, status lamps |
+| `bg_engineering.png` | 1280x720 | Engineering scenes | reactor column, conduit runs, indicator lights |
+| `bg_medical.png` | 1280x720 | Medbay scenes | scanner arch, biometric readouts, supply panels |
+| `bg_void.png` | 1280x720 | Void/exterior beats | deep-space gradient, starfield, distant station silhouette |
+
+## ARIA avatar sprite (`LAST_SIGNAL/assets/sprites/`) — generator: gen_v1_fixes.py
+
+| File | Size | Use | Notes |
+|------|------|-----|-------|
+| `ai_avatar.png` | 32x32 RGBA | ARIA-7 dialog avatar (v1 UI) | teal-faced robot head, orange eye accent, antenna |
+
 ## Verification
 
 `python3 tools/artgen/verify_assets.py` opens every PNG (size/mode/alpha/
