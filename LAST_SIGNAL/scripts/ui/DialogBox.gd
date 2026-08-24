@@ -69,6 +69,17 @@ func _on_choice_requested(choices: Array) -> void:
 
 
 func _update_display() -> void:
+	var size_idx: int = clampi(int(Settings.get_setting("text_size", 1)), 0, 2)
+	var sizes: Array[int] = [16, 20, 26]
+	text_label.add_theme_font_size_override("font_size", sizes[size_idx])
+	if bool(Settings.get_setting("high_contrast", false)):
+		text_label.add_theme_color_override("font_color", Color.WHITE)
+		text_label.add_theme_constant_override("outline_size", 4)
+		text_label.add_theme_color_override("font_outline_color", Color.BLACK)
+	else:
+		text_label.remove_theme_color_override("font_color")
+		if text_label.has_theme_constant_override("outline_size"):
+			text_label.remove_theme_constant_override("outline_size")
 	speaker_label.text = DialogManager.get_speaker_name()
 	speaker_label.modulate = DialogManager.get_speaker_color()
 	text_label.text = DialogManager.get_current_text()

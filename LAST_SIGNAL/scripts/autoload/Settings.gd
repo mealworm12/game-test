@@ -16,6 +16,10 @@ var data: Dictionary = {
 	"sfx_volume": 0.8,
 	"text_speed": 0.03,
 	"fullscreen": false,
+	# v2 accessibility
+	"text_size": 1,          # 0 = small, 1 = medium, 2 = large
+	"high_contrast": false,
+	"crt_intensity": 0.5,    # 0..1 - scales scanlines/flicker/shake (photosensitivity)
 }
 
 func _ready() -> void:
@@ -34,6 +38,15 @@ func set_setting(key: String, value: Variant) -> void:
 
 func get_setting(key: String, default: Variant = null) -> Variant:
 	return data.get(key, default)
+
+
+func set_setting_force(key: String, value: Variant) -> void:
+	"""Like set_setting but accepts new keys (used by v2 migration of
+	old settings files that predate a key)."""
+	data[key] = value
+	save_settings()
+	settings_changed.emit(key, value)
+	_apply_setting(key)
 
 func save_settings() -> void:
 	var f = FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)

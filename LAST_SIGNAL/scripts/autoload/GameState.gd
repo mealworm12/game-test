@@ -66,6 +66,11 @@ func has_ending(ending_id: String) -> bool:
 
 # ---- Save / Load ------------------------------------------------
 
+func save_game_state() -> void:
+	"""Persist current progress without mutating it (v2)."""
+	_save_game()
+
+
 func _save_game() -> void:
 	var save_data = {
 		"current_chapter": current_chapter,

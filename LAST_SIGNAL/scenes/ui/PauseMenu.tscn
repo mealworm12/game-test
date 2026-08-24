@@ -84,6 +84,26 @@ layout_mode = 2
 text = "Settings"
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 
+[node name="BacklogBtn" type="Button" parent="PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+text = "Dialog Log [B]"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+
+[node name="SaveBtn" type="Button" parent="PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+text = "Save Game"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+
+[node name="LoadBtn" type="Button" parent="PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+text = "Load Game"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+
+[node name="CodexBtn" type="Button" parent="PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+text = "Archive"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+
 [node name="QuitBtn" type="Button" parent="PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
 text = "Quit"

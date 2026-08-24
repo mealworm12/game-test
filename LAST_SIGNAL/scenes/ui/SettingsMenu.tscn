@@ -114,6 +114,35 @@ layout_mode = 2
 max_value = 90.0
 value = 70.0
 
+[node name="TextSizeLabel" type="Label" parent="PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+text = "Text Size"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1.0)
+theme_override_font_sizes/font_size = 18
+
+[node name="TextSizeBtn" type="OptionButton" parent="PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="ContrastBtn" type="CheckButton" parent="PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+text = "High Contrast Text"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1.0)
+theme_override_font_sizes/font_size = 18
+
+[node name="CRTLabel" type="Label" parent="PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+text = "CRT / Shake Intensity"
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1.0)
+theme_override_font_sizes/font_size = 18
+
+[node name="CRTSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+max_value = 100.0
+value = 50.0
+
 [node name="FullscreenBtn" type="CheckButton" parent="PanelContainer/MarginContainer/VBox"]
 layout_mode = 2
 text = "Fullscreen"
