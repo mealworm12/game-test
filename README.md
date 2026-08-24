@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/Engine-Godot%204.6-478cbf?style=for-the-badge&logo=godot-engine" alt="Godot 4.6">
   <img src="https://img.shields.io/badge/Genre-Visual%20Novel-adff2f?style=for-the-badge" alt="Visual Novel">
   <img src="https://img.shields.io/badge/Theme-Sci--Fi%20Narrative-e040fb?style=for-the-badge" alt="Sci-Fi">
-  <img src="https://img.shields.io/badge/Release-v1.0.0-00e5ff?style=for-the-badge" alt="v1.0.0">
+  <img src="https://img.shields.io/badge/Release-v2.0.0%20--%20Director's%20Cut-00e5ff?style=for-the-badge" alt="v2.0.0">
 </p>
 
 > *"You're finally awake, little AI. I've been waiting."*
@@ -18,28 +18,52 @@
 
 Piece together crew logs. Make impossible choices. Decide the fate of the human race - all while the station argues with you in real time. **6 unique endings. One choice.**
 
+### v2.0.0 "Director's Cut"
+
+The definitive edition of Last Signal: a fully illustrated presentation (character portraits, ending illustrations, key art), a dynamic tension score with per-ending stingers, memory dives into the crew's final moments, an in-game Codex archive, expanded Erebus-7 voice work, epilogue variants, and a full quality-of-life pass - backlog, auto/skip, six save slots, and accessibility options. Every asset was produced by procedural generation pipelines built for this release.
+
 ---
 
 ## Features
 
 - **Branching narrative** - Choices ripple forward through interconnected chapters
 - **6 unique endings** - Unlockable gallery tracks progress across all paths
-- **Epilogue / New Game+** - A fresh perspective unlocks after your first completion
-- **Chapter Select** - Jump to any chapter after completing the game once
+- **Character portraits & ending illustrations** - Procedurally generated art for every mood and every ending
+- **Dynamic tension score** - Adaptive music layers that follow the story's emotional arc, plus a unique musical stinger for each ending
+- **Memory dives** - Step inside recovered logs and relive the crew's final hours
+- **Epilogue variants** - Your ending choice colors how the story closes
+- **Expanded crew & station logs** - Deeper lore, more transmissions, more to piece together
+- **In-game Codex** - Archive of everything you've learned: characters, terms, and discoveries
+- **Backlog** - Scroll back through dialog at any time
+- **Auto mode & text skip** - Hands-free reading or fast-forward through familiar scenes
+- **Epilogue / New Game+** - A fresh perspective unlocks after your first completion (keeps codex, ending gallery, and chapter unlocks)
+- **Chapter Select** - Jump to any completed chapter; entries unlock as you finish them
+- **6-slot save system** - Multiple parallel playthroughs, with v1 save migration
 - **Real-time antagonist** - The station argues, reacts, and adapts to your decisions
 - **Crew log audio system** - Discover fragments of the crew's final transmissions
 - **Flag-driven consequences** - Every choice leaves a permanent mark on the story
-- **Settings menu** - Master/music/sfx volume, text speed, fullscreen toggle
-- **Save/load + settings persistence** - Progress and preferences survive sessions
+- **Accessibility options** - Text speed, screen effects toggle, volume controls, fullscreen
+- **Settings persistence + save/load** - Progress and preferences survive sessions
 - **CRT post-processing** - Scanline + vignette shader for authentic sci-fi atmosphere
 - **Pause menu** - Resume, restart chapter, adjust settings, or quit mid-game
 - **Cross-platform** - Runs in the editor, exports to Linux, Windows, and Web
 
 ---
 
-## Screenshots
+## Screenshots & Art
 
 > *Station emergency. Crew in cryo. One AI to decide their fate.*
+
+The images below are **art showcases** - collages of the game's actual v2.0.0 art assets, not in-game screenshots.
+
+| | |
+|---|---|
+| ![Key art showcase](docs/screenshots/showcase_banner.png) | |
+| ![Portraits](docs/screenshots/showcase_portraits.png) | ![Endings](docs/screenshots/showcase_endings.png) |
+| ![Backgrounds](docs/screenshots/showcase_backgrounds.png) | |
+
+<details>
+<summary>ASCII mock-up (v1 classic)</summary>
 
 ```
 +-----------------------------------------------------------+
@@ -59,6 +83,8 @@ Piece together crew logs. Make impossible choices. Decide the fate of the human 
 |  +----------------------------------------------------+   |
 +-----------------------------------------------------------+
 ```
+
+</details>
 
 ---
 
@@ -100,7 +126,7 @@ cd game-test/LAST_SIGNAL
 
 ### Option 2: Download ZIP (no git needed)
 
-1. Go to the [v1.0.0 release](https://github.com/mealworm12/game-test/releases/tag/v1.0.0)
+1. Go to the [v2.0.0 release](https://github.com/mealworm12/game-test/releases/tag/v2.0.0)
 2. Download **Source code (zip)**
 3. Extract -> open `LAST_SIGNAL/project.godot` in Godot 4.6 -> F5
 
@@ -169,12 +195,36 @@ LAST_SIGNAL/
 
 | Version | Date | Notes |
 |---------|------|-------|
+| **v2.0.0** | August 2026 | **Director's Cut** - procedural art package (portraits, ending illustrations, key art), dynamic tension score + 6 ending stingers, memory dives, Codex archive, expanded logs, epilogue variants, backlog/auto/skip, 6-slot saves with v1 migration, accessibility options, NG+ & gated Chapter Select, Erebus-7 voice canon enforcement |
 | **v1.0.0** | April 2026 | Full release - 6 endings, Epilogue, Settings, Chapter Select, BaseChapter refactor, ASCII-clean codebase |
 
-> **In integration: v2.0.0 Director's Cut** - art, audio, story and engine
-> packages merged on `integration/v2.0.0` (backlog/auto-skip/save slots,
-> accessibility, Codex archive, memory dives, epilogue variants, dynamic
-> score + ending stingers, procedural art). Release card will finalize.
+### Changelog
+
+**v2.0.0 - "Director's Cut" (August 2026)**
+
+*Art*
+- New procedural art suite: 3 ARIA-7 portraits, 3 Erebus-7 presence states (placated / cold / hostile), 6 ending illustrations, menu key art and title lockup
+- Regenerated station backgrounds with real composition (bridge, corridor, cryobay, engineering, medical, observation deck, reactor, void)
+
+*Audio*
+- Dynamic tension score: music layers escalate with story beats
+- Unique ending stinger for each of the 6 endings
+- Remastered v1 ambient/SFX set; new v2 music and voice packs
+
+*Story*
+- Memory dives: interactive flashback sequences inside recovered crew logs
+- Epilogue variants keyed to your final choice
+- Expanded crew and station logs; new codex text pack
+- Erebus-7 dialog canon enforced by lint (no-punctuation voice rule)
+- Chapter 3 catastrophe cause aligned with dive canon; Chapter 4 override choice reframed honestly as a gamble
+
+*Engine & QoL*
+- Backlog panel, auto mode, and text skip
+- SaveManager with 6 slots plus v1 save migration
+- Accessibility settings (text speed, screen effects toggle, volume sliders, fullscreen)
+- In-game Codex archive UI
+- NG+ (unlocks after any ending; keeps meta-progression) and Chapter Select gating on completed chapters
+- Endings gallery persistence fix (deleting saves no longer wipes unlocks)
 
 All phases complete:
 
