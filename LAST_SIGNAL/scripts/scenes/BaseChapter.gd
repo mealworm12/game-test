@@ -71,7 +71,10 @@ func _noop(enabled: bool) -> void:
 func _connect_signals() -> void:
 	DialogManager.dialog_started.connect(_on_dialog_started)
 	DialogManager.dialog_finished.connect(_on_chapter_dialog_finished)
-	ChoiceMenu.choice_made.connect(_on_choice_made)
+	# Connect to the ChoiceMenu INSTANCE's signal. Referring to the
+	# class name itself (ChoiceMenu.choice_made) is a compile error -
+	# signals live on instances - and it broke every chapter script.
+	choice_menu.choice_made.connect(_on_choice_made)
 	if not DialogManager.background_changed.is_connected(_on_bg_changed):
 		DialogManager.background_changed.connect(_on_bg_changed)
 	if not DialogManager.dive_state_changed.is_connected(_on_dive_changed):

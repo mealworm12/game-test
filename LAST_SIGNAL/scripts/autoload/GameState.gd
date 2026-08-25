@@ -100,9 +100,17 @@ func load_game() -> bool:
 	if typeof(save_data) != TYPE_DICTIONARY:
 		return false
 	current_chapter = save_data.get("current_chapter", "")
-	chapter_history = save_data.get("chapter_history", [])
+	# JSON.parse yields UNTYPED arrays; assign element-wise so the
+	# typed Array[String] members never hit a runtime type error
+	# (a direct assignment aborts load_game on every boot after a save).
+	var hist = save_data.get("chapter_history", [])
+	chapter_history.clear()
+	for h in hist:
+		chapter_history.append(str(h))
 	flags = save_data.get("flags", {})
-	endings_unlocked = save_data.get("endings_unlocked", [])
+	endings_unlocked.clear()
+	for e in save_data.get("endings_unlocked", []):
+		endings_unlocked.append(str(e))
 	return true
 
 

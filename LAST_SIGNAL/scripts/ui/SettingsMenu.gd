@@ -20,10 +20,10 @@ const TEXT_SIZE_LABELS: Array[String] = ["Small", "Medium", "Large"]
 
 func _ready() -> void:
 	visible = false
-	_connect_signals()
-	_load_values()
 	for label in TEXT_SIZE_LABELS:
 		text_size_btn.add_item(label)
+	_connect_signals()
+	_load_values()
 
 func _connect_signals() -> void:
 	master_slider.value_changed.connect(_on_master_changed)
