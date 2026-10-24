@@ -14,7 +14,9 @@ const ENDING_SCENES: Array = [
 ]
 
 @onready var scroll_container: ScrollContainer = $VBox/ScrollContainer
-@onready var ending_grid: GridContainer = $VBox/ScrollContainer/EndingGrid
+# The gallery is a stacked list of full-width rows; the scene node is a
+# VBoxContainer. Typing it GridContainer aborted _ready() at runtime.
+@onready var ending_grid: VBoxContainer = $VBox/ScrollContainer/EndingGrid
 @onready var back_btn: Button = $VBox/BackBtn
 
 func _ready() -> void:

@@ -10,15 +10,15 @@ signal returned_to_menu
 signal quit_requested
 
 @onready var panel: PanelContainer = $PanelContainer
-@onready var resume_btn: Button = $PanelContainer.MarginContainer.VBox.ResumeBtn
-@onready var restart_btn: Button = $PanelContainer.MarginContainer.VBox.RestartBtn
-@onready var menu_btn: Button = $PanelContainer.MarginContainer.VBox.MenuBtn
-@onready var settings_btn: Button = $PanelContainer.MarginContainer.VBox.SettingsBtn
-@onready var backlog_btn: Button = $PanelContainer.MarginContainer.VBox.BacklogBtn
-@onready var save_btn: Button = $PanelContainer.MarginContainer.VBox.SaveBtn
-@onready var load_btn: Button = $PanelContainer.MarginContainer.VBox.LoadBtn
-@onready var codex_btn: Button = $PanelContainer.MarginContainer.VBox.CodexBtn
-@onready var quit_btn: Button = $PanelContainer.MarginContainer.VBox.QuitBtn
+@onready var resume_btn: Button = $PanelContainer/MarginContainer/VBox/ResumeBtn
+@onready var restart_btn: Button = $PanelContainer/MarginContainer/VBox/RestartBtn
+@onready var menu_btn: Button = $PanelContainer/MarginContainer/VBox/MenuBtn
+@onready var settings_btn: Button = $PanelContainer/MarginContainer/VBox/SettingsBtn
+@onready var backlog_btn: Button = $PanelContainer/MarginContainer/VBox/BacklogBtn
+@onready var save_btn: Button = $PanelContainer/MarginContainer/VBox/SaveBtn
+@onready var load_btn: Button = $PanelContainer/MarginContainer/VBox/LoadBtn
+@onready var codex_btn: Button = $PanelContainer/MarginContainer/VBox/CodexBtn
+@onready var quit_btn: Button = $PanelContainer/MarginContainer/VBox/QuitBtn
 
 var _settings_menu: CanvasLayer = null
 var _backlog_panel: CanvasLayer = null
@@ -26,6 +26,10 @@ var _save_load_menu: CanvasLayer = null
 var _codex_ui: CanvasLayer = null
 
 func _ready() -> void:
+	# The pause menu is shown while the tree is paused, so it must keep
+	# processing input — with the default INHERIT mode it Freezes itself and
+	# the game can never be unpaused.
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = false
 	_connect_buttons()
 
@@ -66,6 +70,7 @@ func _on_load() -> void:
 	if not _save_load_menu:
 		_save_load_menu = preload("res://scenes/ui/SaveLoadMenu.tscn").instantiate()
 		add_child(_save_load_menu)
+		_save_load_menu.closed.connect(func(): get_tree().paused = false)
 	get_tree().paused = false
 	visible = false
 	_save_load_menu.open("load")

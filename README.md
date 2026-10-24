@@ -176,6 +176,8 @@ LAST_SIGNAL/
 |   |-- audio/sfx/             # ambient_hum, ambient_void, log_play, station_voice, ui_click
 |   |-- backgrounds/           # bg_bridge, bg_corridor, bg_cryobay, bg_engineering, bg_medical, bg_void
 |   |-- sprites/               # ai_avatar.png
+|-- content/v2/                # .dlg scripts + codex text pack
+|-- tests/                     # headless smoke suite (SmokeTest.tscn)
 |-- shaders/                   # scanline_vignette.gdshader
 ```
 
@@ -194,9 +196,29 @@ LAST_SIGNAL/
 ## Development
 
 | Version | Date | Notes |
-|---------|------|-------|
+|---|---|---|
 | **v2.0.0** | August 2026 | **Director's Cut** - procedural art package (portraits, ending illustrations, key art), dynamic tension score + 6 ending stingers, memory dives, Codex archive, expanded logs, epilogue variants, backlog/auto/skip, 6-slot saves with v1 migration, accessibility options, NG+ & gated Chapter Select, Erebus-7 voice canon enforcement |
 | **v1.0.0** | April 2026 | Full release - 6 endings, Epilogue, Settings, Chapter Select, BaseChapter refactor, ASCII-clean codebase |
+
+### Verification
+
+```bash
+python3 tools/static_check.py        # GDScript/scene lint (no Godot needed)
+python3 tools/story_lint.py          # dialog + asset-id contract
+python3 tools/v2_reference_check.py  # v2 ids, portraits, stingers
+
+godot --headless --path LAST_SIGNAL --import
+godot --headless --path LAST_SIGNAL res://tests/SmokeTest.tscn
+```
+
+`tools/static_check.py` also rejects scene scripts that are declared but never
+attached to a node, and Godot 3 node types that no longer exist in Godot 4 — a
+scene with either runs without its logic or silently loses its layout.
+
+The smoke suite asserts that the pause menu keeps processing while the tree is
+paused, that save rows map to the slot they display, and that a chapter's v2 log
+plays before its classic dialog instead of replacing it. CI runs those steps on
+Godot 4.6.3 plus a sweep that loads every scene and fails on any `SCRIPT ERROR`.
 
 ### Changelog
 

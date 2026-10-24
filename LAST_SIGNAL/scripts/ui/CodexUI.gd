@@ -18,6 +18,7 @@ const REDACTED_BODY := "[RECORD ENCRYPTED]\n\nAccess to this entry has not yet b
 var _ids: Array[String] = []
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = false
 	back_btn.pressed.connect(close)
 	entry_list.item_selected.connect(_on_entry_selected)

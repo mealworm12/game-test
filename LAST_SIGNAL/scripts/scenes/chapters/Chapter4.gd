@@ -11,6 +11,7 @@ func _get_background_path() -> String:
 	return BG
 
 func _on_chapter_begin() -> void:
+	defer_dialog()
 	AudioManager.play_music(AudioManager.MUSIC_MELANCHOLY)
 	apply_chapter_tension(1 if GameState.has_flag("station_allied") else 3)
 	await get_tree().create_timer(1.0).timeout
@@ -18,6 +19,7 @@ func _on_chapter_begin() -> void:
 	# v2: pre-choice scene, dominant path via flag priority hostile > allied > neutral.
 	if not GameState.has_flag("v2_path_allied") and not GameState.has_flag("v2_path_hostile") and not GameState.has_flag("v2_path_neutral"):
 		run_v2_script("ch4_prechoice")
+	_chapter_begin_complete()
 
 func get_dialog_data() -> Array:
 	var data: Array = [

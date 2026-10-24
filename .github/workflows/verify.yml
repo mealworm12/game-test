@@ -1,0 +1,61 @@
+name: verify
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      GODOT_VERSION: "4.6.3"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Godot ${{ env.GODOT_VERSION }}
+        run: |
+          curl -sSLo godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          python3 - <<'PY'
+          import os, zipfile
+          z = zipfile.ZipFile("godot.zip")
+          z.extractall("godot-bin")
+          name = [n for n in z.namelist() if n.endswith("linux.x86_64")][0]
+          os.chmod(os.path.join("godot-bin", name), 0o755)
+          os.rename(os.path.join("godot-bin", name), "godot-bin/godot")
+          PY
+          echo "$PWD/godot-bin" >> "$GITHUB_PATH"
+
+      - name: Static checks
+        run: |
+          python3 tools/static_check.py
+          python3 tools/story_lint.py
+          python3 tools/v2_reference_check.py
+
+      - name: Import project
+        run: godot --headless --path LAST_SIGNAL --import
+
+      - name: Smoke suite
+        run: |
+          set -o pipefail
+          rm -rf "$HOME/.local/share/godot/app_userdata/Last Signal"
+          godot --headless --path LAST_SIGNAL res://tests/SmokeTest.tscn 2>&1 | tee smoke.log
+          if grep -q "SCRIPT ERROR" smoke.log; then
+            echo "SCRIPT ERROR detected"; exit 1
+          fi
+
+      - name: Scene sweep (no SCRIPT ERROR on load)
+        run: |
+          fail=0
+          for scene in $(find LAST_SIGNAL/scenes -name '*.tscn' | sort); do
+            out=$(godot --headless --path LAST_SIGNAL "res://${scene#LAST_SIGNAL/}" --quit-after 20 2>&1 || true)
+            if echo "$out" | grep -q "SCRIPT ERROR"; then
+              echo "--- FAIL ${scene}"
+              echo "$out" | grep "SCRIPT ERROR" | head -5
+              fail=1
+            fi
+          done
+          exit $fail

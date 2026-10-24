@@ -10,6 +10,7 @@ func _get_background_path() -> String:
 	return BG
 
 func _on_chapter_begin() -> void:
+	defer_dialog()
 	AudioManager.play_music(AudioManager.MUSIC_TENSION)
 	apply_chapter_tension(2)
 	await get_tree().create_timer(1.0).timeout
@@ -20,6 +21,7 @@ func _on_chapter_begin() -> void:
 		run_v2_script("dive_shutdown")
 	elif GameState.has_flag("v2_dive_shutdown_seen") and GameState.has_flag("found_override_codes") and not GameState.has_flag("v2_dive_catastrophe_seen"):
 		run_v2_script("dive_catastrophe")
+	_chapter_begin_complete()
 
 func get_dialog_data() -> Array:
 	# Build dialog based on flags from Chapter 1

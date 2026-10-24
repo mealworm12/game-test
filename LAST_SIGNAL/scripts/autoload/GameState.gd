@@ -78,11 +78,21 @@ func _save_game() -> void:
 		"flags": flags,
 		"endings_unlocked": endings_unlocked,
 	}
-	var json_str = JSON.stringify(save_data, "\t")
-	var f = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	var json_str = JSON.stringify(save_data, "	")
+	# Atomic-ish: write a temp file, rotate the old file to .bak, then rename.
+	var tmp := SAVE_PATH + ".tmp"
+	var f = FileAccess.open(tmp, FileAccess.WRITE)
 	if f:
 		f.store_string(json_str)
 		f.close()
+		if FileAccess.file_exists(SAVE_PATH):
+			var bak := SAVE_PATH + ".bak"
+			if FileAccess.file_exists(bak):
+				DirAccess.remove_absolute(bak)
+			DirAccess.rename_absolute(SAVE_PATH, bak)
+		DirAccess.rename_absolute(tmp, SAVE_PATH)
+	else:
+		push_warning("GameState: cannot write %s" % tmp)
 
 
 func load_game() -> bool:
@@ -99,10 +109,22 @@ func load_game() -> bool:
 	var save_data = json.get_data()
 	if typeof(save_data) != TYPE_DICTIONARY:
 		return false
-	current_chapter = save_data.get("current_chapter", "")
-	chapter_history = save_data.get("chapter_history", [])
-	flags = save_data.get("flags", {})
-	endings_unlocked = save_data.get("endings_unlocked", [])
+
+	current_chapter = str(save_data.get("current_chapter", ""))
+
+	# Typed arrays must be rebuilt element by element: assigning the raw JSON
+	# Array to Array[String] is a runtime error that aborts load_game() midway.
+	chapter_history.clear()
+	for entry in save_data.get("chapter_history", []):
+		chapter_history.append(str(entry))
+
+	var loaded_flags = save_data.get("flags", {})
+	flags = loaded_flags if typeof(loaded_flags) == TYPE_DICTIONARY else {}
+
+	endings_unlocked.clear()
+	for ending in save_data.get("endings_unlocked", []):
+		endings_unlocked.append(str(ending))
+
 	return true
 
 

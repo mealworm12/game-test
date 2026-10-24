@@ -32,10 +32,47 @@ var _pause_menu: CanvasLayer = null
 var _screen_effects: CanvasLayer = null
 var _autoskip_indicator: CanvasLayer = null
 
+# ── Dialog sequencing ───────────────────────────────────────────────
+# A chapter either starts its classic dialog immediately or defers it while it
+# queues v2 scripts. Without this, an awaited _on_chapter_begin() called
+# run_v2_script() a second into the classic dialog and replaced it; when the
+# script ended it also looked like "chapter finished" and bounced to the menu.
+var _classic_dialog_started: bool = false
+var _dialog_deferred: bool = false
+var _v2_queue: Array[String] = []
+
 func _ready() -> void:
 	_setup_overlays()
 	_connect_signals()
 	_start_chapter()
+
+# Chapters with an awaited setup call this before their first await.
+func defer_dialog() -> void:
+	_dialog_deferred = true
+
+# Called by a chapter when its deferred setup is done.
+func _chapter_begin_complete() -> void:
+	if _play_next_v2_script():
+		return
+	_start_classic_dialog()
+
+func _start_classic_dialog() -> void:
+	var data := get_dialog_data()
+	if data.is_empty():
+		return
+	_classic_dialog_started = true
+	DialogManager.start_dialog(data)
+
+func _play_next_v2_script() -> bool:
+	while not _v2_queue.is_empty():
+		var script_name: String = _v2_queue.pop_front()
+		var path := V2_CONTENT_DIR + script_name + ".dlg"
+		if not FileAccess.file_exists(path):
+			push_warning("BaseChapter: v2 script not found: %s" % path)
+			continue
+		DialogManager.run_script(FileAccess.get_file_as_string(path))
+		return true
+	return false
 
 func _setup_overlays() -> void:
 	_pause_menu = preload("res://scenes/ui/PauseMenu.tscn").instantiate()
@@ -71,7 +108,11 @@ func _noop(enabled: bool) -> void:
 func _connect_signals() -> void:
 	DialogManager.dialog_started.connect(_on_dialog_started)
 	DialogManager.dialog_finished.connect(_on_chapter_dialog_finished)
-	ChoiceMenu.choice_made.connect(_on_choice_made)
+	# Connect through the scene instance: `ChoiceMenu` is a class_name, not an
+	# autoload, and Godot 4.6 rejects signal access on the class itself
+	# ("Cannot find member choice_made in base ChoiceMenu") — which prevented
+	# every chapter script from parsing.
+	choice_menu.choice_made.connect(_on_choice_made)
 	if not DialogManager.background_changed.is_connected(_on_bg_changed):
 		DialogManager.background_changed.connect(_on_bg_changed)
 	if not DialogManager.dive_state_changed.is_connected(_on_dive_changed):
@@ -90,9 +131,9 @@ func _start_chapter() -> void:
 	if bg and ResourceLoader.exists(bg):
 		background.texture = load(bg)
 	_on_chapter_begin()
-	var data = get_dialog_data()
-	if data.size() > 0:
-		DialogManager.start_dialog(data)
+	# Deferred chapters start their own dialog from _chapter_begin_complete().
+	if not _dialog_deferred and _v2_queue.is_empty():
+		_start_classic_dialog()
 
 func _on_bg_changed(path: String) -> void:
 	var resolved := _resolve_bg_path(path)
@@ -130,16 +171,13 @@ func _on_portrait_changed(who: String, expr: String) -> void:
 const V2_CONTENT_DIR := "res://content/v2/"
 
 func run_v2_script(script_name: String) -> bool:
+	# Queue instead of playing immediately so several logs can be chained and
+	# none of them clobber the chapter's classic dialog.
 	var path := V2_CONTENT_DIR + script_name + ".dlg"
 	if not FileAccess.file_exists(path):
 		push_warning("BaseChapter: v2 script not found: %s" % path)
 		return false
-	var f := FileAccess.open(path, FileAccess.READ)
-	if f == null:
-		return false
-	var text := f.get_as_text()
-	f.close()
-	DialogManager.run_script(text)
+	_v2_queue.append(script_name)
 	return true
 
 # Tension-level music switching hooked into chapter progression
@@ -184,5 +222,13 @@ func _get_scene_path(scene_name: String) -> String:
 	return scenes.get(scene_name, "res://scenes/main/MainMenu.tscn")
 
 func _on_chapter_dialog_finished() -> void:
+	# A v2 script just ended: play the next queued script, then the classic
+	# dialog. Only after the classic dialog does the chapter count as done.
+	if _play_next_v2_script():
+		return
+	if not _classic_dialog_started:
+		_start_classic_dialog()
+		if _classic_dialog_started:
+			return
 	chapter_complete.emit()
 	Transition.fade_to_black("res://scenes/main/MainMenu.tscn")
