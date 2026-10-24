@@ -47,6 +47,15 @@ jobs:
             echo "SCRIPT ERROR detected"; exit 1
           fi
 
+      - name: Story and save suite
+        run: |
+          set -o pipefail
+          rm -rf "$HOME/.local/share/godot/app_userdata/Last Signal"
+          godot --headless --path LAST_SIGNAL res://tests/StoryTest.tscn 2>&1 | tee story.log
+          if grep -q "SCRIPT ERROR" story.log; then
+            echo "SCRIPT ERROR detected"; exit 1
+          fi
+
       - name: Scene sweep (no SCRIPT ERROR on load)
         run: |
           fail=0

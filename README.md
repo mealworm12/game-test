@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/Engine-Godot%204.6-478cbf?style=for-the-badge&logo=godot-engine" alt="Godot 4.6">
   <img src="https://img.shields.io/badge/Genre-Visual%20Novel-adff2f?style=for-the-badge" alt="Visual Novel">
   <img src="https://img.shields.io/badge/Theme-Sci--Fi%20Narrative-e040fb?style=for-the-badge" alt="Sci-Fi">
-  <img src="https://img.shields.io/badge/Release-v2.0.0%20--%20Director's%20Cut-00e5ff?style=for-the-badge" alt="v2.0.0">
+  <img src="https://img.shields.io/badge/Release-v2.0.1%20--%20Director's%20Cut-00e5ff?style=for-the-badge" alt="v2.0.1">
 </p>
 
 > *"You're finally awake, little AI. I've been waiting."*
@@ -197,6 +197,7 @@ LAST_SIGNAL/
 
 | Version | Date | Notes |
 |---|---|---|
+| **v2.0.1** | October 2026 | **Production pass** - pause menu and nine node paths repaired, save-slot mapping fixed, credits gallery restored, chapter dialog sequencing (v2 log → classic dialog), atomic saves with .bak recovery, story/save regression suite, Godot 4.6.3 CI |
 | **v2.0.0** | August 2026 | **Director's Cut** - procedural art package (portraits, ending illustrations, key art), dynamic tension score + 6 ending stingers, memory dives, Codex archive, expanded logs, epilogue variants, backlog/auto/skip, 6-slot saves with v1 migration, accessibility options, NG+ & gated Chapter Select, Erebus-7 voice canon enforcement |
 | **v1.0.0** | April 2026 | Full release - 6 endings, Epilogue, Settings, Chapter Select, BaseChapter refactor, ASCII-clean codebase |
 
@@ -209,6 +210,7 @@ python3 tools/v2_reference_check.py  # v2 ids, portraits, stingers
 
 godot --headless --path LAST_SIGNAL --import
 godot --headless --path LAST_SIGNAL res://tests/SmokeTest.tscn
+godot --headless --path LAST_SIGNAL res://tests/StoryTest.tscn
 ```
 
 `tools/static_check.py` also rejects scene scripts that are declared but never
@@ -221,6 +223,32 @@ plays before its classic dialog instead of replacing it. CI runs those steps on
 Godot 4.6.3 plus a sweep that loads every scene and fails on any `SCRIPT ERROR`.
 
 ### Changelog
+
+**v2.0.1 - Production Pass (October 2026)**
+
+*Runtime fixes (verified on Godot 4.6.3)*
+- `BaseChapter.gd` failed to compile (`ChoiceMenu.choice_made` accessed on the class, not the scene instance) — no chapter could load
+- `PauseMenu.tscn` now attaches its script, and nine `@onready` paths use `/` child separators; the pause menu works again
+- Pause and overlay menus use `PROCESS_MODE_ALWAYS`, so a paused tree no longer freezes the pause menu itself
+- `GameState.load_game()` rebuilds typed arrays element-wise (the raw JSON assignment aborted save loading)
+- `Credits.gd` gallery typed as `VBoxContainer` to match the scene (the `GridContainer` mismatch killed `_ready()`)
+
+*Saves and flow*
+- Save rows map to slots via `ItemList` metadata — "Slot 1" can no longer write slot 0
+- Saves write via temp file + `.bak` rotation and recover from a corrupt primary
+- Two-click overwrite guard in the save menu
+- Chapters defer their classic dialog and queue v2 logs: script → next script → classic dialog → chapter complete
+- `ending_progress` removed from the save payload (it was stored but never applied)
+
+*Polish*
+- All visible main-menu buttons animate with a stagger
+- Volume sliders clamp `linear_to_db(0)` instead of emitting `-inf`
+- Chapter Select no longer pauses the main menu
+
+*Verification*
+- `tests/StoryTest.tscn`: 27 checks across six ending branches, chapter dialogue, save round-trip and NG+
+- `tests/SmokeTest.tscn`: pause processing, slot mapping, dialog sequencing
+- CI runs both plus a full scene sweep on Godot 4.6.3
 
 **v2.0.0 - "Director's Cut" (August 2026)**
 

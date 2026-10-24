@@ -27,7 +27,7 @@ func _ready() -> void:
 
 # ---- Public API -------------------------------------------------
 
-func write_slot(slot: int, chapter_path: String, ending_progress: Array = []) -> bool:
+func write_slot(slot: int, chapter_path: String) -> bool:
 	var payload := {
 		"format_version": FORMAT_VERSION,
 		"timestamp": Time.get_datetime_string_from_system(false, true),
@@ -37,7 +37,6 @@ func write_slot(slot: int, chapter_path: String, ending_progress: Array = []) ->
 		"chapter_history": GameState.chapter_history,
 		"current_chapter": chapter_path,
 		"endings_unlocked": GameState.endings_unlocked,
-		"ending_progress": ending_progress,
 		# v2: codex unlocks round-trip with the save (Settings prefs live
 		# separately in user://settings.json and are NOT part of slots).
 		"codex_unlocked": Codex.unlocked.duplicate(),
@@ -63,7 +62,6 @@ func get_slot_metadata(slot: int) -> Dictionary:
 		"exists": true,
 		"timestamp": str(data.get("timestamp", "")),
 		"chapter": str(data.get("chapter", data.get("current_chapter", ""))),
-		"ending_progress": data.get("ending_progress", []),
 		"format_version": int(data.get("format_version", 1)),
 	}
 
@@ -76,7 +74,7 @@ func delete_slot(slot: int) -> void:
 
 
 func autosave() -> bool:
-	return write_slot(AUTOSAVE_SLOT, GameState.current_chapter, GameState.endings_unlocked)
+	return write_slot(AUTOSAVE_SLOT, GameState.current_chapter)
 
 
 func list_slots() -> Array:

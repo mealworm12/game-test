@@ -77,9 +77,9 @@ func _apply_on_startup() -> void:
 func _apply_setting(key: String) -> void:
 	match key:
 		"master_volume":
-			AudioServer.set_bus_volume_db(0, linear_to_db(data[key]))
+			AudioServer.set_bus_volume_db(0, linear_to_db(maxf(float(data[key]), 0.0001)))
 		"music_volume":
-			AudioManager.set_music_volume(linear_to_db(data[key]))
+			AudioManager.set_music_volume(linear_to_db(maxf(float(data[key]), 0.0001)))
 		"fullscreen":
 			if data[key]:
 				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)

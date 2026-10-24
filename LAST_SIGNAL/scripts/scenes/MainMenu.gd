@@ -119,11 +119,20 @@ func _animate_title() -> void:
 
 
 func _animate_buttons() -> void:
-	for btn in [new_game_btn, continue_btn, credits_btn, chapter_select_btn, quit_btn]:
+	# Animate every visible action button, staggered — the old list skipped
+	# NG+, Settings, Codex and Load, which popped in with no transition.
+	var buttons: Array[Button] = []
+	for child in $VBox/ButtonBox.get_children():
+		if child is Button and child.visible:
+			buttons.append(child)
+
+	_title_tween = create_tween().set_parallel(true)
+	for i in buttons.size():
+		var btn: Button = buttons[i]
 		btn.modulate.a = 0.0
 		btn.custom_minimum_size.y = 48
-		_title_tween = create_tween()
-		_title_tween.tween_property(btn, "modulate:a", 1.0, 0.4).set_trans(Tween.TRANS_CIRC)
+		_title_tween.tween_property(btn, "modulate:a", 1.0, 0.35) \
+			.set_delay(i * 0.06).set_trans(Tween.TRANS_CIRC)
 
 
 func _on_new_game() -> void:
