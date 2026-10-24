@@ -73,11 +73,9 @@ func _build_list() -> void:
 
 func open() -> void:
 	visible = true
-	get_tree().paused = true
 
 func _on_chapter_pressed(ch: Dictionary) -> void:
 	visible = false
-	get_tree().paused = false
 	_seed_flags_for(ch["id"])
 	Transition.fade_to_black(ch["scene"])
 
@@ -90,5 +88,4 @@ func _seed_flags_for(chapter_id: String) -> void:
 
 func _on_back() -> void:
 	visible = false
-	get_tree().paused = false
 	closed.emit()

@@ -96,7 +96,7 @@ func _on_slot_selected(index: int) -> void:
 		_pending_overwrite = -999
 		title_label.text = "SAVE GAME"
 		SaveManager.migrate_legacy_save()  # no-op when nothing to migrate
-		if not SaveManager.write_slot(slot, GameState.current_chapter, GameState.endings_unlocked):
+		if not SaveManager.write_slot(slot, GameState.current_chapter):
 			title_label.text = "SAVE FAILED - see log"
 			return
 		_rebuild()
