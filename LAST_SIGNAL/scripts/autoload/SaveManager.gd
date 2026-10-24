@@ -138,16 +138,40 @@ func _slot_path(slot: int) -> String:
 
 
 func _write_json(path: String, payload: Dictionary) -> bool:
-	var f = FileAccess.open(path, FileAccess.WRITE)
+	# Write to a temp file, keep the last good file as .bak, then swap. A crash
+	# mid-write can no longer truncate the only copy of a save.
+	var tmp := path + ".tmp"
+	var f = FileAccess.open(tmp, FileAccess.WRITE)
 	if not f:
-		push_warning("SaveManager: cannot open %s for writing" % path)
+		push_warning("SaveManager: cannot open %s for writing" % tmp)
 		return false
-	f.store_string(JSON.stringify(payload, "\t"))
+	f.store_string(JSON.stringify(payload, "	"))
 	f.close()
+
+	if FileAccess.file_exists(path):
+		var bak := path + ".bak"
+		if FileAccess.file_exists(bak):
+			DirAccess.remove_absolute(bak)
+		var bak_err := DirAccess.rename_absolute(path, bak)
+		if bak_err != OK:
+			push_warning("SaveManager: cannot rotate %s to .bak (err %d)" % [path, bak_err])
+
+	var err := DirAccess.rename_absolute(tmp, path)
+	if err != OK:
+		push_warning("SaveManager: cannot finalize %s (err %d)" % [path, err])
+		return false
 	return true
 
 
 func _read_json(path: String) -> Dictionary:
+	var data := _read_json_exact(path)
+	if data.is_empty() and FileAccess.file_exists(path + ".bak"):
+		push_warning("SaveManager: %s unreadable — recovering from .bak" % path)
+		data = _read_json_exact(path + ".bak")
+	return data
+
+
+func _read_json_exact(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path):
 		return {}
 	var f = FileAccess.open(path, FileAccess.READ)

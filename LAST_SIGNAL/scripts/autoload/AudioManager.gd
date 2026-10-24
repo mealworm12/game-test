@@ -221,8 +221,15 @@ func play_stinger_for_ending(ending_id: String) -> void:
 	_current_tension_level = -1
 	play_music_id(stinger, 0.5, false)
 
+# Script content uses namespaced ids (`music/calm_loop`, `sfx/ui_confirm`,
+# `voice/station_low`); the tables above are keyed by the bare name. Accept
+# both so every v2 cue resolves instead of being silently dropped.
+func _normalize_id(id: String, kind: String) -> String:
+	var prefix := kind + "/"
+	return id.substr(prefix.length()) if id.begins_with(prefix) else id
+
 func play_music_id(id: String, fade_time: float = 2.0, use_crossfade: bool = true) -> void:
-	var path: String = MUSIC_IDS.get(id, "")
+	var path: String = MUSIC_IDS.get(_normalize_id(id, "music"), "")
 	if path == "":
 		push_warning("AudioManager: unknown music id '%s'" % id)
 		return
@@ -233,7 +240,7 @@ func play_music_id(id: String, fade_time: float = 2.0, use_crossfade: bool = tru
 
 
 func play_sfx_id(id: String) -> void:
-	var path: String = SFX_IDS.get(id, "")
+	var path: String = SFX_IDS.get(_normalize_id(id, "sfx"), "")
 	if path == "":
 		push_warning("AudioManager: unknown sfx id '%s'" % id)
 		return
@@ -241,7 +248,7 @@ func play_sfx_id(id: String) -> void:
 
 
 func play_voice_id(id: String) -> void:
-	var path: String = VOICE_IDS.get(id, "")
+	var path: String = VOICE_IDS.get(_normalize_id(id, "voice"), "")
 	if path == "":
 		push_warning("AudioManager: unknown voice id '%s'" % id)
 		return

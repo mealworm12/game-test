@@ -10,6 +10,7 @@ func _get_background_path() -> String:
 	return BG
 
 func _on_chapter_begin() -> void:
+	defer_dialog()
 	apply_chapter_tension(0)
 	await get_tree().create_timer(1.0).timeout
 	StationVoice.trigger_flag_comment("ran_diagnostic")
@@ -17,6 +18,7 @@ func _on_chapter_begin() -> void:
 	if not GameState.has_flag("v2_codex_placed"):
 		GameState.set_flag("v2_codex_placed", true)
 		run_v2_script("codex_placement")
+	_chapter_begin_complete()
 
 func get_dialog_data() -> Array:
 	return [

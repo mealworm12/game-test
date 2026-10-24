@@ -19,6 +19,7 @@ signal closed
 const TEXT_SIZE_LABELS: Array[String] = ["Small", "Medium", "Large"]
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = false
 	_connect_signals()
 	_load_values()

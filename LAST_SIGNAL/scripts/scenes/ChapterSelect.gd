@@ -31,6 +31,7 @@ const CHAPTERS: Array = [
 @onready var back_btn: Button = $PanelContainer/MarginContainer/VBox/BackBtn
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = false
 	back_btn.pressed.connect(_on_back)
 	_build_list()

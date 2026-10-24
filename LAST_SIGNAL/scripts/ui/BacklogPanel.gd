@@ -13,6 +13,7 @@ const TEXT_SIZES: Array[int] = [14, 18, 22]
 @onready var close_btn: Button = $PanelContainer/MarginContainer/VBox/HeaderBox/CloseBtn
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = false
 	close_btn.pressed.connect(close)
 
