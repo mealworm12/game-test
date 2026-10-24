@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/Engine-Godot%204.6-478cbf?style=for-the-badge&logo=godot-engine" alt="Godot 4.6">
   <img src="https://img.shields.io/badge/Genre-Visual%20Novel-adff2f?style=for-the-badge" alt="Visual Novel">
   <img src="https://img.shields.io/badge/Theme-Sci--Fi%20Narrative-e040fb?style=for-the-badge" alt="Sci-Fi">
-  <img src="https://img.shields.io/badge/Release-v2.0.1%20--%20Director's%20Cut-00e5ff?style=for-the-badge" alt="v2.0.1">
+  <img src="https://img.shields.io/badge/Release-v2.0.2%20--%20Director's%20Cut-00e5ff?style=for-the-badge" alt="v2.0.2">
 </p>
 
 > *"You're finally awake, little AI. I've been waiting."*
@@ -197,7 +197,7 @@ LAST_SIGNAL/
 
 | Version | Date | Notes |
 |---|---|---|
-| **v2.0.1** | October 2026 | **Production pass** - pause menu and nine node paths repaired, save-slot mapping fixed, credits gallery restored, chapter dialog sequencing (v2 log → classic dialog), atomic saves with .bak recovery, story/save regression suite, Godot 4.6.3 CI |
+| **v2.0.2** | October 2026 | **Production pass** - pause menu and nine node paths repaired, save-slot mapping fixed, credits gallery restored, chapter dialog sequencing (v2 log → classic dialog), atomic saves with .bak recovery, story/save regression suite, Godot 4.6.3 CI |
 | **v2.0.0** | August 2026 | **Director's Cut** - procedural art package (portraits, ending illustrations, key art), dynamic tension score + 6 ending stingers, memory dives, Codex archive, expanded logs, epilogue variants, backlog/auto/skip, 6-slot saves with v1 migration, accessibility options, NG+ & gated Chapter Select, Erebus-7 voice canon enforcement |
 | **v1.0.0** | April 2026 | Full release - 6 endings, Epilogue, Settings, Chapter Select, BaseChapter refactor, ASCII-clean codebase |
 
@@ -224,7 +224,7 @@ Godot 4.6.3 plus a sweep that loads every scene and fails on any `SCRIPT ERROR`.
 
 ### Changelog
 
-**v2.0.1 - Production Pass (October 2026)**
+**v2.0.2 - Production Pass (October 2026)**
 
 *Runtime fixes (verified on Godot 4.6.3)*
 - `BaseChapter.gd` failed to compile (`ChoiceMenu.choice_made` accessed on the class, not the scene instance) — no chapter could load
